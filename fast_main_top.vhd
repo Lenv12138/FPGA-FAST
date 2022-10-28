@@ -42,6 +42,7 @@ end fast_main_top;
 
 architecture Behavioral of fast_main_top is
 
+-- 圆周上的点, int02:第0行第2列的点
 signal int02, int03, int04 : std_logic_vector(7 downto 0); -- to FIFO
 signal int11, int15 : std_logic_vector(7 downto 0);
 signal int20, int26 : std_logic_vector(7 downto 0);
@@ -56,10 +57,13 @@ signal int0d, int1d, int2d, int3d, int4d, int5d, int6d, int7d, int8d, int9d, int
 
 signal bright_int, dark_int : std_logic_vector(15 downto 0);
 
+-- 缓存7行数据.
+-- 这里是如何更新7x7的领域块的
+-- 7行BRAM在更新行数据时, 7x7的数据又是怎么选择的
 component input_fifo is
 generic (
-				depth: integer :=640;	
-				v_res : integer :=480 					
+				depth: integer :=30;	
+				v_res : integer :=20 					
 			);  
 port(
 		data_in : in std_logic_vector(7 downto 0);
@@ -90,6 +94,7 @@ port(
 	);
 end component;
 
+-- 判断角点满不满足连续性
 component contig_processor is
 port(
 		input_d, input_b : in std_logic_vector(15 downto 0);
@@ -101,6 +106,7 @@ end component;
 component corner_score is
 port(
 		output : out std_logic_vector(12 downto 0);
+		-- 得到中心点与圆周上的点灰度值做差
 		i0b, i1b, i2b, i3b, i4b, i5b, i6b, i7b, i8b, i9b, i10b, i11b, i12b, i13b, i14b, i15b : in std_logic_vector(9 downto 0);
 		i0d, i1d, i2d, i3d, i4d, i5d, i6d, i7d, i8d, i9d, i10d, i11d, i12d, i13d, i14d, i15d : in std_logic_vector(9 downto 0);
 		clk, rst, ce : in std_logic
@@ -197,7 +203,7 @@ port map (
 					o14d => int14d,
 					o15d => int15d,
 
-					bright => bright_int,
+					bright => bright_int,			-- 布尔表达式
 					dark => dark_int,
 
 					clk => clk,

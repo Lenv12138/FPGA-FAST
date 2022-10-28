@@ -29,6 +29,11 @@ use IEEE.NUMERIC_STD.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
+-- 这个模块中并没有7x7数据的有效信号, 连续模块和阈值模块那里是怎么判断数据有效性的.
+-- fast ip核和上层数据流没有进行握手
+
+-- 每来一个像素点, input_fifo会输出一个7x7的patch
+
 entity input_fifo is
 generic (
 				depth: integer :=640;	-- bytes in FIFO (horizontal resolution)
@@ -36,8 +41,10 @@ generic (
 			);  
 port(
 		data_in : in std_logic_vector(7 downto 0);
-		clk, rst, ce : in std_logic;								-- ce - global clock enable 
-		x_coord : out std_logic_vector(9 downto 0);			-- delayed X coord
+		clk, rst, ce : in std_logic;								-- ce - global clock enable
+    
+    -- 中心点的坐标
+		x_coord : out std_logic_vector(9 downto 0);			-- delayed X coord, 
 		y_coord : out std_logic_vector(9 downto 0);			-- delayed Y coord
 		o00, o01, o02, o03, o04, o05, o06 : out std_logic_vector(7 downto 0); 
 		o10, o11, o12, o13, o14, o15, o16 : out std_logic_vector(7 downto 0); 
@@ -51,10 +58,16 @@ end input_fifo;
 
 architecture Behavioral of input_fifo is
 
+-- 行buffer
 type ram is array (depth-1 downto 0) of std_logic_vector(7 downto 0); 
+
 signal address_read, address_write : unsigned(9 downto 0);
+
 signal data_out_0, data_out_1, data_out_2, data_out_3, data_out_4, data_out_5 : std_logic_vector(7 downto 0);
+
+-- 6行RAM, 需要更新的那一行数据没有进行缓存.
 signal ram_0, ram_1, ram_2, ram_3, ram_4, ram_5 : ram;
+
 signal o_00, o_01, o_02, o_03, o_04, o_05, o_06 : std_logic_vector(7 downto 0);
 signal o_10, o_11, o_12, o_13, o_14, o_15, o_16 : std_logic_vector(7 downto 0);
 signal o_20, o_21, o_22, o_23, o_24, o_25, o_26 : std_logic_vector(7 downto 0);
@@ -129,6 +142,7 @@ begin
 			data_out_4<=ram_4(to_integer(unsigned(address_read)));	-- read FIFO 4
 			data_out_5<=ram_5(to_integer(unsigned(address_read)));	-- read FIFO 5
 			
+      -- 相当于移位
 			o_66<=data_in;	-- 7th row in the window - latest to come in
 			o_65<=o_66;		-- data is read from data_in
 			o_64<=o_65;		
@@ -206,19 +220,22 @@ begin
 	end if;
 end process ram_handler;
 
+-- 读取图片的方式: 按行读取
 address_generator : process(clk)
 begin
 	if clk='1' and clk'event then
 		if rst='1' then
 			v_cnt<=(others=>'0');
 			address_read<=(others=>'0');
-			address_write<=to_unsigned(1, 10);
+			address_write<=to_unsigned(1, 10);     -- 写地址初值为1
 		else		
 			if ce='1' then
+        -- 一行传输结束
 				if address_read=to_unsigned(depth-1, 10) then	-- whenever max. horizontal resolution reached
 					if v_cnt=to_unsigned(v_res-1, 9) then			-- vertical resolution counter handler
-						v_cnt<=(others=>'0');
-					else
+						-- 一帧640x480传输结束
+            v_cnt<=(others=>'0');
+          else
 						v_cnt<=v_cnt+1;
 					end if;
 					address_read<=(others=>'0');
@@ -250,6 +267,7 @@ begin
 	end if;
 end process y_coord_en;
 
+-- 下面的移位都是左移
 x_coord_handler : for i in 0 to 9 generate
 begin
 	x_shift : x_shifter port map(clk, std_logic(address_write(i)), ce, x_coord(i));

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<build-config version="2">
+    <current-build-name/>
+    <design-hierarchy-top language="VHDL">4096'work:2'FAST_with_NMS:256'Behavioral:Behavioral</design-hierarchy-top>
+    <verification-hierarchy-top language=""/>
+</build-config>
