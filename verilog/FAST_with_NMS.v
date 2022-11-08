@@ -41,10 +41,10 @@ NMS_top #(
     .NMS_SIZE ( 3   ),
     .COL_NUM  ( 640 ))
  u_NMS_top (
-    .data_in                 ( data_in       ),
+    .data_in                 ( score       ),
     .iscorner                ( iscorner_int  ),
     .clk                     ( clk           ),
-    .EN                      ( ce            ),
+    .ce                      ( ce            ),
     .rst                     ( rst           ),
     .x_coord_in              ( x_coord_int   ),
     .y_coord_in              ( y_coord_int   ),
