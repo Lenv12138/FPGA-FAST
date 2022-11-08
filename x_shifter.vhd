@@ -29,6 +29,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
+-- input ΪWA
 entity x_shifter is
 port(
 			clk, input, EN : in std_logic;
@@ -39,7 +40,7 @@ end x_shifter;
 
 architecture Behavioral of x_shifter is
 
-signal shifter : std_logic_vector(9 downto 0) := (others => '0');
+signal shifter : std_logic_vector(10 downto 0) := (others => '0');
 
 begin
 
@@ -47,11 +48,11 @@ process(clk)
 begin
    if clk'event and clk='1' then  
       if EN = '1' then 
-         shifter <= shifter(8 downto 0) & input;
+         shifter <= shifter(9 downto 0) & input;
       end if; 
    end if;
 end process;
-output <= shifter(9);
+output <= shifter(10);
 
 
 end Behavioral;

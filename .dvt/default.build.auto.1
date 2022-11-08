@@ -1,7 +1,7 @@
 ################################################################################
 #                    DO NOT MANUALLY EDIT THIS FILE!                           #
 ################################################################################
-# This file contains the automatically generated build configuration (2022/10/27 15:04:21)
+# This file contains the automatically generated build configuration (2022/11/08 14:49:28)
 # requested at line 3 in F:\FPGA_prj\Fast_ref\FPGA-FAST\.dvt\default.build
 
 
@@ -9,14 +9,25 @@
 +dvt_init
 
 
++dvt_skip_compile+$DVT_PROJECT_LOC\
 
 
 tb/tb_top.sv
+verilog/FAST_with_NMS.v
+verilog/NMS.v
+verilog/NMS_FIFO.v
+verilog/NMS_top.v
+verilog/contig_processor.v
+verilog/corner_score.v
+verilog/fast_main_top.v
+verilog/input_fifo.v
+verilog/main_part.v
 ################ VHDL Auto-config Directives ################
 
 +dvt_init -work work
 
 
++dvt_skip_compile+$DVT_PROJECT_LOC\
 NMS.vhd
 NMS_FIFO.vhd
 NMS_top.vhd

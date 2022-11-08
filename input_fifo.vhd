@@ -268,20 +268,25 @@ begin
 end process y_coord_en;
 
 -- 下面的移位都是左移
+-- 将WA延迟了11拍
 x_coord_handler : for i in 0 to 9 generate
 begin
 	x_shift : x_shifter port map(clk, std_logic(address_write(i)), ce, x_coord(i));
 end generate;
 
+-- 将v_cnt延迟2拍
 y_coord_handler : for i in 0 to 9 generate
 begin
 	y_shift: y_shifter port map(clk, std_logic(v_cnt(i)), EN_y, v_cnt_delayed(i));
 end generate;
 
+-- 将v_cnt_delayed延迟了12拍
 y_coord_equalizer : for i in 0 to 9 generate
 begin
 	y_equalize: yx_shifter port map(clk, std_logic(v_cnt_delayed(i)), ce, y_coord(i));
 end generate;
+
+-- 综上, WA会经过10拍后才进入后续的模块, y_coord会在发送完一行数据后的12拍才进入后续模块.
 
 o00<=o_00;
 o01<=o_01;

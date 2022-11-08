@@ -70,10 +70,11 @@ port(
 		x_coord_in, y_coord_in : in std_logic_vector(9 downto 0);
 		x_coord_out, y_coord_out : out std_logic_vector(9 downto 0);
 		iscorner, clk, EN : in std_logic;
-		corner_out : out std_logic
+		corner_out : out std_logic      -- 表示了当前输出的坐标是不是角点的坐标
 );
 end component;
 
+-- 低13bit 是score值
 signal int11, int12, int13, int14, int15, int16, int17 : std_logic_vector(33 downto 0);
 signal int21, int22, int23, int24, int25, int26, int27 : std_logic_vector(33 downto 0);
 signal int31, int32, int33, int34, int35, int36, int37 : std_logic_vector(33 downto 0);
@@ -153,7 +154,9 @@ nonmax : NMS port map(
 								y_coord_out=>y_coord_out
 								
 								);
-								
+
+-- 这里的NMS_FIFO存储的数据量和FAST中的一样,也是6个RAM, patch大小为7
+
 suppress : NMS_FIFO port map(
 
 								o11=>int11,

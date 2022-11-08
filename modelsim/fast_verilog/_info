@@ -1,0 +1,32 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dF:/FPGA_prj/Fast_ref/FPGA-FAST/modelsim
+vFAST_with_NMS
+!s110 1667895094
+!i10b 1
+!s100 f?Xnz0Z]VfVdaj4dme5hc2
+ImaQKgIBe>zH`z2oDRZ<<U1
+VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1667892185
+8../verilog/FAST_with_NMS.v
+F../verilog/FAST_with_NMS.v
+L0 1
+OL;L;10.7;67
+r1
+!s85 0
+31
+!s108 1667895094.000000
+!s107 ../verilog/FAST_with_NMS.v|
+!s90 -reportprogress|300|-work|fast_verilog|../verilog/FAST_with_NMS.v|
+!i113 0
+o-work fast_verilog -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+tCvgOpt 0
+n@f@a@s@t_with_@n@m@s

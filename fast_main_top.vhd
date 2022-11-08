@@ -55,6 +55,10 @@ signal int62, int63, int64 : std_logic_vector(7 downto 0);
 signal int0b, int1b, int2b, int3b, int4b, int5b, int6b, int7b, int8b, int9b, int10b, int11b, int12b, int13b, int14b, int15b : std_logic_vector(9 downto 0); -- for corner score
 signal int0d, int1d, int2d, int3d, int4d, int5d, int6d, int7d, int8d, int9d, int10d, int11d, int12d, int13d, int14d, int15d : std_logic_vector(9 downto 0);
 
+-- debug
+signal int66 : std_logic_vector(7 downto 0);
+
+-- 存储Ipx 与 Ip-t的大小比值: 1: 大于 0: 小于等于
 signal bright_int, dark_int : std_logic_vector(15 downto 0);
 
 -- 缓存7行数据.
@@ -137,6 +141,9 @@ port map (
 					o02 => int02,
 					--center
 					o33 => int33,
+          
+          --debug 
+          o66 => int66,
 					
 					clk => clk,
 					rst => rst,
@@ -146,7 +153,7 @@ port map (
 					data_in => data_in
 				);  
 
-
+-- 需要4拍完成计算
 main_component : fast_main
 port map (
 
@@ -211,6 +218,7 @@ port map (
 					ce => ce
 		);
 
+-- 4拍出结果
 contiguity : contig_processor
 port map(
 
@@ -224,6 +232,7 @@ port map(
 					ce => ce
 			);
 
+-- 5拍出结果
 fast_score : corner_score
 port map(
 

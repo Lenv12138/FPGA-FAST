@@ -149,6 +149,7 @@ begin
 	end if;
 end process check_contig_b;
 
+-- 这里为什么要延迟3拍才输出contig?
 b_and_d : process(clk)
 begin
 	if clk'event and clk='1' then

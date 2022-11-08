@@ -52,6 +52,8 @@ signal sum_all_b, sum_all_d : unsigned(12 downto 0);
 
 begin
 
+-- 总共需要4拍才能得到最后的总的bright值或者dark值.
+
 add_b : process(clk)
 begin
 	if clk='1' and clk'event then
@@ -61,7 +63,8 @@ begin
 			ss0b<=(others=>'0');		ss1b<=(others=>'0');		ss2b<=(others=>'0');		ss3b<=(others=>'0');	
 			sss0b<=(others=>'0');	sss1b<=(others=>'0');	
 			sum_all_b<=(others=>'0');
-		elsif ce='1' then
+    elsif ce='1' then
+      -- 第一级加法
 			s0b<=resize(unsigned(i0b), s0b'length)+resize(unsigned(i1b), s0b'length);
 			s1b<=resize(unsigned(i2b), s1b'length)+resize(unsigned(i3b), s1b'length);
 			s2b<=resize(unsigned(i4b), s2b'length)+resize(unsigned(i5b), s2b'length);
@@ -71,14 +74,17 @@ begin
 			s6b<=resize(unsigned(i12b), s6b'length)+resize(unsigned(i13b), s6b'length);
 			s7b<=resize(unsigned(i14b), s7b'length)+resize(unsigned(i15b), s7b'length);
 
+      -- 第二级加法
 			ss0b<=resize(unsigned(s0b), ss0b'length)+resize(unsigned(s1b), ss0b'length);
 			ss1b<=resize(unsigned(s2b), ss1b'length)+resize(unsigned(s3b), ss1b'length);
 			ss2b<=resize(unsigned(s4b), ss2b'length)+resize(unsigned(s5b), ss2b'length);
 			ss3b<=resize(unsigned(s6b), ss3b'length)+resize(unsigned(s7b), ss3b'length);
 
+      -- 第三级加法
 			sss0b<=resize(unsigned(ss0b), sss0b'length)+resize(unsigned(ss1b), sss0b'length);
 			sss1b<=resize(unsigned(ss2b), sss1b'length)+resize(unsigned(ss3b), sss1b'length);
 
+      -- 第4级加法
 			sum_all_b<=resize(unsigned(sss0b), sum_all_b'length)+resize(unsigned(sss1b), sum_all_b'length);
 		end if;
 	end if;
@@ -117,6 +123,7 @@ begin
 	end if;
 end process add_d;
 
+-- 第5拍才出最后的score值
 select_max : process(clk)
 begin
 	if clk='1' and clk'event then

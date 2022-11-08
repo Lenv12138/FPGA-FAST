@@ -9,10 +9,10 @@ z2
 cModel Technology
 Z0 dF:/FPGA/Digital_ICVerify/lukeV2/modelsim
 T_opt
-!s110 1666871446
-VVa:aF7CdA[^VBJ7n;7;7Z3
+!s110 1667294173
+VFhI4]XVJRB@XKl0fmzCm72
 Z1 04 2 4 work tb fast 0
-=1-f875a40c8ca3-635a7095-2c8-5cfc
+=1-f875a40c8ca3-6360e3dd-3e-6388
 Z2 o-quiet -auto_acc_if_foreign -work work +acc
 Z3 tCvgOpt 0
 n@_opt
@@ -38,7 +38,7 @@ n@_opt2
 R4
 R0
 Econtig_processor
-Z5 w1666792313
+Z5 w1667185444
 Z6 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
 Z7 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
 Z8 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
@@ -51,9 +51,9 @@ V=A@M?]eMEo8@cCg^i:TY=3
 !s100 d;68OzD]ib@cnB1@PXm^]1
 Z12 OL;C;10.7;67
 32
-Z13 !s110 1666855493
+Z13 !s110 1667284374
 !i10b 1
-Z14 !s108 1666855493.000000
+Z14 !s108 1667284373.000000
 Z15 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|-stats=none|F:/FPGA_prj/Fast_ref/FPGA-FAST/contig_processor.vhd|
 Z16 !s107 F:/FPGA_prj/Fast_ref/FPGA-FAST/contig_processor.vhd|
 !i113 0
@@ -66,8 +66,8 @@ R8
 DEx4 work 16 contig_processor 0 22 =A@M?]eMEo8@cCg^i:TY=3
 l60
 L47
-Vjan[;oNh1V_K4MdABbGHi2
-!s100 _;SZ]hza?ZOI7k>XQE4bb2
+VJAYL]mbE5]KQgfJiZPDk[2
+!s100 V]m?UMQ1dDi71dIkHn6]h3
 R12
 32
 R13
@@ -79,22 +79,22 @@ R16
 R17
 R18
 Ecorner_score
-R5
+Z19 w1667186365
 R6
 R7
 R8
 R9
-Z19 8F:/FPGA_prj/Fast_ref/FPGA-FAST/corner_score.vhd
-Z20 FF:/FPGA_prj/Fast_ref/FPGA-FAST/corner_score.vhd
+Z20 8F:/FPGA_prj/Fast_ref/FPGA-FAST/corner_score.vhd
+Z21 FF:/FPGA_prj/Fast_ref/FPGA-FAST/corner_score.vhd
 l0
 L32
 V3^i4ej89_[Wbk@@3@[92S1
 !s100 3jRTFCm2m`mRS``7D]TFJ0
 R12
 32
-Z21 !s110 1666855494
+R13
 !i10b 1
-Z22 !s108 1666855494.000000
+Z22 !s108 1667284374.000000
 Z23 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|-stats=none|F:/FPGA_prj/Fast_ref/FPGA-FAST/corner_score.vhd|
 Z24 !s107 F:/FPGA_prj/Fast_ref/FPGA-FAST/corner_score.vhd|
 !i113 0
@@ -107,11 +107,11 @@ R8
 DEx4 work 12 corner_score 0 22 3^i4ej89_[Wbk@@3@[92S1
 l53
 L41
-Vno@[g8WMYYzAGNV2OU?oa3
-!s100 Th_z33bENb6X9c?hl??Z60
+V7B@D8UKol]UNQJ>gHRl[[3
+!s100 jSRhoI3Rj<i5S]8kH:3Sm0
 R12
 32
-R21
+R13
 !i10b 1
 R22
 R23
@@ -120,24 +120,24 @@ R24
 R17
 R18
 Efast_main
-R5
+Z25 w1667183481
 R6
 R7
 R8
 R9
-Z25 8F:/FPGA_prj/Fast_ref/FPGA-FAST/main_part.vhd
-Z26 FF:/FPGA_prj/Fast_ref/FPGA-FAST/main_part.vhd
+Z26 8F:/FPGA_prj/Fast_ref/FPGA-FAST/main_part.vhd
+Z27 FF:/FPGA_prj/Fast_ref/FPGA-FAST/main_part.vhd
 l0
 L32
 VkUd=`A=0;2LcL;JOjP6Z<1
 !s100 KQ5RF?2<cjLl0zjWI:C>b2
 R12
 32
-Z27 !s110 1666855495
+R13
 !i10b 1
-Z28 !s108 1666855495.000000
-Z29 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|-stats=none|F:/FPGA_prj/Fast_ref/FPGA-FAST/main_part.vhd|
-Z30 !s107 F:/FPGA_prj/Fast_ref/FPGA-FAST/main_part.vhd|
+R22
+Z28 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|-stats=none|F:/FPGA_prj/Fast_ref/FPGA-FAST/main_part.vhd|
+Z29 !s107 F:/FPGA_prj/Fast_ref/FPGA-FAST/main_part.vhd|
 !i113 0
 R17
 R18
@@ -152,33 +152,33 @@ VGPZZ3FAJB;2Ua_7T;hcmT0
 !s100 NGb0Q[am90ALP`QX<bTn]1
 R12
 32
-R27
+R13
 !i10b 1
+R22
 R28
 R29
-R30
 !i113 0
 R17
 R18
 Efast_main_top
-Z31 w1666871422
+Z30 w1667294046
 R6
 R7
 R8
 R9
-Z32 8F:/FPGA_prj/Fast_ref/FPGA-FAST/fast_main_top.vhd
-Z33 FF:/FPGA_prj/Fast_ref/FPGA-FAST/fast_main_top.vhd
+Z31 8F:/FPGA_prj/Fast_ref/FPGA-FAST/fast_main_top.vhd
+Z32 FF:/FPGA_prj/Fast_ref/FPGA-FAST/fast_main_top.vhd
 l0
 L32
 VMmG8RdQ5bnc;87RDzY>:71
 !s100 9MXVf?=Y329Xc^h3P?W?41
 R12
 32
-Z34 !s110 1666871436
+Z33 !s110 1667294164
 !i10b 1
-Z35 !s108 1666871436.000000
-Z36 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|-stats=none|F:/FPGA_prj/Fast_ref/FPGA-FAST/fast_main_top.vhd|
-Z37 !s107 F:/FPGA_prj/Fast_ref/FPGA-FAST/fast_main_top.vhd|
+Z34 !s108 1667294164.000000
+Z35 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|-stats=none|F:/FPGA_prj/Fast_ref/FPGA-FAST/fast_main_top.vhd|
+Z36 !s107 F:/FPGA_prj/Fast_ref/FPGA-FAST/fast_main_top.vhd|
 !i113 0
 R17
 R18
@@ -187,22 +187,22 @@ R6
 R7
 R8
 DEx4 work 13 fast_main_top 0 22 MmG8RdQ5bnc;87RDzY>:71
-l117
+l118
 L43
-V4jQ1MFRPLeM_1ijh<d<H92
-!s100 S^1:NU1E@cVEfLfX1l>PP3
+VE:7UgRLO@GkCN@0Z26<D^0
+!s100 feJ1IVR`lh;13K61cca;43
 R12
 32
-R34
+R33
 !i10b 1
+R34
 R35
 R36
-R37
 !i113 0
 R17
 R18
 Efast_with_nms
-R5
+Z37 w1666792313
 R7
 R8
 R9
@@ -214,11 +214,11 @@ V6dNBnR8iW8K_6QeP>>NCJ3
 !s100 U4hf@iP5_T5oZ=UcDcGj@0
 R12
 32
-R21
+Z40 !s110 1666855494
 !i10b 1
-R22
-Z40 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|-stats=none|F:/FPGA_prj/Fast_ref/FPGA-FAST/FAST_with_NMS.vhd|
-Z41 !s107 F:/FPGA_prj/Fast_ref/FPGA-FAST/FAST_with_NMS.vhd|
+Z41 !s108 1666855494.000000
+Z42 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|-stats=none|F:/FPGA_prj/Fast_ref/FPGA-FAST/FAST_with_NMS.vhd|
+Z43 !s107 F:/FPGA_prj/Fast_ref/FPGA-FAST/FAST_with_NMS.vhd|
 !i113 0
 R17
 R18
@@ -232,33 +232,33 @@ VkQz06aB93FgRP:h5GJ=8X0
 !s100 n;OIGzLMbTlG;mGSlZ?333
 R12
 32
-R21
-!i10b 1
-R22
 R40
+!i10b 1
 R41
+R42
+R43
 !i113 0
 R17
 R18
 Einput_fifo
-Z42 w1666871432
+Z44 w1667286041
 R6
 R7
 R8
 R9
-Z43 8F:\FPGA_prj\Fast_ref\FPGA-FAST\input_fifo.vhd
-Z44 FF:\FPGA_prj\Fast_ref\FPGA-FAST\input_fifo.vhd
+Z45 8F:/FPGA_prj/Fast_ref/FPGA-FAST/input_fifo.vhd
+Z46 FF:/FPGA_prj/Fast_ref/FPGA-FAST/input_fifo.vhd
 l0
 L37
 VO<:jP1j1b8Q^eVOD2BNJ03
 !s100 D6Q3gk?SC3>mILW]ineDc2
 R12
 32
-R34
+Z47 !s110 1667291621
 !i10b 1
-R35
-Z45 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|-stats=none|F:\FPGA_prj\Fast_ref\FPGA-FAST\input_fifo.vhd|
-Z46 !s107 F:\FPGA_prj\Fast_ref\FPGA-FAST\input_fifo.vhd|
+Z48 !s108 1667291621.000000
+Z49 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|-stats=none|F:/FPGA_prj/Fast_ref/FPGA-FAST/input_fifo.vhd|
+Z50 !s107 F:/FPGA_prj/Fast_ref/FPGA-FAST/input_fifo.vhd|
 !i113 0
 R17
 R18
@@ -269,37 +269,37 @@ R8
 DEx4 work 10 input_fifo 0 22 O<:jP1j1b8Q^eVOD2BNJ03
 l114
 L59
-VP4X2H3<dMBo^h;lbZe]A?3
-!s100 bVPe6=cmE[SlQ0I>gcaVR2
+V=mnd[ji=679kZJ0]ScUUm2
+!s100 N57A<83nJP>_Gd_4XUb@R3
 R12
 32
-R34
+R47
 !i10b 1
-R35
-R45
-R46
+R48
+R49
+R50
 !i113 0
 R17
 R18
 Enms
-R5
+R37
 R6
 R7
 R8
 R9
-Z47 8F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS.vhd
-Z48 FF:/FPGA_prj/Fast_ref/FPGA-FAST/NMS.vhd
+Z51 8F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS.vhd
+Z52 FF:/FPGA_prj/Fast_ref/FPGA-FAST/NMS.vhd
 l0
 L32
 Vg3n34Y;4308j0iL^Mc`S@0
 !s100 9V44ZPEb5bd@kFl5RLRnP3
 R12
 32
-R27
+Z53 !s110 1666855495
 !i10b 1
-R28
-Z49 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|-stats=none|F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS.vhd|
-Z50 !s107 F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS.vhd|
+Z54 !s108 1666855495.000000
+Z55 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|-stats=none|F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS.vhd|
+Z56 !s107 F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS.vhd|
 !i113 0
 R17
 R18
@@ -314,33 +314,33 @@ VAP7J5JVl`8R=G5;`FIcR50
 !s100 lNX2;;gGj3HFPJXZ2ac253
 R12
 32
-R27
+R53
 !i10b 1
-R28
-R49
-R50
+R54
+R55
+R56
 !i113 0
 R17
 R18
 Enms_fifo
-R5
+R37
 R6
 R7
 R8
 R9
-Z51 8F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_FIFO.vhd
-Z52 FF:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_FIFO.vhd
+Z57 8F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_FIFO.vhd
+Z58 FF:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_FIFO.vhd
 l0
 L29
 V;<XcL2GF2a?A]L1eSLR_[0
 !s100 <H=9?k>BYZ80h5[;j_42^2
 R12
 32
-R27
+R53
 !i10b 1
-R28
-Z53 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|-stats=none|F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_FIFO.vhd|
-Z54 !s107 F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_FIFO.vhd|
+R54
+Z59 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|-stats=none|F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_FIFO.vhd|
+Z60 !s107 F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_FIFO.vhd|
 !i113 0
 R17
 R18
@@ -355,33 +355,33 @@ VhXGBd?8Oec]oY]PVBBCaZ1
 !s100 O;>HV>W>og9lFk`SVC^7>0
 R12
 32
-R27
-!i10b 1
-R28
 R53
+!i10b 1
 R54
+R59
+R60
 !i113 0
 R17
 R18
 Enms_top
-R5
+Z61 w1667283538
 R6
 R7
 R8
 R9
-Z55 8F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_top.vhd
-Z56 FF:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_top.vhd
+Z62 8F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_top.vhd
+Z63 FF:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_top.vhd
 l0
 L32
 V7gJTo6lTRLSChQbPbJ]Mi3
 !s100 1o3d<EgZd;:6?P5JKOSD30
 R12
 32
-Z57 !s110 1666855496
+R13
 !i10b 1
-Z58 !s108 1666855496.000000
-Z59 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|-stats=none|F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_top.vhd|
-Z60 !s107 F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_top.vhd|
+R22
+Z64 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|-stats=none|F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_top.vhd|
+Z65 !s107 F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_top.vhd|
 !i113 0
 R17
 R18
@@ -390,31 +390,31 @@ R6
 R7
 R8
 DEx4 work 7 nms_top 0 22 7gJTo6lTRLSChQbPbJ]Mi3
-l85
+l86
 L42
-VP1aYS]OeD`M9`7eUIoPg^1
-!s100 9LhG^_G=LF9f<5AodKi^U0
+VH08O[OLF?P=db9GCRdZX`0
+!s100 LVHCAfCF^Cd]@iR?DDbdS3
 R12
 32
-R57
+R13
 !i10b 1
-R58
-R59
-R60
+R22
+R64
+R65
 !i113 0
 R17
 R18
 vtb
 DXx6 sv_std 3 std 0 22 >9az<^>2ff9DAl3OFGaAf1
-!s110 1666870225
+!s110 1667136913
 !i10b 1
-!s100 [SQeFf[LEzY]]GK8aFcl83
-IY1IgjUh:SEa44_0L;]1lP3
+!s100 iYAU^QD5c0g0ijn3CTL1:1
+Im5e]1F=mJQZ3C8UId<A:U2
 VDg1SIo80bB@j0V0VzS_@n1
 !s105 tb_top_sv_unit
 S1
 R9
-w1666863112
+w1667136895
 8F:/FPGA_prj/Fast_ref/FPGA-FAST/tb/tb_top.sv
 FF:/FPGA_prj/Fast_ref/FPGA-FAST/tb/tb_top.sv
 L0 3
@@ -422,69 +422,69 @@ OL;L;10.7;67
 r1
 !s85 0
 31
-!s108 1666870224.000000
+!s108 1667136913.000000
 !s107 F:/FPGA_prj/Fast_ref/FPGA-FAST/tb/tb_top.sv|
 !s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|F:/FPGA_prj/Fast_ref/FPGA-FAST/tb/tb_top.sv|
 !i113 0
 o-work work -sv -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
 R3
 Ex_shifter
-R5
+Z66 w1667292675
 R7
 R8
 R9
-Z61 8F:/FPGA_prj/Fast_ref/FPGA-FAST/x_shifter.vhd
-Z62 FF:/FPGA_prj/Fast_ref/FPGA-FAST/x_shifter.vhd
+Z67 8F:/FPGA_prj/Fast_ref/FPGA-FAST/x_shifter.vhd
+Z68 FF:/FPGA_prj/Fast_ref/FPGA-FAST/x_shifter.vhd
 l0
-L32
-VG>2G_5NmbM=5W@SVA>=7F2
-!s100 GRFM6=8=2HCG4nRl:]Wf`0
+L33
+VOWF=<[;n1_]Z6b=SJY<>c1
+!s100 6B?>`gz4Jga9?2C_Ai`H_2
 R12
 32
-R57
+Z69 !s110 1667292682
 !i10b 1
-R58
-Z63 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|-stats=none|F:/FPGA_prj/Fast_ref/FPGA-FAST/x_shifter.vhd|
-Z64 !s107 F:/FPGA_prj/Fast_ref/FPGA-FAST/x_shifter.vhd|
+Z70 !s108 1667292682.000000
+Z71 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|-stats=none|F:/FPGA_prj/Fast_ref/FPGA-FAST/x_shifter.vhd|
+Z72 !s107 F:/FPGA_prj/Fast_ref/FPGA-FAST/x_shifter.vhd|
 !i113 0
 R17
 R18
 Abehavioral
 R7
 R8
-DEx4 work 9 x_shifter 0 22 G>2G_5NmbM=5W@SVA>=7F2
-l44
-L40
-Va]:lF>]^L^Mg3^CDP>oGn3
-!s100 TSWA?I2hYRSmB1ojm8fBI3
+DEx4 work 9 x_shifter 0 22 OWF=<[;n1_]Z6b=SJY<>c1
+l45
+L41
+V4D_7MCk8b>M4K@`N0lhiT2
+!s100 @2?fH<cgJ0CTCJ<?MO<W[3
 R12
 32
-R57
+R69
 !i10b 1
-R58
-R63
-R64
+R70
+R71
+R72
 !i113 0
 R17
 R18
 Ey_shifter
-R5
+R37
 R7
 R8
 R9
-Z65 8F:/FPGA_prj/Fast_ref/FPGA-FAST/y_shifter.vhd
-Z66 FF:/FPGA_prj/Fast_ref/FPGA-FAST/y_shifter.vhd
+Z73 8F:/FPGA_prj/Fast_ref/FPGA-FAST/y_shifter.vhd
+Z74 FF:/FPGA_prj/Fast_ref/FPGA-FAST/y_shifter.vhd
 l0
 L32
 Vmc?`SZ6nhemPoAY4KiQ9`2
 !s100 D^4[B@91<G1>Ab]KShK[33
 R12
 32
-R57
+Z75 !s110 1666855496
 !i10b 1
-R58
-Z67 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|-stats=none|F:/FPGA_prj/Fast_ref/FPGA-FAST/y_shifter.vhd|
-Z68 !s107 F:/FPGA_prj/Fast_ref/FPGA-FAST/y_shifter.vhd|
+Z76 !s108 1666855496.000000
+Z77 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|-stats=none|F:/FPGA_prj/Fast_ref/FPGA-FAST/y_shifter.vhd|
+Z78 !s107 F:/FPGA_prj/Fast_ref/FPGA-FAST/y_shifter.vhd|
 !i113 0
 R17
 R18
@@ -498,32 +498,32 @@ V`hMhM5NR_^;K28z2hVMOi3
 !s100 j5lBz4<L[kNm>0=dPCeRc1
 R12
 32
-R57
+R75
 !i10b 1
-R58
-R67
-R68
+R76
+R77
+R78
 !i113 0
 R17
 R18
 Eyx_shifter
-R5
+Z79 w1667293088
 R7
 R8
 R9
-Z69 8F:/FPGA_prj/Fast_ref/FPGA-FAST/yx_shifter.vhd
-Z70 FF:/FPGA_prj/Fast_ref/FPGA-FAST/yx_shifter.vhd
+Z80 8F:/FPGA_prj/Fast_ref/FPGA-FAST/yx_shifter.vhd
+Z81 FF:/FPGA_prj/Fast_ref/FPGA-FAST/yx_shifter.vhd
 l0
 L33
 Vk8Hb?0DiF3_F25GOi]KWE0
 !s100 gLo1f4Gdg9VIOz2zB0Bg;3
 R12
 32
-Z71 !s110 1666855497
+R33
 !i10b 1
-R58
-Z72 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|-stats=none|F:/FPGA_prj/Fast_ref/FPGA-FAST/yx_shifter.vhd|
-Z73 !s107 F:/FPGA_prj/Fast_ref/FPGA-FAST/yx_shifter.vhd|
+R34
+Z82 !s90 -reportprogress|300|-work|work|-2002|-explicit|-vopt|-stats=none|F:/FPGA_prj/Fast_ref/FPGA-FAST/yx_shifter.vhd|
+Z83 !s107 F:/FPGA_prj/Fast_ref/FPGA-FAST/yx_shifter.vhd|
 !i113 0
 R17
 R18
@@ -537,11 +537,11 @@ VlZ:OHTk<MnSkH:G]QRX]Z3
 !s100 IWYC8gRXNXi>Im`b]52290
 R12
 32
-R71
+R33
 !i10b 1
-R58
-R72
-R73
+R34
+R82
+R83
 !i113 0
 R17
 R18

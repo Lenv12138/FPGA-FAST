@@ -2,9 +2,9 @@
 
 module tb;
 
-parameter FILE_PATH_GRAY   = "F:/FPGA_prj/Fast_ref/FPGA-FAST/tb/1_L_gray.txt";
-parameter IMG_COL     = 640,
-          IMG_ROW     = 480,
+parameter FILE_PATH_GRAY   = "F:/FPGA_prj/Fast_ref/FPGA-FAST/tb/tb_data.txt";
+parameter IMG_COL     = 30,
+          IMG_ROW     = 20,
           PIXEL_WIDTH = 8;
 
 reg [PIXEL_WIDTH-1 : 0] img_gray_ram [IMG_ROW-1 : 0][IMG_COL-1 : 0];  
@@ -19,7 +19,7 @@ initial begin
   for (i=0; i<IMG_ROW; i++) begin
     for (j=0; j<IMG_COL; j++) begin
       
-      $fscanf(fid, "%d", img_gray_ram[i][j]);
+      $fscanf(fid, "%x", img_gray_ram[i][j]);
       
     end
   end
@@ -49,14 +49,16 @@ always @(posedge clk) begin
     cnt_i <= 'd0;
   else if (cnt_i == IMG_ROW-1)
     cnt_i <= 'd0;
-  else
+  else if (cnt_j == IMG_COL-1)
     cnt_i <= cnt_i + 1;
+  else
+    cnt_i <= cnt_i;
   
   if (rst)
     cnt_j <= 'd0;
   else if (cnt_j == IMG_COL-1)
     cnt_j <= 'd0;
-  else
+  else 
     cnt_j <= cnt_j + 1;
 end
 

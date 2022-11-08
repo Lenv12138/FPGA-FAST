@@ -30,7 +30,7 @@ use IEEE.NUMERIC_STD.ALL;
 --use UNISIM.VComponents.all;
 
 entity fast_main is
-generic (threshold :  signed:= to_signed(10, 10) );
+generic (threshold :  signed:= to_signed(10, 10) );   -- 这里设定的阈值初始值为10, 按照10的补码存储的.
 port(
 		in0, in1, in2, in3, in4, in5, in6, in7, in8, in9, in10, in11, in12, in13, in14, in15 : in std_logic_vector(7 downto 0);
 		clk, rst, ce : in std_logic;
@@ -52,6 +52,7 @@ signal rmc0t, rmc1t, rmc2t, rmc3t, rmc4t, rmc5t, rmc6t, rmc7t, rmc8t, rmc9t, rmc
 
 begin
 
+-- 第一拍
 cmr : process(clk)
 begin
 	if clk'event and clk='1' then
@@ -110,6 +111,7 @@ begin
 	end if;
 end process rmc;
 
+-- 第二拍
 cmrt : process(clk)
 begin
 	if clk='1' and clk'event then -- dark minus threshold
@@ -168,6 +170,7 @@ begin
 	end if;
 end process rmct;
 
+-- 第三拍拿到cmrt, 第四拍出结果
 is_dark : process(clk)
 begin
 	if clk='1' and clk'event then -- final dark check and eventual passing of value for nms calculation

@@ -1,3 +1,19 @@
 # Automatically identify and compile all the source files in the project directory.
 # DO NOT explicitly list files/directories in 'dvt_auto_init' sections. Use 'dvt_init' sections instead.
 +dvt_init_auto
+
++dvt_skip_compile+$DVT_PROJECT_LOC\阅读笔记.md
++dvt_skip_compile+$DVT_PROJECT_LOC\contig_processor.vhd
++dvt_skip_compile+$DVT_PROJECT_LOC\corner_score.vhd
++dvt_skip_compile+$DVT_PROJECT_LOC\dvt_build.log
++dvt_skip_compile+$DVT_PROJECT_LOC\fast_main_top.vhd
++dvt_skip_compile+$DVT_PROJECT_LOC\FAST_with_NMS.vhd
++dvt_skip_compile+$DVT_PROJECT_LOC\input_fifo.vhd
++dvt_skip_compile+$DVT_PROJECT_LOC\main_part.vhd
++dvt_skip_compile+$DVT_PROJECT_LOC\NMS_FIFO.vhd
++dvt_skip_compile+$DVT_PROJECT_LOC\NMS_top.vhd
++dvt_skip_compile+$DVT_PROJECT_LOC\NMS.vhd
++dvt_skip_compile+$DVT_PROJECT_LOC\README.md
++dvt_skip_compile+$DVT_PROJECT_LOC\x_shifter.vhd
++dvt_skip_compile+$DVT_PROJECT_LOC\y_shifter.vhd
++dvt_skip_compile+$DVT_PROJECT_LOC\yx_shifter.vhd
