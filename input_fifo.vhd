@@ -234,8 +234,8 @@ begin
 				if address_read=to_unsigned(depth-1, 10) then	-- whenever max. horizontal resolution reached
 					if v_cnt=to_unsigned(v_res-1, 9) then			-- vertical resolution counter handler
 						-- 一帧640x480传输结束
-            v_cnt<=(others=>'0');
-          else
+            			v_cnt<=(others=>'0');
+          			else
 						v_cnt<=v_cnt+1;
 					end if;
 					address_read<=(others=>'0');
@@ -255,6 +255,7 @@ begin
 			EN_y<='0';
 		else
 			if ce='1' then
+				-- 为什么这里不直接用address_write?
 				if address_read=to_unsigned(depth-2, 10) then
 					EN_y<='1';
 				else 

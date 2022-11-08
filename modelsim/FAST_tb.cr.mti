@@ -1,19 +1,9 @@
-F:/FPGA_prj/Fast_ref/FPGA-FAST/x_shifter.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/x_shifter.vhd
-Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Compiling entity x_shifter
--- Compiling architecture Behavioral of x_shifter
+F:/FPGA_prj/Fast_ref/FPGA-FAST/tb/tb_top.sv {1 {vlog -work work -vopt -sv -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/tb/tb_top.sv
+Model Technology ModelSim SE-64 vlog 10.7 Compiler 2017.12 Dec  7 2017
+-- Compiling module tb
 
-} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_top.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_top.vhd
-Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling entity NMS_top
--- Compiling architecture Behavioral of NMS_top
+Top level modules:
+	tb
 
 } {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/corner_score.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/corner_score.vhd
 Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
@@ -24,28 +14,22 @@ Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
 -- Compiling entity corner_score
 -- Compiling architecture Behavioral of corner_score
 
-} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/tb/tb_top.sv {1 {vlog -work work -vopt -sv -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/tb/tb_top.sv
-Model Technology ModelSim SE-64 vlog 10.7 Compiler 2017.12 Dec  7 2017
--- Compiling module tb
-
-Top level modules:
-	tb
-
-} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/yx_shifter.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/yx_shifter.vhd
+} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_top.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_top.vhd
 Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
--- Compiling entity yx_shifter
--- Compiling architecture Behavioral of yx_shifter
+-- Loading package NUMERIC_STD
+-- Compiling entity NMS_top
+-- Compiling architecture Behavioral of NMS_top
 
-} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/y_shifter.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/y_shifter.vhd
+} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/x_shifter.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/x_shifter.vhd
 Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
--- Compiling entity y_shifter
--- Compiling architecture Behavioral of y_shifter
+-- Compiling entity x_shifter
+-- Compiling architecture Behavioral of x_shifter
 
 } {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_FIFO.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_FIFO.vhd
 Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
@@ -56,14 +40,21 @@ Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
 -- Compiling entity NMS_FIFO
 -- Compiling architecture Behavioral of NMS_FIFO
 
-} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS.vhd
+} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/y_shifter.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/y_shifter.vhd
 Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling entity NMS
--- Compiling architecture Behavioral of NMS
+-- Compiling entity y_shifter
+-- Compiling architecture Behavioral of y_shifter
+
+} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/yx_shifter.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/yx_shifter.vhd
+Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity yx_shifter
+-- Compiling architecture Behavioral of yx_shifter
 
 } {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/FAST_with_NMS.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/FAST_with_NMS.vhd
 Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
@@ -72,6 +63,15 @@ Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
 -- Loading package std_logic_1164
 -- Compiling entity FAST_with_NMS
 -- Compiling architecture Behavioral of FAST_with_NMS
+
+} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS.vhd
+Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity NMS
+-- Compiling architecture Behavioral of NMS
 
 } {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/contig_processor.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/contig_processor.vhd
 Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
