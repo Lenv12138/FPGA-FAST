@@ -257,7 +257,7 @@ always @(posedge clk) begin
         o4b<=10'd0;		o5b<=10'd0;		o6b<=10'd0;		o7b<=10'd0;	
         o8b<=10'd0;		o9b<=10'd0;		o10b<=10'd0;		o11b<=10'd0;	
         o12b<=10'd0;		o13b<=10'd0;		o14b<=10'd0;		o15b<=10'd0;	
-        bright <= 16'd0;
+        bright <= 16'd0;;
     end else if (ce) begin
         if (rmc0t>0) begin 
             bright[0]<=1'b1;

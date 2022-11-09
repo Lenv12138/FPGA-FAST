@@ -10,17 +10,17 @@ module NMS_top #(
 
     input [12:0] data_in,
 
-    output x_coord_out, y_coord_out,
+    output [9:0] x_coord_out, y_coord_out,
     output corner_out
 );
 
-reg [33:0] int11, int12, int13;
-reg [33:0] int21, int22, int23;
-reg [33:0] int31, int32, int33;
+wire [33:0] int11, int12, int13;
+wire [33:0] int21, int22, int23;
+wire [33:0] int31, int32, int33;
 
 wire  nms_vld;
 
-fast_fifo #(
+nms_fifo #(
     .COL_NUM  ( 640 ),
     .NMS_SIZE ( 3   ))
  u_fast_fifo (

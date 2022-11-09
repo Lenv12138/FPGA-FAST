@@ -9,9 +9,9 @@ module fast_fifo #(
     input rst,
     input ce,                                   // global enable signal
 
-    output reg [9:0] x_coord,
-    output reg [9:0] y_coord,
-    output reg [19:0] xy_coord,                // [x_coord[9:0], y_coord[9:0]]
+    output [9:0] x_coord,
+    output [9:0] y_coord,
+    output [19:0] xy_coord,                // [x_coord[9:0], y_coord[9:0]]
 
     // 7x7patch
     output [PIXEL_WIDTH-1 : 0] o00, o01, o02, o03, o04, o05, o06, 
@@ -30,7 +30,8 @@ reg [9:0] address_read, address_write;
 reg [PIXEL_WIDTH-1 : 0] data_out_0, data_out_1, data_out_2, data_out_3, data_out_4, data_out_5;
 
 // 6¸öÐÐbuffer
-reg [COL_NUM-1 : 0] ram_0, ram_1, ram_2, ram_3, ram_4, ram_5;
+reg  [PIXEL_WIDTH-1 : 0] ram_0[COL_NUM-1 : 0], ram_1[COL_NUM-1 : 0], ram_2[COL_NUM-1 : 0], 
+                         ram_3[COL_NUM-1 : 0], ram_4[COL_NUM-1 : 0], ram_5[COL_NUM-1 : 0];
 
 reg [PIXEL_WIDTH-1 : 0] o_00, o_01, o_02, o_03, o_04, o_05, o_06;
 reg [PIXEL_WIDTH-1 : 0] o_10, o_11, o_12, o_13, o_14, o_15, o_16;
@@ -40,7 +41,8 @@ reg [PIXEL_WIDTH-1 : 0] o_40, o_41, o_42, o_43, o_44, o_45, o_46;
 reg [PIXEL_WIDTH-1 : 0] o_50, o_51, o_52, o_53, o_54, o_55, o_56;
 reg [PIXEL_WIDTH-1 : 0] o_60, o_61, o_62, o_63, o_64, o_65, o_66;
 
-reg [9:0] cnt_row, cnt_row_d;
+reg [9:0] cnt_row;
+wire [9:0] cnt_row_d;
 wire [19:0] xy_coord_tmp;
 reg eof;  // end of line 
 
@@ -202,26 +204,26 @@ localparam XY_DELAY_CLK = 3*COL_NUM+11;
 genvar i;
 generate for(i=0; i<10; i=i+1) begin : delay_x_coord
     // ÑÓ³Ù11ÅÄ
-    delay_shifter#(11)(clk, ce, address_write[i], x_coord[i]);
+    delay_shifter#(11) u_delay_x_coord(clk, ce, address_write[i], x_coord[i]);
 end
 endgenerate
 
 generate for(i=0; i<10; i=i+1) begin : delay_y_coord
     //ÑÓ³Ù3ÅÄ
-    delay_shifter#(3)(clk, eof, cnt_row[i], cnt_row_d[i]);
+    delay_shifter#(3) u_delay_y_coord(clk, eof, cnt_row[i], cnt_row_d[i]);
 end
 endgenerate
     
 generate for(i=0; i<10; i=i+1) begin : delay_xy_coord
     //ÑÓ³Ù12ÅÄ
-    delay_shifter#(12)(clk, ce, cnt_row_d[i], y_coord[i]);
+    delay_shifter#(12) u_delay_xy_coord(clk, ce, cnt_row_d[i], y_coord[i]);
 end
 endgenerate
 
 // ÑÓ³Ù7patchµÄÏßÐÔ×ø±ê
 generate for(i=0; i<20; i=i+1) begin : delay_lxy_coord
     //ÑÓ³Ù12ÅÄ
-    delay_shifter#(XY_DELAY_CLK)(clk, ce, xy_coord_tmp[i], xy_coord[i]);
+    delay_shifter#(XY_DELAY_CLK) u_delay_lxy_coord(clk, ce, xy_coord_tmp[i], xy_coord[i]);
 end
 endgenerate
 

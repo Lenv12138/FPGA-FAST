@@ -17,23 +17,23 @@ module fast_main_top #(
 );
 
 // 圆周上的点, int02:第0行第2列的点
-reg [PIXEL_WIDTH-1 : 0] int02, int03, int04; // to FIFO
-reg [PIXEL_WIDTH-1 : 0] int11, int15;
-reg [PIXEL_WIDTH-1 : 0] int20, int26;
-reg [PIXEL_WIDTH-1 : 0] int30, int33, int36;
-reg [PIXEL_WIDTH-1 : 0] int40, int46;
-reg [PIXEL_WIDTH-1 : 0] int51, int55;
-reg [PIXEL_WIDTH-1 : 0] int62, int63, int64;
+wire [PIXEL_WIDTH-1 : 0] int02, int03, int04; // to FIFO
+wire [PIXEL_WIDTH-1 : 0] int11, int15;
+wire [PIXEL_WIDTH-1 : 0] int20, int26;
+wire [PIXEL_WIDTH-1 : 0] int30, int33, int36;
+wire [PIXEL_WIDTH-1 : 0] int40, int46;
+wire [PIXEL_WIDTH-1 : 0] int51, int55;
+wire [PIXEL_WIDTH-1 : 0] int62, int63, int64;
 
 
-reg [9 : 0] int0b, int1b, int2b, int3b, int4b, int5b, int6b, int7b, int8b, int9b, int10b, int11b, int12b, int13b, int14b, int15b; // for corner score
-reg [9 : 0] int0d, int1d, int2d, int3d, int4d, int5d, int6d, int7d, int8d, int9d, int10d, int11d, int12d, int13d, int14d, int15d;
+wire [9 : 0] int0b, int1b, int2b, int3b, int4b, int5b, int6b, int7b, int8b, int9b, int10b, int11b, int12b, int13b, int14b, int15b; // for corner score
+wire [9 : 0] int0d, int1d, int2d, int3d, int4d, int5d, int6d, int7d, int8d, int9d, int10d, int11d, int12d, int13d, int14d, int15d;
 
 // debug
-reg [PIXEL_WIDTH-1 : 0] int66;
+wire [PIXEL_WIDTH-1 : 0] int66;
 
 // 存储Ipx 与 Ip-t的大小比值: 1: 大于 0: 小于等于
-reg [15 : 0] bright_int, dark_int;
+wire [15 : 0] bright_int, dark_int;
 
 // fast_fifo
 wire  patch_7x7_vld;

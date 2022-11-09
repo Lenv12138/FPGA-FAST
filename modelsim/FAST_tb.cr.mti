@@ -1,4 +1,50 @@
-F:/FPGA_prj/Fast_ref/FPGA-FAST/tb/tb_top.sv {1 {vlog -work work -vopt -sv -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/tb/tb_top.sv
+F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/NMS.v {1 {vlog -work fast_verilog -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/NMS.v
+Model Technology ModelSim SE-64 vlog 10.7 Compiler 2017.12 Dec  7 2017
+-- Compiling module NMS
+
+Top level modules:
+	NMS
+
+} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/FAST_with_NMS.v {1 {vlog -work fast_verilog -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/FAST_with_NMS.v
+Model Technology ModelSim SE-64 vlog 10.7 Compiler 2017.12 Dec  7 2017
+-- Compiling module FAST_with_NMS
+
+Top level modules:
+	FAST_with_NMS
+
+} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/nms_top.v {1 {vlog -work fast_verilog -vopt -stats=none {F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\nms_top.v}
+Model Technology ModelSim SE-64 vlog 10.7 Compiler 2017.12 Dec  7 2017
+-- Compiling module NMS_top
+
+Top level modules:
+	NMS_top
+
+} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/main_part.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/main_part.vhd
+Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity fast_main
+-- Compiling architecture Behavioral of fast_main
+
+} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/contig_processor.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/contig_processor.vhd
+Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity contig_processor
+-- Compiling architecture Behavioral of contig_processor
+
+} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/fast_score.v {1 {vlog -work fast_verilog -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/fast_score.v
+Model Technology ModelSim SE-64 vlog 10.7 Compiler 2017.12 Dec  7 2017
+-- Compiling module fast_score
+
+Top level modules:
+	fast_score
+
+} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/tb/tb_top.sv {1 {vlog -work work -vopt -sv -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/tb/tb_top.sv
 Model Technology ModelSim SE-64 vlog 10.7 Compiler 2017.12 Dec  7 2017
 -- Compiling module tb
 
@@ -13,48 +59,6 @@ Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
 -- Loading package NUMERIC_STD
 -- Compiling entity corner_score
 -- Compiling architecture Behavioral of corner_score
-
-} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_top.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_top.vhd
-Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling entity NMS_top
--- Compiling architecture Behavioral of NMS_top
-
-} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/x_shifter.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/x_shifter.vhd
-Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Compiling entity x_shifter
--- Compiling architecture Behavioral of x_shifter
-
-} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_FIFO.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_FIFO.vhd
-Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling entity NMS_FIFO
--- Compiling architecture Behavioral of NMS_FIFO
-
-} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/y_shifter.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/y_shifter.vhd
-Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Compiling entity y_shifter
--- Compiling architecture Behavioral of y_shifter
-
-} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/yx_shifter.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/yx_shifter.vhd
-Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Compiling entity yx_shifter
--- Compiling architecture Behavioral of yx_shifter
 
 } {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/FAST_with_NMS.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/FAST_with_NMS.vhd
 Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
@@ -73,13 +77,99 @@ Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
 -- Compiling entity NMS
 -- Compiling architecture Behavioral of NMS
 
-} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/contig_processor.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/contig_processor.vhd
+} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/contig_processor.v {1 {vlog -work fast_verilog -vopt -stats=none {F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\contig_processor.v}
+Model Technology ModelSim SE-64 vlog 10.7 Compiler 2017.12 Dec  7 2017
+-- Compiling module contig_processor
+
+Top level modules:
+	contig_processor
+
+} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/fast_main_top.v {1 {vlog -work fast_verilog -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/fast_main_top.v
+Model Technology ModelSim SE-64 vlog 10.7 Compiler 2017.12 Dec  7 2017
+-- Compiling module fast_main_top
+
+Top level modules:
+	fast_main_top
+
+} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_top.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_top.vhd
 Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Loading package NUMERIC_STD
--- Compiling entity contig_processor
--- Compiling architecture Behavioral of contig_processor
+-- Compiling entity NMS_top
+-- Compiling architecture Behavioral of NMS_top
+
+} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_FIFO.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_FIFO.vhd
+Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity NMS_FIFO
+-- Compiling architecture Behavioral of NMS_FIFO
+
+} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/input_fifo.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/input_fifo.vhd
+Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity input_fifo
+-- Compiling architecture Behavioral of input_fifo
+
+} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/fast_main_top.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/fast_main_top.vhd
+Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity fast_main_top
+-- Compiling architecture Behavioral of fast_main_top
+
+} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/nms_fifo.v {1 {vlog -work fast_verilog -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/nms_fifo.v
+Model Technology ModelSim SE-64 vlog 10.7 Compiler 2017.12 Dec  7 2017
+-- Compiling module nms_fifo
+
+Top level modules:
+	nms_fifo
+
+} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/x_shifter.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/x_shifter.vhd
+Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity x_shifter
+-- Compiling architecture Behavioral of x_shifter
+
+} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/y_shifter.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/y_shifter.vhd
+Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity y_shifter
+-- Compiling architecture Behavioral of y_shifter
+
+} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/yx_shifter.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/yx_shifter.vhd
+Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity yx_shifter
+-- Compiling architecture Behavioral of yx_shifter
+
+} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/delay_shifter.v {1 {vlog -work fast_verilog -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/delay_shifter.v
+Model Technology ModelSim SE-64 vlog 10.7 Compiler 2017.12 Dec  7 2017
+-- Compiling module delay_shifter
+
+Top level modules:
+	delay_shifter
+
+} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/thresholder.v {1 {vlog -work fast_verilog -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/thresholder.v
+Model Technology ModelSim SE-64 vlog 10.7 Compiler 2017.12 Dec  7 2017
+-- Compiling module thresholder
+
+Top level modules:
+	thresholder
 
 } {} {}}

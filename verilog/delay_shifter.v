@@ -12,7 +12,7 @@ reg [D_NUM_CLK-1 : 0] shifter;
 
 always @(posedge clk ) begin
     if (EN) 
-        shifter <= {shifter[9:0], in_bit};
+        shifter <= {shifter[D_NUM_CLK-2:0], in_bit};
     else 
         shifter <= shifter;
 end
