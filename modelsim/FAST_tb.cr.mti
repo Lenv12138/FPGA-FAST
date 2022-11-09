@@ -12,13 +12,6 @@ Model Technology ModelSim SE-64 vlog 10.7 Compiler 2017.12 Dec  7 2017
 Top level modules:
 	FAST_with_NMS
 
-} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/nms_top.v {1 {vlog -work fast_verilog -vopt -stats=none {F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\nms_top.v}
-Model Technology ModelSim SE-64 vlog 10.7 Compiler 2017.12 Dec  7 2017
--- Compiling module NMS_top
-
-Top level modules:
-	NMS_top
-
 } {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/main_part.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/main_part.vhd
 Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
 -- Loading package STANDARD

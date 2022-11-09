@@ -23,7 +23,7 @@ wire  nms_vld;
 nms_fifo #(
     .COL_NUM  ( 640 ),
     .NMS_SIZE ( 3   ))
- u_fast_fifo (
+ u_nms_fifo (
     .data_in                 ( {x_coord_in, y_coord_in, iscorner, data_in}   ),
     .clk                     ( clk       ),
     .rst                     ( rst       ),

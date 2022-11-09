@@ -17,6 +17,14 @@ quietly virtual function -install /tb/u_FAST_with_NMS/u_fast_main_top/u_threshol
 quietly virtual function -install /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder -env /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder { (concat_noflatten)(concat_flatten)&{/tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc0, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc1, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc2, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc3, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc4, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc5, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc6, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc7, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc8, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc9, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc10, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc11, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc12, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc13, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc14, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc15 }} first_clk_rmc
 quietly virtual function -install /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder -env /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder { (concat_noflatten)(concat_flatten)&{/tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/cmr0t, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/cmr1t, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/cmr2t, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/cmr3t, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/cmr4t, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/cmr5t, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/cmr6t, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/cmr7t, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/cmr8t, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/cmr9t, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/cmr10t, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/cmr11t, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/cmr12t, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/cmr13t, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/cmr14t, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/cmr15t }} 2rd_clk_cmr_t
 quietly virtual function -install /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder -env /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder { (concat_noflatten)(concat_flatten)&{/tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc0t, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc1t, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc2t, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc3t, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc4t, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc5t, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc6t, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc7t, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc8t, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc9t, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc10t, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc11t, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc12t, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc13t, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc14t, /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/rmc15t }} 2rd_clk_rmc_t
+quietly virtual signal -install /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score { (concat_noflatten) (context /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score )&{i0b , i1b , i2b , i3b , i4b , i5b , i6b , i7b , i8b , i9b , i10b , i11b , i12b , i13b , i14b , i15b }} diff_rmc_t
+quietly virtual signal -install /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score { (concat_noflatten) (context /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score )&{i0d , i1d , i2d , i3d , i4d , i5d , i6d , i7d , i8d , i9d , i10d , i11d , i12d , i13d , i14d , i15d }} diff_cmr_t
+quietly virtual function -install /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score -env /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score { (concat_noflatten)(concat_flatten)&{/tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/s0b, /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/s1b, /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/s2b, /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/s3b, /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/s4b, /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/s5b, /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/s6b, /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/s7b }} 1st_clk_compute_ixb_ixd
+quietly virtual function -install /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score -env /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score { (concat_noflatten)(concat_flatten)&{/tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/ss0b, /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/ss1b, /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/ss2b, /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/ss3b }} 2nd_clk_compute
+quietly virtual function -install /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score -env /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score { (concat_noflatten)(concat_flatten)&{/tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/sss0b, /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/sss1b }} 3rd_clk_compute_ixb
+quietly virtual function -install /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score -env /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score { (concat_noflatten)(concat_flatten)&{/tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/s0d, /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/s1d, /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/s2d, /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/s3d, /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/s4d, /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/s5d, /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/s6d, /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/s7d }} 1st_clk_compute_ixd
+quietly virtual function -install /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score -env /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score { (concat_noflatten)(concat_flatten)&{/tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/ss0d, /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/ss1d, /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/ss2d, /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/ss3d }} 2nd_clk_compute_ixd
+quietly virtual function -install /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score -env /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score { (concat_noflatten)(concat_flatten)&{/tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/sss0d, /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/sss1d }} 3rd_clk_compute_ixd
 quietly WaveActivateNextPane {} 0
 add wave -noupdate -group fast_fifo /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_fifo/data_in
 add wave -noupdate -group fast_fifo /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_fifo/clk
@@ -56,16 +64,41 @@ add wave -noupdate -expand -group fast_diff_center_ring /tb/u_FAST_with_NMS/u_fa
 add wave -noupdate -expand -group fast_diff_center_ring /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/center
 add wave -noupdate -expand -group fast_diff_center_ring /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/bright
 add wave -noupdate -expand -group fast_diff_center_ring /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/dark
-add wave -noupdate -expand -group fast_diff_center_ring /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/output_diff_brightpixel
-add wave -noupdate -expand -group fast_diff_center_ring /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/output_diff_darkpixel
 add wave -noupdate -expand -group fast_diff_center_ring /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/first_clk_cmr
 add wave -noupdate -expand -group fast_diff_center_ring /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/first_clk_rmc
 add wave -noupdate -expand -group fast_diff_center_ring /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/2rd_clk_cmr_t
 add wave -noupdate -expand -group fast_diff_center_ring /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/2rd_clk_rmc_t
+add wave -noupdate -expand -group fast_diff_center_ring /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/output_diff_brightpixel
+add wave -noupdate -expand -group fast_diff_center_ring /tb/u_FAST_with_NMS/u_fast_main_top/u_thresholder/output_diff_darkpixel
+add wave -noupdate -group check_contiguity /tb/u_FAST_with_NMS/u_fast_main_top/u_contig_processor/clk
+add wave -noupdate -group check_contiguity /tb/u_FAST_with_NMS/u_fast_main_top/u_contig_processor/rst
+add wave -noupdate -group check_contiguity /tb/u_FAST_with_NMS/u_fast_main_top/u_contig_processor/ce
+add wave -noupdate -group check_contiguity /tb/u_FAST_with_NMS/u_fast_main_top/u_contig_processor/input_d
+add wave -noupdate -group check_contiguity /tb/u_FAST_with_NMS/u_fast_main_top/u_contig_processor/input_b
+add wave -noupdate -group check_contiguity /tb/u_FAST_with_NMS/u_fast_main_top/u_contig_processor/contig
+add wave -noupdate -group check_contiguity /tb/u_FAST_with_NMS/u_fast_main_top/u_contig_processor/contig_d
+add wave -noupdate -group check_contiguity /tb/u_FAST_with_NMS/u_fast_main_top/u_contig_processor/contig_d1
+add wave -noupdate -group check_contiguity /tb/u_FAST_with_NMS/u_fast_main_top/u_contig_processor/contig_d2
+add wave -noupdate -group check_contiguity /tb/u_FAST_with_NMS/u_fast_main_top/u_contig_processor/contig_d3
+add wave -noupdate -group check_contiguity /tb/u_FAST_with_NMS/u_fast_main_top/u_contig_processor/contig_b
+add wave -noupdate -expand -group compute_score /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/clk
+add wave -noupdate -expand -group compute_score /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/rst
+add wave -noupdate -expand -group compute_score /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/ce
+add wave -noupdate -expand -group compute_score /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/diff_rmc_t
+add wave -noupdate -expand -group compute_score /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/diff_cmr_t
+add wave -noupdate -expand -group compute_score /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/score
+add wave -noupdate -expand -group compute_score /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/1st_clk_compute_ixb_ixd
+add wave -noupdate -expand -group compute_score /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/2nd_clk_compute
+add wave -noupdate -expand -group compute_score /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/3rd_clk_compute_ixb
+add wave -noupdate -expand -group compute_score /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/1st_clk_compute_ixd
+add wave -noupdate -expand -group compute_score /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/2nd_clk_compute_ixd
+add wave -noupdate -expand -group compute_score /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/3rd_clk_compute_ixd
+add wave -noupdate -expand -group compute_score /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/sum_all_b
+add wave -noupdate -expand -group compute_score /tb/u_FAST_with_NMS/u_fast_main_top/u_fast_score/sum_all_d
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {371 ps} 0}
+WaveRestoreCursors {{Cursor 1} {348 ps} 0}
 quietly wave cursor active 1
-configure wave -namecolwidth 150
+configure wave -namecolwidth 201
 configure wave -valuecolwidth 100
 configure wave -justifyvalue left
 configure wave -signalnamewidth 1
@@ -79,4 +112,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {0 ps} {1 ns}
+WaveRestoreZoom {0 ps} {969 ps}

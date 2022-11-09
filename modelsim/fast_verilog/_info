@@ -17,6 +17,7 @@ o-quiet -auto_acc_if_foreign -work fast_verilog +acc
 Z1 tCvgOpt 0
 n@_opt
 OL;O;10.7;67
+R0
 vcontig_processor
 !s110 1667960216
 !i10b 1
@@ -60,23 +61,23 @@ r1
 R4
 R1
 vfast_fifo
-!s110 1667961663
+Z5 !s110 1667964894
 !i10b 1
-!s100 ]c`Kb43;lT>B_W@S^[n[a2
-I1TLijC6l1eFN9Sz;SJ1MG2
+!s100 oCzB?El`h?X9gAHhLidCa1
+IR7<gDMJ6<RO5C^QaGThFz2
 R2
 R0
-w1667961635
-8F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/fast_fifo.v
-FF:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/fast_fifo.v
+w1667962309
+8F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_fifo.v
+FF:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_fifo.v
 L0 1
 R3
 r1
 !s85 0
 31
-!s108 1667961663.000000
-!s107 F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/fast_fifo.v|
-!s90 -reportprogress|300|-work|fast_verilog|-vopt|-stats=none|F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/fast_fifo.v|
+Z6 !s108 1667964894.000000
+!s107 F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_fifo.v|
+!s90 -reportprogress|300|-work|fast_verilog|-vopt|-stats=none|F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_fifo.v|
 !i113 0
 R4
 R1
@@ -102,7 +103,7 @@ r1
 R4
 R1
 vfast_score
-Z5 !s110 1667960217
+Z7 !s110 1667960217
 !i10b 1
 !s100 0F8ASi`BbQ^lF5j<O6?UX1
 I:4kWahbY>c5PIn?LoQ=hY3
@@ -116,14 +117,14 @@ R3
 r1
 !s85 0
 31
-Z6 !s108 1667960217.000000
+Z8 !s108 1667960217.000000
 !s107 F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/fast_score.v|
 !s90 -reportprogress|300|-work|fast_verilog|-vopt|-stats=none|F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/fast_score.v|
 !i113 0
 R4
 R1
 vFAST_with_NMS
-R5
+R7
 !i10b 1
 !s100 G7lRk>OGLOHHSKRTbmig90
 IQ5`1FPR8DCSDfY`I2dOD`0
@@ -137,7 +138,7 @@ R3
 r1
 !s85 0
 31
-R6
+R8
 !s107 F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/FAST_with_NMS.v|
 !s90 -reportprogress|300|-work|fast_verilog|-vopt|-stats=none|F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/FAST_with_NMS.v|
 !i113 0
@@ -145,7 +146,7 @@ R4
 R1
 n@f@a@s@t_with_@n@m@s
 vNMS
-Z7 !s110 1667961979
+!s110 1667961979
 !i10b 1
 !s100 P6bg>FZm44m04ePjR@cBT0
 IKkidZeaANkf>WP6?6b;In0
@@ -159,7 +160,7 @@ R3
 r1
 !s85 0
 31
-Z8 !s108 1667961979.000000
+!s108 1667961979.000000
 !s107 F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/NMS.v|
 !s90 -reportprogress|300|-work|fast_verilog|-vopt|-stats=none|F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/NMS.v|
 !i113 0
@@ -167,7 +168,7 @@ R4
 R1
 n@n@m@s
 vnms_fifo
-R5
+R7
 !i10b 1
 !s100 P^8RIi]XPg7M4ADgkSBl93
 I_lXCBQ>Rm8`3oLjm@dSEl1
@@ -181,20 +182,20 @@ R3
 r1
 !s85 0
 31
-R6
+R8
 !s107 F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/nms_fifo.v|
 !s90 -reportprogress|300|-work|fast_verilog|-vopt|-stats=none|F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/nms_fifo.v|
 !i113 0
 R4
 R1
 vNMS_top
-R7
+R5
 !i10b 1
-!s100 9OKK7G0A8jD2?]T1jd>^b3
-IP6i6OcF8X`N@<NJ^D5zLo1
+!s100 d;>JE7>YCFVdM@dj>1]230
+Io=k=XR01NKb=D`N1fUaKj3
 R2
 R0
-w1667961772
+w1667964859
 8F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\nms_top.v
 FF:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\nms_top.v
 L0 1
@@ -202,7 +203,7 @@ R3
 r1
 !s85 0
 31
-R8
+R6
 !s107 F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\nms_top.v|
 !s90 -reportprogress|300|-work|fast_verilog|-vopt|-stats=none|F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\nms_top.v|
 !i113 0
@@ -234,7 +235,7 @@ r1
 R4
 R1
 vthresholder
-R5
+R7
 !i10b 1
 !s100 g1z3:mKFlJI30SzZa`gW;2
 Ibk7_iaQ_Qe3VIZgXzWHcH3
@@ -248,7 +249,7 @@ R3
 r1
 !s85 0
 31
-R6
+R8
 !s107 F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/thresholder.v|
 !s90 -reportprogress|300|-work|fast_verilog|-vopt|-stats=none|F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/thresholder.v|
 !i113 0
