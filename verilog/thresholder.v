@@ -9,6 +9,9 @@ module thresholder#(
     input wire [PIXEL_WIDTH-1 : 0] in0, in1, in2, in3, in4, in5, in6, in7, in8, in9, in10, in11, in12, in13, in14, in15,
     input wire [PIXEL_WIDTH-1 : 0] center,
 
+    input wire patch_7x7_vld,
+
+    // 4th clock get the right output
     output reg [((PIXEL_WIDTH+2)-1) : 0] o0b, o1b, o2b, o3b, o4b, o5b, o6b, o7b, o8b, o9b, o10b, o11b, o12b, o13b, o14b, o15b,
     output reg [((PIXEL_WIDTH+2)-1) : 0] o0d, o1d, o2d, o3d, o4d, o5d, o6d, o7d, o8d, o9d, o10d, o11d, o12d, o13d, o14d, o15d, 
 
@@ -20,7 +23,7 @@ reg signed [((PIXEL_WIDTH+2)-1) : 0] rmc0, rmc1, rmc2, rmc3, rmc4, rmc5, rmc6, r
 reg signed [((PIXEL_WIDTH+2)-1) : 0] cmr0t, cmr1t, cmr2t, cmr3t, cmr4t, cmr5t, cmr6t, cmr7t, cmr8t, cmr9t, cmr10t, cmr11t, cmr12t, cmr13t, cmr14t, cmr15t;
 reg signed [((PIXEL_WIDTH+2)-1) : 0] rmc0t, rmc1t, rmc2t, rmc3t, rmc4t, rmc5t, rmc6t, rmc7t, rmc8t, rmc9t, rmc10t, rmc11t, rmc12t, rmc13t, rmc14t, rmc15t;
 
-// µÚһÅÄ
+// 1st clock
 always @(posedge clk) begin
     if (rst) begin
         cmr0<=10'd0;		cmr1<=10'd0;		cmr2<=10'd0;		cmr3<=10'd0;	
@@ -73,7 +76,7 @@ always @(posedge clk) begin
     end
 end
 
-// µÚ2ÅÄ
+// 2nd clock
 always @(posedge clk) begin
     if (rst) begin
         cmr0t<=10'd0;	cmr1t<=10'd0;	cmr2t<=10'd0;	cmr3t<=10'd0;	
@@ -126,7 +129,7 @@ always @(posedge clk) begin
     end
 end
 
-// µÚ3ÅÄ
+// 3rd clock
 always @(posedge clk) begin
     if (rst) begin
         o0d<=10'd0;		o1d<=10'd0;		o2d<=10'd0;		o3d<=10'd0;	

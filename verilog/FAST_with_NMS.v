@@ -38,8 +38,8 @@ fast_main_top #(
 wire  corner_out;
 
 NMS_top #(
-    .NMS_SIZE ( 3   ),
-    .COL_NUM  ( 640 ))
+    .NMS_SIZE ( NMS_SIZE   ),
+    .COL_NUM  ( COL_NUM ))
  u_NMS_top (
     .data_in                 ( score       ),
     .iscorner                ( iscorner_int  ),

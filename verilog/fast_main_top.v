@@ -79,8 +79,8 @@ fast_fifo #(
     .patch_7x7_vld           ( patch_7x7_vld   )
 );
 
-// thresholder Parameters   
-
+// thresholder, caculate |center - ring| -t.
+// need 3 clock, 4th clk output right score
 thresholder #(
     .THRESHOLD   ( THRESHOLD   ),
     .PIXEL_WIDTH ( PIXEL_WIDTH ))
@@ -88,6 +88,11 @@ thresholder #(
     .clk                     ( clk      ),
     .rst                     ( rst      ),
     .ce                      ( ce       ),
+    
+    // fifo_patch_valid
+    .patch_7x7_vld           ( patch_7x7_vld ),
+    
+    // ring
     .in0                     ( int03      ),
     .in1                     ( int04      ),
     .in2                     ( int15      ),
@@ -104,6 +109,8 @@ thresholder #(
     .in13                    ( int20      ),
     .in14                    ( int11      ),
     .in15                    ( int02      ),
+    
+    // center
     .center                  ( center   ),
 
     .o0b                     ( int0b      ),
@@ -144,6 +151,9 @@ thresholder #(
     .dark                    ( dark_int     )
 );
 
+
+// need 4 clock, 5th clk output right score
+
 contig_processor  u_contig_processor (     
     .clk                     ( clk       ),
     .rst                     ( rst       ),
@@ -154,6 +164,7 @@ contig_processor  u_contig_processor (
     .contig                  ( iscorner    )
 );
 
+// need 4 clock, 5th clk output right score
 fast_score  u_fast_score (
     .clk                     ( clk     ),
     .rst                     ( rst     ),

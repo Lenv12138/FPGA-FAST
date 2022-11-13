@@ -66,6 +66,10 @@ always @(posedge clk) begin
     end
 end
 
+assign {o00, o01, o02} = {o_00, o_01, o_02};
+assign {o10, o11, o12} = {o_10, o_11, o_12};
+assign {o20, o21, o22} = {o_20, o_21, o_22};
+
 assign nms_vld = (cnt_row>(NMS_SIZE-2)) && (address_write>(NMS_SIZE-2));
 
 endmodule

@@ -13,7 +13,7 @@ integer i, j, fid;
 
 initial begin
   
-  // 读取图片
+  // 打开文件
   fid = $fopen(FILE_PATH_GRAY, "r");
   $display("%d", fid);
   for (i=0; i<IMG_ROW; i++) begin
@@ -74,7 +74,7 @@ FAST_with_NMS #(
   .COL_NUM(IMG_COL),      
   .ROW_NUM(IMG_ROW),      
   .FAST_PTACH_SIZE(7),
-  .PIXEL_WIDTH(PIXEL_WIDTH),    
+  .PIXEL_WIDTH(8),    
   .NMS_SIZE(3)         
 ) u_FAST_with_NMS(
     .clk (clk),

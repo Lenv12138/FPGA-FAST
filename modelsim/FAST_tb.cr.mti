@@ -1,16 +1,23 @@
-F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/NMS.v {1 {vlog -work fast_verilog -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/NMS.v
+F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/FAST_with_NMS.v {1 {vlog -work fast_verilog -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/FAST_with_NMS.v
+Model Technology ModelSim SE-64 vlog 10.7 Compiler 2017.12 Dec  7 2017
+-- Compiling module FAST_with_NMS
+
+Top level modules:
+	FAST_with_NMS
+
+} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/NMS.v {1 {vlog -work fast_verilog -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/NMS.v
 Model Technology ModelSim SE-64 vlog 10.7 Compiler 2017.12 Dec  7 2017
 -- Compiling module NMS
 
 Top level modules:
 	NMS
 
-} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/FAST_with_NMS.v {1 {vlog -work fast_verilog -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/FAST_with_NMS.v
+} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/nms_top.v {1 {vlog -work fast_verilog -vopt -stats=none {F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\nms_top.v}
 Model Technology ModelSim SE-64 vlog 10.7 Compiler 2017.12 Dec  7 2017
--- Compiling module FAST_with_NMS
+-- Compiling module NMS_top
 
 Top level modules:
-	FAST_with_NMS
+	NMS_top
 
 } {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/main_part.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/main_part.vhd
 Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
@@ -30,19 +37,19 @@ Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
 -- Compiling entity contig_processor
 -- Compiling architecture Behavioral of contig_processor
 
+} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/tb/tb_top.sv {1 {vlog -work fast_verilog -vopt -sv -stats=none {F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_top.sv}
+Model Technology ModelSim SE-64 vlog 10.7 Compiler 2017.12 Dec  7 2017
+-- Compiling module tb
+
+Top level modules:
+	tb
+
 } {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/fast_score.v {1 {vlog -work fast_verilog -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/fast_score.v
 Model Technology ModelSim SE-64 vlog 10.7 Compiler 2017.12 Dec  7 2017
 -- Compiling module fast_score
 
 Top level modules:
 	fast_score
-
-} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/tb/tb_top.sv {1 {vlog -work work -vopt -sv -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/tb/tb_top.sv
-Model Technology ModelSim SE-64 vlog 10.7 Compiler 2017.12 Dec  7 2017
--- Compiling module tb
-
-Top level modules:
-	tb
 
 } {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/corner_score.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/corner_score.vhd
 Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
@@ -111,6 +118,13 @@ Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
 -- Compiling entity input_fifo
 -- Compiling architecture Behavioral of input_fifo
 
+} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/nms_fifo.v {1 {vlog -work fast_verilog -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/nms_fifo.v
+Model Technology ModelSim SE-64 vlog 10.7 Compiler 2017.12 Dec  7 2017
+-- Compiling module nms_fifo
+
+Top level modules:
+	nms_fifo
+
 } {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/fast_main_top.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/fast_main_top.vhd
 Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
 -- Loading package STANDARD
@@ -119,13 +133,6 @@ Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
 -- Loading package NUMERIC_STD
 -- Compiling entity fast_main_top
 -- Compiling architecture Behavioral of fast_main_top
-
-} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/nms_fifo.v {1 {vlog -work fast_verilog -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/nms_fifo.v
-Model Technology ModelSim SE-64 vlog 10.7 Compiler 2017.12 Dec  7 2017
--- Compiling module nms_fifo
-
-Top level modules:
-	nms_fifo
 
 } {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/x_shifter.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/x_shifter.vhd
 Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017

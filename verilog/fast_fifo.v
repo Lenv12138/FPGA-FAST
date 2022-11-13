@@ -23,7 +23,8 @@ module fast_fifo #(
     output [PIXEL_WIDTH-1 : 0] o60, o61, o62, o63, o64, o65, o66,
 
     // valid signals
-    output patch_7x7_vld
+    output wire xy_coord_vld, 
+    output reg patch_7x7_vld
 );
 
 reg [9:0] address_read, address_write;
@@ -44,7 +45,7 @@ reg [PIXEL_WIDTH-1 : 0] o_60, o_61, o_62, o_63, o_64, o_65, o_66;
 reg [9:0] cnt_row;
 wire [9:0] cnt_row_d;
 wire [19:0] xy_coord_tmp;
-reg eof;  // end of line 
+reg EOL;  // end of line 
 
 assign xy_coord_tmp = {x_coord, y_coord};
 
@@ -168,34 +169,40 @@ always @(posedge clk) begin
 //			+---+---+---+---+---+---+---+			
 //			|o60|o61|o62|o63|o64|o65|o66|					
 //			+---+---+---+---+---+---+---+			
-    
+  
     end
 end
 
 // generate patch_valid
 // ÒÑ¾­»º´æ5ÐÐ+7¸öÊý¾Ý
-assign patch_7x7_vld = (cnt_row>(FAST_PTACH_SIZE-2)) && (address_write>(FAST_PTACH_SIZE-1));
+//assign patch_7x7_vld = (cnt_row>(FAST_PTACH_SIZE-2)) && (address_write>(FAST_PTACH_SIZE-1));
+reg patch_7x7_vld_tmp;
 
-// always @(posedge clk) begin
-//     if (rst)
-//         patch_7x7_vld <= 1'b0;
-//     else if (ce) begin
-//         if ((cnt_row>(FAST_PTACH_SIZE-2)) && (address_write>(FAST_PTACH_SIZE-1))) 
-//             patch_7x7_vld <= 1'b1;
-//         else
-//             patch_7x7_vld <= 1'b0;
-//     end
-// end
+always @(posedge clk) begin
+    if (rst) begin
+        patch_7x7_vld_tmp <= 1'b0;
+        patch_7x7_vld <= 1'b0;  
+    end else if (ce) begin
+        patch_7x7_vld <= patch_7x7_vld_tmp;
+
+        if ((cnt_row>(FAST_PTACH_SIZE-2)) && (address_read>(FAST_PTACH_SIZE-2))) 
+            patch_7x7_vld_tmp <= 1'b1;
+        else
+            patch_7x7_vld_tmp <= 1'b0;
+    end
+end
+ 
+ 
 
 // generate end of lien signal
 always @(posedge clk) begin
     if (rst) 
-        eof <= 1'b0;
+        EOL <= 1'b0;
     else if (ce) begin         
         if (address_read == (COL_NUM-2))
-            eof <= 1'b1;
+            EOL <= 1'b1;
         else
-            eof <= 1'b0;
+            EOL <= 1'b0;
     end
 end 
 
@@ -203,20 +210,22 @@ localparam XY_DELAY_CLK = 3*COL_NUM+11;
 
 genvar i;
 generate for(i=0; i<10; i=i+1) begin : delay_x_coord
-    // ÑÓ³Ù11ÅÄ
-    delay_shifter#(11) u_delay_x_coord(clk, ce, address_write[i], x_coord[i]);
+    // ÑÓ³Ù11ÅÄ 4+8, 8: 3(thresholder)+5(compute_score)
+    // 4: 0, 1, 2, 3(output this addr), 4, 5, 6 (1 line of patch)
+    delay_shifter#(12) u_delay_x_coord(clk, ce, address_write[i], x_coord[i]);
 end
 endgenerate
 
 generate for(i=0; i<10; i=i+1) begin : delay_y_coord
     //ÑÓ³Ù3ÅÄ
-    delay_shifter#(3) u_delay_y_coord(clk, eof, cnt_row[i], cnt_row_d[i]);
+    delay_shifter#(3) u_delay_y_coord(clk, EOL, cnt_row[i], cnt_row_d[i]);
 end
 endgenerate
     
 generate for(i=0; i<10; i=i+1) begin : delay_xy_coord
-    //ÑÓ³Ù12ÅÄ
-    delay_shifter#(12) u_delay_xy_coord(clk, ce, cnt_row_d[i], y_coord[i]);
+    // ÑÓ³Ù12ÅÄ5+8, 5: y_coord lag x_coord 1 clk. so fot y_coord delay 5clk to output 3(1 line of patch).
+    // 8: 3(thresholder)+5(compute_score)
+    delay_shifter#(13) u_delay_xy_coord(clk, ce, cnt_row_d[i], y_coord[i]);
 end
 endgenerate
 
@@ -226,5 +235,20 @@ generate for(i=0; i<20; i=i+1) begin : delay_lxy_coord
     delay_shifter#(XY_DELAY_CLK) u_delay_lxy_coord(clk, ce, xy_coord_tmp[i], xy_coord[i]);
 end
 endgenerate
+
+// delay patch_vld
+generate for(i=0; i<1; i=i+1) begin : delay_patch_vld
+    //ÑÓ³Ù12ÅÄ
+    delay_shifter#(8) u_delay_lxy_coord(clk, ce, patch_7x7_vld, xy_coord_vld);
+end
+endgenerate
+
+assign {o00, o01, o02, o03, o04, o05, o06} = {o_00, o_01, o_02, o_03, o_04, o_05, o_06};
+assign {o10, o11, o12, o13, o14, o15, o16} = {o_10, o_11, o_12, o_13, o_14, o_15, o_16};
+assign {o20, o21, o22, o23, o24, o25, o26} = {o_20, o_21, o_22, o_23, o_24, o_25, o_26};
+assign {o30, o31, o32, o33, o34, o35, o36} = {o_30, o_31, o_32, o_33, o_34, o_35, o_36};
+assign {o40, o41, o42, o43, o44, o45, o46} = {o_40, o_41, o_42, o_43, o_44, o_45, o_46};
+assign {o50, o51, o52, o53, o54, o55, o56} = {o_50, o_51, o_52, o_53, o_54, o_55, o_56};
+assign {o60, o61, o62, o63, o64, o65, o66} = {o_60, o_61, o_62, o_63, o_64, o_65, o_66};
 
 endmodule
