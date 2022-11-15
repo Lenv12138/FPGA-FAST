@@ -16,10 +16,39 @@ initial begin
   // 读取图片
   fid = $fopen(FILE_PATH_GRAY, "r");
   $display("%d", fid);
+  
+  // 单独设置一个fast角点
+  img_gray_ram[3][3] = 30;      // I_p = 30,
+  // ring
+  img_gray_ram[0][3] = 1;
+  img_gray_ram[0][4] = 1;
+  img_gray_ram[1][5] = 1;
+  img_gray_ram[2][6] = 1;
+  img_gray_ram[3][6] = 1;
+  img_gray_ram[4][6] = 1;
+  img_gray_ram[5][5] = 1; 
+  img_gray_ram[6][4] = 1;
+  img_gray_ram[6][3] = 1;
+  img_gray_ram[6][2] = 21;
+  img_gray_ram[5][1] = 21;
+  img_gray_ram[4][0] = 21;
+  img_gray_ram[3][0] = 21;
+  img_gray_ram[2][0] = 21;
+  img_gray_ram[1][1] = 21;
+  img_gray_ram[0][2] = 21;
+
+  // other
+  img_gray_ram[0][0] = 21; img_gray_ram[0][1] = 21; img_gray_ram[0][5] = 21; img_gray_ram[0][6] = 21;
+  img_gray_ram[1][0] = 21; img_gray_ram[1][2] = 21; img_gray_ram[1][3] = 21; img_gray_ram[1][4] = 21; img_gray_ram[1][6] = 21;
+  img_gray_ram[2][1] = 21; img_gray_ram[2][2] = 21; img_gray_ram[2][3] = 21; img_gray_ram[2][4] = 21; img_gray_ram[2][5] = 21;
+  img_gray_ram[3][1] = 21; img_gray_ram[3][2] = 21; img_gray_ram[3][4] = 21; img_gray_ram[3][5] = 21;
+  img_gray_ram[4][1] = 21; img_gray_ram[4][2] = 21; img_gray_ram[4][3] = 21; img_gray_ram[4][4] = 21; img_gray_ram[4][5] = 21;
+  img_gray_ram[5][0] = 21; img_gray_ram[5][2] = 21; img_gray_ram[5][3] = 21; img_gray_ram[5][4] = 21; img_gray_ram[5][6] = 21;
+  img_gray_ram[6][0] = 21; img_gray_ram[6][1] = 21; img_gray_ram[6][5] = 21; img_gray_ram[6][6] = 21;
   for (i=0; i<IMG_ROW; i++) begin
     for (j=0; j<IMG_COL; j++) begin
-      
-      $fscanf(fid, "%x", img_gray_ram[i][j]);
+      if (img_gray_ram[i][j] === 8'bx)
+        $fscanf(fid, "%d", img_gray_ram[i][j]);
       
     end
   end
@@ -63,11 +92,10 @@ always @(posedge clk) begin
 end
 
 always @(posedge clk) begin 
-      if (rst)
-        data_in <= 'd0;
-      else
-        data_in <= img_gray_ram[cnt_i][cnt_j];
-  
+  if (rst)
+    data_in <= 'd0;
+  else
+    data_in <= img_gray_ram[cnt_i][cnt_j];
 end 
 
 FAST_with_NMS #(

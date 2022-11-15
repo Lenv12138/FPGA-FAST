@@ -57,22 +57,22 @@ always @(posedge clk) begin
         rmc8<=10'd0;		rmc9<=10'd0;		rmc10<=10'd0;	    rmc11<=10'd0;	
         rmc12<=10'd0;	    rmc13<=10'd0;	    rmc14<=10'd0;	    rmc15<=10'd0;	
     end else if (ce) begin
-        rmc0 <= {2'b00, center} - {2'b00, in0} ; //center minus ring - dark
-        rmc1 <= {2'b00, center} - {2'b00, in1} ;
-        rmc2 <= {2'b00, center} - {2'b00, in2} ;
-        rmc3 <= {2'b00, center} - {2'b00, in3} ;
-        rmc4 <= {2'b00, center} - {2'b00, in4} ;
-        rmc5 <= {2'b00, center} - {2'b00, in5} ;
-        rmc6 <= {2'b00, center} - {2'b00, in6} ;
-        rmc7 <= {2'b00, center} - {2'b00, in7} ;
-        rmc8 <= {2'b00, center} - {2'b00, in8} ;
-        rmc9 <= {2'b00, center} - {2'b00, in9} ;
-        rmc10 <= {2'b00, center} - {2'b00, in10} ;
-        rmc11 <= {2'b00, center} - {2'b00, in11} ;
-        rmc12 <= {2'b00, center} - {2'b00, in12} ;
-        rmc13 <= {2'b00, center} - {2'b00, in13} ;
-        rmc14 <= {2'b00, center} - {2'b00, in14} ;
-        rmc15 <= {2'b00, center} - {2'b00, in15} ;
+        rmc0 <= {2'b00, in0} - {2'b00, center}; //center minus ring - dark
+        rmc1 <= {2'b00, in1} - {2'b00, center};
+        rmc2 <= {2'b00, in2} - {2'b00, center};
+        rmc3 <= {2'b00, in3} - {2'b00, center};
+        rmc4 <= {2'b00, in4} - {2'b00, center};
+        rmc5 <= {2'b00, in5} - {2'b00, center};
+        rmc6 <= {2'b00, in6} - {2'b00, center};
+        rmc7 <= {2'b00, in7} - {2'b00, center};
+        rmc8 <= {2'b00, in8} - {2'b00, center};
+        rmc9 <= {2'b00, in9} - {2'b00, center};
+        rmc10 <= {2'b00, in10} - {2'b00, center} ;
+        rmc11 <= {2'b00, in11} - {2'b00, center} ;
+        rmc12 <= {2'b00, in12} - {2'b00, center} ;
+        rmc13 <= {2'b00, in13} - {2'b00, center} ;
+        rmc14 <= {2'b00, in14} - {2'b00, center} ;
+        rmc15 <= {2'b00, in15} - {2'b00, center} ;
     end
 end
 

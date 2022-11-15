@@ -158,8 +158,8 @@ contig_processor  u_contig_processor (
     .clk                     ( clk       ),
     .rst                     ( rst       ),
     .ce                      ( ce        ),
-    .input_d                 ( bright_int   ),
-    .input_b                 ( dark_int     ),
+    .input_d                 ( dark_int   ),
+    .input_b                 ( bright_int ),
 
     .contig                  ( iscorner    )
 );
