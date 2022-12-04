@@ -29,7 +29,7 @@ fast_main_top #(
     .rst                                      ( rst                                       ),
     .ce                                       ( ce                                        ),
 
-    .iscorner                                 ( iscorner_int                              ),
+    .iscorner                                 ( iscorner_int                              ),            // 该patch是否满足连续条件
     .x_coord                                  ( x_coord_int                               ),
     .y_coord                                  ( y_coord_int                               ),
     .score                                    ( score                                     )
@@ -51,7 +51,7 @@ NMS_top #(
 
     .x_coord_out             ( x_coord   ),
     .y_coord_out             ( y_coord   ),
-    .corner_out              ( iscorner  )
+    .corner_out              ( iscorner  )                  // 当前输出的坐标是否为角点
 );
 
 endmodule

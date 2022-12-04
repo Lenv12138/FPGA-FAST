@@ -1,16 +1,42 @@
 ################################################################################
 #                    DO NOT MANUALLY EDIT THIS FILE!                           #
 ################################################################################
-# This file contains the automatically generated build configuration (2022/11/13 17:16:25)
-# requested at line 3 in F:\FPGA_prj\Fast_ref\FPGA-FAST\.dvt\default.build
+# This file contains the automatically generated build configuration (2022/12/04 21:05:57)
+# requested at line 3 in f:\FPGA_prj\Fast_ref\FPGA-FAST\.dvt\default.build
 
 
 ################ Verilog Auto-config Directives ################
 +dvt_init
 
+//+dvt_skip_compile+$DVT_PROJECT_LOC\ï¿½ï¿½çè¤ï¿½ï¿½çï¿½.md
 
-+dvt_skip_compile+$DVT_PROJECT_LOC\
++dvt_skip_compile+$DVT_PROJECT_LOC\contig_processor.vhd
 
++dvt_skip_compile+$DVT_PROJECT_LOC\corner_score.vhd
+
++dvt_skip_compile+$DVT_PROJECT_LOC\dvt_build.log
+
++dvt_skip_compile+$DVT_PROJECT_LOC\fast_main_top.vhd
+
++dvt_skip_compile+$DVT_PROJECT_LOC\FAST_with_NMS.vhd
+
++dvt_skip_compile+$DVT_PROJECT_LOC\input_fifo.vhd
+
++dvt_skip_compile+$DVT_PROJECT_LOC\main_part.vhd
+
++dvt_skip_compile+$DVT_PROJECT_LOC\NMS_FIFO.vhd
+
++dvt_skip_compile+$DVT_PROJECT_LOC\NMS_top.vhd
+
++dvt_skip_compile+$DVT_PROJECT_LOC\NMS.vhd
+
++dvt_skip_compile+$DVT_PROJECT_LOC\README.md
+
++dvt_skip_compile+$DVT_PROJECT_LOC\x_shifter.vhd
+
++dvt_skip_compile+$DVT_PROJECT_LOC\y_shifter.vhd
+
++dvt_skip_compile+$DVT_PROJECT_LOC\yx_shifter.vhd
 
 tb/tb_top.sv
 verilog/FAST_with_NMS.v
@@ -23,24 +49,5 @@ verilog/fast_score.v
 verilog/nms_fifo.v
 verilog/nms_top.v
 verilog/thresholder.v
-################ VHDL Auto-config Directives ################
-
-+dvt_init -work work
-
-
-+dvt_skip_compile+$DVT_PROJECT_LOC\
-NMS.vhd
-NMS_FIFO.vhd
-NMS_top.vhd
-contig_processor.vhd
-corner_score.vhd
-fast_main_top.vhd
-input_fifo.vhd
-main_part.vhd
-x_shifter.vhd
-y_shifter.vhd
-yx_shifter.vhd
-FAST_with_NMS.vhd
-
-
+tb/patch_transfer.sv
 

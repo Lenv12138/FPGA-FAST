@@ -2,7 +2,7 @@ module nms_fifo #(
     parameter COL_NUM = 640,
     parameter NMS_SIZE = 3
 )(
-    input [33 : 0] data_in,          // pixel data coming from dma of arm
+    input [33 : 0] data_in,          //! [--x_coord(10)--|--y_coord(10)--|--iscorner(1)--|--score(13)--] total of 34 bits 
     input clk,
     input rst,
     input ce,                                   // global enable signal
