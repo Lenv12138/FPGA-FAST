@@ -5,9 +5,9 @@ module NMS(
 
     input iscorner,
     input [9:0] x_coord_in, y_coord_in,
-    input [33:0] inp11, inp12, inp13,
-    input [33:0] inp21, inp22, inp23,
-    input [33:0] inp31, inp32, inp33,
+    input [12:0] inp11, inp12, inp13,
+    input [12:0] inp21, inp22, inp23,
+    input [12:0] inp31, inp32, inp33,
 
     output reg [9:0] x_coord_out, y_coord_out,
     output reg corner_out

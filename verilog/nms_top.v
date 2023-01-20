@@ -7,7 +7,10 @@ module NMS_top #(
     input ce,
     input [9:0] x_coord_in, y_coord_in,
     input iscorner,
-
+    
+    input score_eol,
+		input xy_coord_vld,
+		
     input [12:0] data_in,
 
     output [9:0] x_coord_out, y_coord_out,
@@ -27,7 +30,9 @@ nms_fifo #(
     .data_in                 ( {x_coord_in, y_coord_in, iscorner, data_in}   ),
     .clk                     ( clk       ),
     .rst                     ( rst       ),
-    .ce                      ( ce        ),
+    .ce                      ( ce				 ),
+    .score_eol							 ( score_eol ),
+    .xy_coord_vld						 ( xy_coord_vld ),
 
     .o00                     ( int11       ),
     .o01                     ( int12       ),
@@ -44,19 +49,19 @@ nms_fifo #(
 NMS  u_NMS (
     .clk                     ( clk           ),
     .rst                     ( rst           ),
-    .ce                      ( ce            ),
+    .ce                      ( ce					   ),
     .iscorner                ( int22[13]      ),
     .x_coord_in              ( int22[33:24]    ),
     .y_coord_in              ( int22[23:14]    ),
-    .inp11                   ( int11         ),
-    .inp12                   ( int12         ),
-    .inp13                   ( int13         ),
-    .inp21                   ( int21         ),
-    .inp22                   ( int22         ),
-    .inp23                   ( int23         ),
-    .inp31                   ( int31         ),
-    .inp32                   ( int32         ),
-    .inp33                   ( int33         ),
+    .inp11                   ( int11[12:0]     ),
+    .inp12                   ( int12[12:0]     ),
+    .inp13                   ( int13[12:0]     ),
+    .inp21                   ( int21[12:0]     ),
+    .inp22                   ( int22[12:0]     ),
+    .inp23                   ( int23[12:0]     ),
+    .inp31                   ( int31[12:0]     ),
+    .inp32                   ( int32[12:0]     ),
+    .inp33                   ( int33[12:0]     ),
 
     .x_coord_out             ( x_coord_out   ),
     .y_coord_out             ( y_coord_out   ),

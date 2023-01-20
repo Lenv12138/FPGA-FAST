@@ -24,6 +24,7 @@ module fast_fifo #(
 
     // valid signals
     output wire xy_coord_vld, 
+    output wire score_eol,			// 告诉NMS模块, score值何时有效.
     output reg patch_7x7_vld
 );
 
@@ -64,7 +65,6 @@ always @(posedge clk) begin
                 cnt_row <= 10'd0;           // counter of row that have been transferred
             else
                 cnt_row <= cnt_row + 10'd1;
-
         end else  
             address_read <= address_read + 10'd1;
         address_write <= address_read;
@@ -199,12 +199,17 @@ always @(posedge clk) begin
     if (rst) 
         EOL <= 1'b0;
     else if (ce) begin         
-        if (address_read == (COL_NUM-2))
+        if (address_read == (COL_NUM-2))			// 要提前一拍, 不然addr_read就加1了, 所以cnt_row_d检测不到0.
             EOL <= 1'b1;
         else
             EOL <= 1'b0;
     end
 end 
+
+assign score_eol = EOL;
+
+wire score_sol_d4, score_sol_d5;
+assign score_sol = score_sol_d4 ^ score_sol_d5;
 
 localparam XY_DELAY_CLK = 3*COL_NUM+11;
 
@@ -238,8 +243,18 @@ endgenerate
 
 // delay patch_vld
 generate for(i=0; i<1; i=i+1) begin : delay_patch_vld
-    //延迟12拍
-    delay_shifter#(8) u_delay_lxy_coord(clk, ce, patch_7x7_vld, xy_coord_vld);
+    //延迟8拍
+    delay_shifter#(8) u_delay_xy_coord_vld(clk, ce, patch_7x7_vld, xy_coord_vld);
+end
+endgenerate
+
+generate for(i=0; i<1; i=i+1) begin : delay_score_vld_d4
+    delay_shifter#(4) u_delay_score_vld_d4(clk, ce, patch_7x7_vld, score_sol_d4);
+end
+endgenerate
+
+generate for(i=0; i<1; i=i+1) begin : delay_score_vld_d5
+    delay_shifter#(5) u_delay_score_vld_d5(clk, ce, patch_7x7_vld, score_sol_d5);
 end
 endgenerate
 

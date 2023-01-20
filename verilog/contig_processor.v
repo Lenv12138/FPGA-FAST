@@ -16,23 +16,23 @@ always @(posedge clk) begin
     if (rst) 
         contig_d <= 1'b0;
     else if (ce) begin
-        casex (input_d)
-            16'b111111111xxxxxxx: contig_d <= 1'b1; 
-            16'bx111111111xxxxxx: contig_d <= 1'b1;
-            16'bxx111111111xxxxx: contig_d <= 1'b1;
-            16'bxxx111111111xxxx: contig_d <= 1'b1;
-            16'bxxxx111111111xxx: contig_d <= 1'b1;
-            16'bxxxxx111111111xx: contig_d <= 1'b1;
-            16'bxxxxxx111111111x: contig_d <= 1'b1;
-            16'bxxxxxxx111111111: contig_d <= 1'b1;
-            16'b1xxxxxxx11111111: contig_d <= 1'b1;
-            16'b11xxxxxxx1111111: contig_d <= 1'b1;
-            16'b111xxxxxxx111111: contig_d <= 1'b1;
-            16'b1111xxxxxxx11111: contig_d <= 1'b1;
-            16'b11111xxxxxxx1111: contig_d <= 1'b1;
-            16'b111111xxxxxxx111: contig_d <= 1'b1;
-            16'b1111111xxxxxxx11: contig_d <= 1'b1;
-            16'b11111111xxxxxxx1: contig_d <= 1'b1;
+        casez (input_d)
+            16'b1111_1111_1???_????: contig_d <= 1'b1; 
+            16'b?111_1111_11??_????: contig_d <= 1'b1;
+            16'b??11_1111_111?_????: contig_d <= 1'b1;
+            16'b???1_1111_1111_????: contig_d <= 1'b1;
+            16'b????_1111_1111_1???: contig_d <= 1'b1;
+            16'b????_?111_1111_11??: contig_d <= 1'b1;
+            16'b????_??11_1111_111?: contig_d <= 1'b1;
+            16'b????_???1_1111_1111: contig_d <= 1'b1;
+            16'b1???_????_1111_1111: contig_d <= 1'b1;
+            16'b11??_????_?111_1111: contig_d <= 1'b1;
+            16'b111?_????_??11_1111: contig_d <= 1'b1;
+            16'b1111_????_???1_1111: contig_d <= 1'b1;
+            16'b1111_1???_????_1111: contig_d <= 1'b1;
+            16'b1111_11??_????_?111: contig_d <= 1'b1;
+            16'b1111_111?_????_??11: contig_d <= 1'b1;
+            16'b1111_1111_????_???1: contig_d <= 1'b1;
             default: contig_d <= 1'b0;
         endcase
     end
@@ -42,23 +42,23 @@ always @(posedge clk) begin
     if (rst) 
         contig_b <= 1'b0;
     else if (ce) begin
-        casex (input_b)
-            16'b111111111xxxxxxx: contig_b <= 1'b1; 
-            16'bx111111111xxxxxx: contig_b <= 1'b1;
-            16'bxx111111111xxxxx: contig_b <= 1'b1;
-            16'bxxx111111111xxxx: contig_b <= 1'b1;
-            16'bxxxx111111111xxx: contig_b <= 1'b1;
-            16'bxxxxx111111111xx: contig_b <= 1'b1;
-            16'bxxxxxx111111111x: contig_b <= 1'b1;
-            16'bxxxxxxx111111111: contig_b <= 1'b1;
-            16'b1xxxxxxx11111111: contig_b <= 1'b1;
-            16'b11xxxxxxx1111111: contig_b <= 1'b1;
-            16'b111xxxxxxx111111: contig_b <= 1'b1;
-            16'b1111xxxxxxx11111: contig_b <= 1'b1;
-            16'b11111xxxxxxx1111: contig_b <= 1'b1;
-            16'b111111xxxxxxx111: contig_b <= 1'b1;
-            16'b1111111xxxxxxx11: contig_b <= 1'b1;
-            16'b11111111xxxxxxx1: contig_b <= 1'b1;
+        casez (input_b)
+            16'b1111_1111_1???_????: contig_b <= 1'b1; 
+            16'b?111_1111_11??_????: contig_b <= 1'b1;
+            16'b??11_1111_111?_????: contig_b <= 1'b1;
+            16'b???1_1111_1111_????: contig_b <= 1'b1;
+            16'b????_1111_1111_1???: contig_b <= 1'b1;
+            16'b????_?111_1111_11??: contig_b <= 1'b1;
+            16'b????_??11_1111_111?: contig_b <= 1'b1;
+            16'b????_???1_1111_1111: contig_b <= 1'b1;
+            16'b1???_????_1111_1111: contig_b <= 1'b1;
+            16'b11??_????_?111_1111: contig_b <= 1'b1;
+            16'b111?_????_??11_1111: contig_b <= 1'b1;
+            16'b1111_????_???1_1111: contig_b <= 1'b1;
+            16'b1111_1???_????_1111: contig_b <= 1'b1;
+            16'b1111_11??_????_?111: contig_b <= 1'b1;
+            16'b1111_111?_????_??11: contig_b <= 1'b1;
+            16'b1111_1111_????_???1: contig_b <= 1'b1;
             default: contig_b <= 1'b0;
         endcase
     end

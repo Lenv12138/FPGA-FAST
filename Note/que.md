@@ -44,3 +44,44 @@
 首先对于x坐标的延迟, 由于当实际坐标到达patch的第7列数据时, 该patch对应的是第4列角点的计算, 所以需要延迟3个时钟周期. 又由于从`data_in`到数据进入`fast_fifo`模块内有1个时钟周期的延迟, 所以对于x坐标需要延迟4个时钟周期.
 
 对于y坐标的延迟, 由于当实际坐标到达patch的第7行数据时, 该patch对应的是第4行角点的计算, 所以首先需要**延迟3行(也就是3*640个时钟周期)**, 同时需要将y坐标与x坐标同步, 所以需要再延迟4个时钟周期, 又由于从行结束信号(`EOL`)到`cnt_row`信号存在1个时钟周期的延迟, 所以y坐标在延迟了3行之后, 需要再延迟5个时钟周期才能够与x坐标同步.
+
+
+## 加入NMS后存在的问题
+
+### NMS会处理无效值
+
+![](asset/20230119205935.png)  
+
+从上面的图可以看出, 在坐标为(77,0)时, FAST的连续判断模块, 判断该角点为连续, 但是很明显这个是不对的, 这是因为当(77,0)这个点输入后, 在patch中的数据, 还保存了每一行最后几个的数据. 
+
+![](asset/20230119210526.png)  
+
+这个图是当中心点为(78,4)(matlab中以1为起点)时, patch中对应存储的数据. 
+
+![](asset/20230119210650.png)  
+
+![](asset/20230119211104.png)  
+
+这个图是当中心点的坐标为(77,0)时patch中的数据, 从图中可以看出, 这个patch中的数据还保存了上面几行末尾的数据. 
+
+目前想到的解决办法是, 在NMS中将数据存储到fifo中时, 进行筛选:
+
+```verilog{.line-numbers}
+if (data_in[13] & xy_coord_vld) begin
+    ram0[address_write_d]<=data_in; 		// data input to delay buffer 0
+    {o_20, o_21, o_22} <= {o_21, o_22, data_in};
+end else begin
+    ram0[address_write_d]<={data_in[33 -: 20], 14'd0};
+    {o_20, o_21, o_22} <= {o_21, o_22, {data_in[33 -: 20], 14'd0}};
+end
+
+ram1[address_write_d]<=data_out_0; 	// data input to delay buffer 1
+
+data_out_0<=ram0[address_read_d];  	// read FIFO 0
+data_out_1<=ram1[address_read_d];  	// read FIFO 1
+
+{o_00, o_01, o_02} <= {o_01, o_02, data_out_1};
+{o_10, o_11, o_12} <= {o_11, o_12, data_out_0};   
+```
+
+加入只有当前输入的数据是角点, 并且坐标有效, 才会将对应的score值存入fifo, 否则score值和iscorner都存储0.

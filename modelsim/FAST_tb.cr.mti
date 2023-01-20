@@ -1,11 +1,18 @@
-F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/NMS.v {1 {vlog -work fast_verilog -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/NMS.v
+F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/FAST_with_NMS.v {1 {vlog -work fast_verilog -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/FAST_with_NMS.v
+Model Technology ModelSim SE-64 vlog 10.7 Compiler 2017.12 Dec  7 2017
+-- Compiling module FAST_with_NMS
+
+Top level modules:
+	FAST_with_NMS
+
+} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/NMS.v {1 {vlog -work fast_verilog -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/NMS.v
 Model Technology ModelSim SE-64 vlog 10.7 Compiler 2017.12 Dec  7 2017
 -- Compiling module NMS
 
 Top level modules:
 	NMS
 
-} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/nms_top.v {1 {vlog -work fast_verilog -vopt -stats=none {F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\nms_top.v}
+} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/nms_top.v {1 {vlog -work fast_verilog -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/nms_top.v
 Model Technology ModelSim SE-64 vlog 10.7 Compiler 2017.12 Dec  7 2017
 -- Compiling module NMS_top
 
@@ -60,13 +67,21 @@ Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
 -- Compiling entity corner_score
 -- Compiling architecture Behavioral of corner_score
 
-} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/FAST_with_NMS.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/FAST_with_NMS.vhd
+} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/FAST_with_NMS.vhd {0 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/FAST_with_NMS.vhd
 Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Compiling entity FAST_with_NMS
 -- Compiling architecture Behavioral of FAST_with_NMS
+** Error: F:/FPGA_prj/Fast_ref/FPGA-FAST/FAST_with_NMS.vhd(60): near "1": (vcom-1576) expecting IDENTIFIER.
+
+} {8.0 9.0} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/contig_processor.v {1 {vlog -work fast_verilog -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/contig_processor.v
+Model Technology ModelSim SE-64 vlog 10.7 Compiler 2017.12 Dec  7 2017
+-- Compiling module contig_processor
+
+Top level modules:
+	contig_processor
 
 } {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS.vhd
 Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
@@ -77,12 +92,12 @@ Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017
 -- Compiling entity NMS
 -- Compiling architecture Behavioral of NMS
 
-} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/contig_processor.v {1 {vlog -work fast_verilog -vopt -stats=none {F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\contig_processor.v}
+} {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/fast_main_top.v {1 {vlog -work fast_verilog -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/verilog/fast_main_top.v
 Model Technology ModelSim SE-64 vlog 10.7 Compiler 2017.12 Dec  7 2017
--- Compiling module contig_processor
+-- Compiling module fast_main_top
 
 Top level modules:
-	contig_processor
+	fast_main_top
 
 } {} {}} F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_top.vhd {1 {vcom -work work -2002 -explicit -vopt -stats=none F:/FPGA_prj/Fast_ref/FPGA-FAST/NMS_top.vhd
 Model Technology ModelSim SE-64 vcom 10.7 Compiler 2017.12 Dec  7 2017

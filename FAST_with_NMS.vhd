@@ -57,7 +57,7 @@ end component;
 component fast_main_top is
 port(				
 			data_in : in std_logic_vector(7 downto 0);
-			clk, rst, ce : in std_logic;
+			clk, rst, 1 : in std_logic;
 			iscorner : out  std_logic;
 			x_coord : out std_logic_vector(9 downto 0);			-- delayed X coord.
 			y_coord : out std_logic_vector(9 downto 0);			-- delayed Y coord.

@@ -10,6 +10,9 @@ module fast_main_top #(
     input rst,
     input ce,
 
+    output score_eol,	// 用于控制NMS进行与FAST相同的延时
+    output xy_coord_vld,
+    
     output iscorner,
     output [9:0]  x_coord,
     output [9:0]  y_coord,
@@ -39,6 +42,8 @@ wire [15 : 0] bright_int, dark_int;
 wire  patch_7x7_vld;
 wire [19:0] xy_coord;
 wire [PIXEL_WIDTH-1 : 0] center;
+	
+//wire score_vld;
 
 fast_fifo #(
     .COL_NUM         ( COL_NUM         ),
@@ -76,6 +81,8 @@ fast_fifo #(
     .o66                     ( int66           ),          
 
     .o33                     ( center          ),
+    .score_eol							 ( score_eol 			 ),
+    .xy_coord_vld 					 ( xy_coord_vld 	 ),
     .patch_7x7_vld           ( patch_7x7_vld   )
 );
 

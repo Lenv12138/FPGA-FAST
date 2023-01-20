@@ -1,3 +1,4 @@
-vsim -c work.tb -voptargs=+acc 
+vsim -c fast_verilog.tb -voptargs=+acc 
 log -r /* 
-do hex_wave.do
+do verilog_wave2.do
+run 500us
