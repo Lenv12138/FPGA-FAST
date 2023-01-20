@@ -77,7 +77,7 @@ for i=4:m-3     % ÐÐ
                 ifcgty_1 = int16(0);
                 ifcgty_1 = check_contiguity(flag1_bit);
                 if (ifcgty_1)
-                    score_ocv(i, j) = get_hdl_score(pn, p, t);
+                    score_ocv(i, j) = get_ocv_score(pn, p, t);
                     score_hdl(i, j) = get_hdl_ocv_score(pn, p, t);
                     ifcgty_1 = 0;
                     continue;
@@ -92,7 +92,7 @@ for i=4:m-3     % ÐÐ
                 ifcgty_2 = int16(0);
                 ifcgty_2 = check_contiguity(flag2_bit);
                 if (ifcgty_2)
-                    score_ocv(i, j) = get_hdl_score(pn, p, t);
+                    score_ocv(i, j) = get_ocv_score(pn, p, t);
                     score_hdl(i, j) = get_hdl_ocv_score(pn, p, t);
                     ifcgty_2 = 0;
                     continue;
@@ -291,6 +291,7 @@ function score = get_hdl_ocv_score(pn, p, t)
     d_bright_tmp = [];
     d_dark_tmp = [];
     count_b = 0; count_d=0;
+%     score = -1;
     for k=1:length(pn)
         if (int16(int16(pn(k))) - int16(p) > t)
             count_b=count_b+1;
