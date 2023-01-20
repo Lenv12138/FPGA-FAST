@@ -122,11 +122,12 @@ initial begin
 //		if (i_1 == IMG_ROW-1)
 //			i_1 = 0;
 //	end
+	
 	for (i_1=0; i_1<IMG_ROW; i_1++) begin
 		for (j_1=0; j_1<IMG_COL; j_1++) begin
+			@(posedge clk iff !rst);
+			data_in = img_gray_ram[i_1][j_1];
 			ce = 1'b1;
-			@(posedge clk iff !rst && ce)
-				data_in = img_gray_ram[i_1][j_1];
 		end
 	end
 //	ce = 1'b0;
@@ -154,7 +155,7 @@ end
 
 initial begin
 	forever begin
-		if (y_coord == IMG_ROW-1 && x_coord == IMG_COL-1) begin
+		@(posedge clk iff (y_coord == IMG_ROW-1 && x_coord == IMG_COL-1)) begin
 			$display("finish simu ");
 			$finish();
 		end

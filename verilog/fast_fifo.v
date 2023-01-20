@@ -55,7 +55,7 @@ always @(posedge clk) begin
     if (rst) begin
         cnt_row<=10'd0;
         address_read<=10'd0;
-        address_write<=10'd0;
+        address_write<=10'd1;
     end else if (ce) begin
         // finish one line of frame transfer
         if (address_read == (COL_NUM-1)) begin
@@ -185,7 +185,8 @@ always @(posedge clk) begin
     end else if (ce) begin
         patch_7x7_vld <= patch_7x7_vld_tmp;
 
-        if ((cnt_row>(FAST_PTACH_SIZE-2)) && (address_read>(FAST_PTACH_SIZE-2))) 
+        if ((cnt_row>(FAST_PTACH_SIZE-2)) && (address_read>(FAST_PTACH_SIZE-2)) && (address_read<(COL_NUM-1))) 
+//           if ((cnt_row>(FAST_PTACH_SIZE-2)) && (address_read>(FAST_PTACH_SIZE-3)) && (address_read<(COL_NUM-2))) 
             patch_7x7_vld_tmp <= 1'b1;
         else
             patch_7x7_vld_tmp <= 1'b0;

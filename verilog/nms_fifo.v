@@ -1,7 +1,7 @@
 module nms_fifo #(
     parameter COL_NUM = 640,
     parameter FAST_SIZE = 7,
-    parameter FAST_DELAY = 12,		// FAST´ÓµÃµ½patchµ½²úÉúscoreµÄÑÓ³Ù.
+    parameter FAST_DELAY = 12,		// FASTä»å¾—åˆ°patchåˆ°äº§ç”Ÿscoreçš„å»¶è¿Ÿ.
     parameter NMS_SIZE = 3
 )(
     input [33 : 0] data_in,          //! [xy_coord_vld(1) --x_coord(10)--|--y_coord(10)--|--iscorner(1)--|--score(13)--] total of 34 bits 
@@ -10,7 +10,7 @@ module nms_fifo #(
     input ce,                                   // global enable signal
     
     input score_eol,		// end of the line 
-    input xy_coord_vld,	// x,y×ø±ê¶¼ÓĞĞ§
+    input xy_coord_vld,	// x,yåæ ‡éƒ½æœ‰æ•ˆ
 
     // 3x3patch
     output [33 : 0] o00, o01, o02, 
@@ -21,7 +21,7 @@ module nms_fifo #(
     output nms_vld
 	);
 	
-// ¶Ôaddress_writeºÍaddress_read×öFAST_FIFOÖĞx×ø±ê,y×ø±êÏàÍ¬µÄÑÓÊ±, ÒÔÑÓÊ±ºóµÄ×ø±ê×÷Îªnms_fifoµÄË÷Òı.
+// å¯¹address_writeå’Œaddress_readåšFAST_FIFOä¸­xåæ ‡,yåæ ‡ç›¸åŒçš„å»¶æ—¶, ä»¥å»¶æ—¶åçš„åæ ‡ä½œä¸ºnms_fifoçš„ç´¢å¼•.
 
 reg [33 : 0] ram0[COL_NUM-1 : 0], ram1[COL_NUM-1 : 0];
 reg [33 : 0] o_00, o_01, o_02; 
@@ -33,7 +33,8 @@ reg [9:0] address_read, address_write;
 wire [9:0] address_read_d, address_write_d;
 reg [9:0] cnt_row;
 wire [9:0] cnt_row_d;
-wire [9:0] nms_y_coord;			// ÏÔÊ¾µ±Ç°NMS´¦Àíµ½µÚ¼¸ĞĞ
+wire [9:0] nms_y_coord;			// æ˜¾ç¤ºå½“å‰NMSå¤„ç†åˆ°ç¬¬å‡ è¡Œ
+wire nms_xy_coord_vld;			// NMSè¾“å‡ºçš„è§’ç‚¹åæ ‡æœ‰æ•ˆ.
 
 // address generate
 always @(posedge clk) begin
@@ -59,41 +60,41 @@ end
 
 genvar i;
 generate for(i=0; i<10; i=i+1) begin : nms_delay_addr_write
-    // ÑÓ³Ù11ÅÄ 4+8, 8: 3(thresholder)+5(compute_score)
+    // å»¶è¿Ÿ11æ‹ 4+8, 8: 3(thresholder)+5(compute_score)
     // 4: 0, 1, 2, 3(output this addr), 4, 5, 6 (1 line of patch)
     delay_shifter#(12) u_nms_delay_addr_write(clk, ce, address_write[i], address_write_d[i]);
 end
 endgenerate
 
 generate for(i=0; i<10; i=i+1) begin : nms_delay_addr_read
-    // ÑÓ³Ù11ÅÄ 4+8, 8: 3(thresholder)+5(compute_score)
+    // å»¶è¿Ÿ11æ‹ 4+8, 8: 3(thresholder)+5(compute_score)
     // 4: 0, 1, 2, 3(output this addr), 4, 5, 6 (1 line of patch)
     delay_shifter#(12) u_nms_delay_addr_read(clk, ce, address_read[i], address_read_d[i]);
 end
 endgenerate
 
 generate for(i=0; i<10; i=i+1) begin : nms_delay_y_coord
-    //ÑÓ³Ù6ÅÄ
+    //å»¶è¿Ÿ6æ‹
     delay_shifter#(6) u_nms_delay_y_coord(clk, score_eol, cnt_row[i], cnt_row_d[i]);
 end
 endgenerate
     
 generate for(i=0; i<10; i=i+1) begin : nms_delay_xy_coord
-    // ÑÓ³Ù12ÅÄ5+8, 5: y_coord lag x_coord 1 clk. so fot y_coord delay 5clk to output 3(1 line of patch).
+    // å»¶è¿Ÿ12æ‹5+8, 5: y_coord lag x_coord 1 clk. so fot y_coord delay 5clk to output 3(1 line of patch).
     // 8: 3(thresholder)+5(compute_score)
     delay_shifter#(13) u_nms_delay_xy_coord(clk, ce, cnt_row_d[i], nms_y_coord[i]);
 end
 endgenerate
 
 // shift line buffer fifo
-// address_write µÃºÍxy_coord_vldÍ¬²½.
+// address_write å¾—å’Œxy_coord_vldåŒæ­¥.
 always @(posedge clk) begin
     if (rst) begin
         o_00<='d0;	    o_01<='d0;	        o_02<='d0; data_out_0<='d0;
         o_10<='d0;	    o_11<='d0;	        o_12<='d0; data_out_1<='d0;
         o_20<='d0;	    o_21<='d0;	        o_22<='d0; 
     end else if (ce) begin
-	    // ´«½øÀ´µÄÊÇÒ»¸ö½ÇµãÇÒËüµÄ×ø±êÓĞĞ§.²Å°ÑËüµÄ·ÖÊıÖµĞ´Èë, ·ñÔò²»Ğ´Èë.
+	    // ä¼ è¿›æ¥çš„æ˜¯ä¸€ä¸ªè§’ç‚¹ä¸”å®ƒçš„åæ ‡æœ‰æ•ˆ.æ‰æŠŠå®ƒçš„åˆ†æ•°å€¼å†™å…¥, å¦åˆ™ä¸å†™å…¥.
 	    if (data_in[13] & xy_coord_vld) begin
       	ram0[address_write_d]<=data_in; 		// data input to delay buffer 0
       	{o_20, o_21, o_22} <= {o_21, o_22, data_in};
@@ -139,6 +140,31 @@ assign {o00, o01, o02} = {o_00, o_01, o_02};
 assign {o10, o11, o12} = {o_10, o_11, o_12};
 assign {o20, o21, o22} = {o_20, o_21, o_22};
 
-assign nms_vld = (nms_y_coord>(NMS_SIZE-2)) && (address_read_d>(NMS_SIZE-1));
+//assign nms_vld = (nms_y_coord>(NMS_SIZE-2)) && (address_read_d>(NMS_SIZE-1));
+
+reg nms_vld_tmp, nms_vld_reg;
+
+always @(posedge clk) begin
+    if (rst) begin
+        nms_vld_tmp <= 1'b0;
+        nms_vld_reg <= 1'b0;  
+    end else if (ce) begin
+        nms_vld_reg <= nms_vld_tmp;
+
+//        if ((nms_y_coord>(NMS_SIZE-2)) && (address_read_d>(NMS_SIZE-2))) 
+	    	if ((nms_y_coord>(NMS_SIZE-2)) && (address_read_d>(NMS_SIZE-2)) && (address_read_d<(COL_NUM-1))) 
+            nms_vld_tmp <= 1'b1;
+        else
+            nms_vld_tmp <= 1'b0;
+    end
+end
+
+assign nms_vld = nms_vld_reg;
+
+generate for(i=0; i<1; i=i+1) begin : nms_delay_xy_coord_vld
+    // å»¶è¿Ÿ2æ‹, NMSæ¶ˆè€—2æ‹è¾“å‡ºç»“æœ
+    delay_shifter#(2) u_nms_delay_xy_coord_vld(clk, ce, nms_vld_reg, nms_xy_coord_vld);
+end
+endgenerate
 
 endmodule

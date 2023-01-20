@@ -23,6 +23,17 @@ wire  [12:0]  score;
 wire score_eol;
 wire xy_coord_vld;
 
+// 为了实现ce和data_in的一同变化, 需要额外加输入一个冗余数据, 并且在最开始输入,
+// 额外加的冗余数据在写入FAST_FIFO时会被覆盖.
+wire [PIXEL_WIDTH-1 : 0] data_in_d;
+genvar i;
+generate for(i=0; i<PIXEL_WIDTH; i=i+1) begin : delay_data_in
+    // 延迟11拍 4+8, 8: 3(thresholder)+5(compute_score)
+    // 4: 0, 1, 2, 3(output this addr), 4, 5, 6 (1 line of patch)
+    delay_shifter#(1) u_delay_data_in(clk, ce, data_in[i], data_in_d[i]);
+end
+endgenerate
+
 fast_main_top #(
     .COL_NUM         ( COL_NUM ),
     .ROW_NUM         ( ROW_NUM ),
@@ -30,7 +41,7 @@ fast_main_top #(
     .THRESHOLD 			 ( THRESHOLD ),
     .PIXEL_WIDTH     ( PIXEL_WIDTH   ))
  u_fast_main_top (
-    .data_in                                  ( data_in                                   ),
+    .data_in                                  ( data_in_d                                 ),
     .clk                                      ( clk                                       ),
     .rst                                      ( rst                                       ),
     .ce                                       ( ce                                        ),

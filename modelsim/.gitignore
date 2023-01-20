@@ -1,8 +1,5 @@
 /*
-!/*/
 !/*.gitignore
 !*.do
 !makefile
 !*.wlf
-!*.mpf
-!*.mti
