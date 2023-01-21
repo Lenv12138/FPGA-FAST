@@ -67,76 +67,40 @@ for i=4:m-3     % 行
 %             end
 %         end
             
-            flag_2 = find(int16(pn) - int16(p) - t > 0);
-            flag_1 = find(int16(p) - int16(pn) - t > 0);
-            flag1_bit = zeros(1, 25);
-            flag2_bit = zeros(1, 25);
-            
-            if (length(flag_1) >= 9)
-                flag1_bit(flag_1) = 1; 
-                ifcgty_1 = int16(0);
-                ifcgty_1 = check_contiguity(flag1_bit);
-                if (ifcgty_1)
-                    score_ocv(i, j) = get_hdl_score(pn, p, t);
-                    score_hdl(i, j) = get_hdl_ocv_score(pn, p, t);
-                    ifcgty_1 = 0;
-                    continue;
-                else
-                    score_ocv(i, j) = 0;
-                    score_hdl(i, j) = 0;
-                end
-            end
-            
-            if (length(flag_2) >= 9)
-                flag2_bit(flag_2) = 1; 
-                ifcgty_2 = int16(0);
-                ifcgty_2 = check_contiguity(flag2_bit);
-                if (ifcgty_2)
-                    score_ocv(i, j) = get_hdl_score(pn, p, t);
-                    score_hdl(i, j) = get_hdl_ocv_score(pn, p, t);
-                    ifcgty_2 = 0;
-                    continue;
-                else
-                    score_ocv(i, j) = 0;
-                    score_hdl(i, j) = 0;
-                end
-            end
+        flag_2 = find(int16(pn) - int16(p) - t > 0);
+        flag_1 = find(int16(p) - int16(pn) - t > 0);
+        flag1_bit = zeros(1, 25);
+        flag2_bit = zeros(1, 25);
 
-%         ind_1=find(pn-p>t);     % bright 
-%         ind_2=find(int16(pn)-int16(p)< -t);       % dark
-%         if (length(ind_1)<9 && length(ind_2)<9)
-%             continue;
-%         else
-%             score_d = int16(0); score_b = int16(0);
-%             if (length(ind_1) >= 9)
-%                 flag_1(ind_1) = 1;
-%             end
-%             if (length(ind_2) >= 9)
-%                 flag_2(ind_2) = 1;
-%             end
-%             
-%             ifcgty = check_contiguity(flag_1);
-%             flag_1 = zeros(1, 25);
-%             if (ifcgty)
-%                 score_ocv(i, j) = get_ocv_score(pn, p, t);
-%                 score_hdl(i, j) = get_hdl_ocv_score(pn, p, t);
-%                 continue;
-%             else
-%                 score_ocv(i, j) = 0;
-%                 score_hdl(i, j) = 0;
-%             end
-%             
-%             ifcgty = check_contiguity(flag_2);
-%             flag_2 = zeros(1, 25);
-%             if (ifcgty)
-%                 score_ocv(i, j) = get_ocv_score(pn, p, t);
-%                 score_hdl(i, j) = get_hdl_ocv_score(pn, p, t);
-%                 continue;
-%             else
-%                 score_ocv(i, j) = 0;
-%                 score_hdl(i, j) = 0;
-%             end
-%         end
+        if (length(flag_1) >= 9)
+            flag1_bit(flag_1) = 1; 
+            ifcgty_1 = int16(0);
+            ifcgty_1 = check_contiguity(flag1_bit);
+            if (ifcgty_1)
+                score_ocv(i, j) = get_ocv_score(pn, p, t);
+                score_hdl(i, j) = get_hdl_ocv_score(pn, p, t);
+                ifcgty_1 = 0;
+                continue;
+            else
+                score_ocv(i, j) = 0;
+                score_hdl(i, j) = 0;
+            end
+        end
+
+        if (length(flag_2) >= 9)
+            flag2_bit(flag_2) = 1; 
+            ifcgty_2 = int16(0);
+            ifcgty_2 = check_contiguity(flag2_bit);
+            if (ifcgty_2)
+                score_ocv(i, j) = get_ocv_score(pn, p, t);
+                score_hdl(i, j) = get_hdl_ocv_score(pn, p, t);
+                ifcgty_2 = 0;
+                continue;
+            else
+                score_ocv(i, j) = 0;
+                score_hdl(i, j) = 0;
+            end
+        end
    end
 end
 
@@ -155,16 +119,16 @@ for i=4:m-3
                 c_ocv = [c_ocv,j];
             end
         end
-%         if score_hdl(i,j)~=0
-%             % 使用max(max(来进行非极大值抑制的方法,不能处理3x3的窗口内有多个极大值的情况
-%             % 在opencv中对于这种情况把它看做非角点.
-%             if (score_hdl(i,j) > score_hdl(i-1, j-1) && score_hdl(i,j) > score_hdl(i-1, j) && score_hdl(i,j) > score_hdl(i-1, j+1) && ...,
-%                 score_hdl(i,j) > score_hdl(i, j-1)   && score_hdl(i,j) > score_hdl(i, j+1) && ...,
-%                 score_hdl(i,j) > score_hdl(i+1, j-1) && score_hdl(i,j) > score_hdl(i+1, j) && score_hdl(i,j) > score_hdl(i+1, j+1))
-%                 r_hdl = [r_hdl,i];
-%                 c_hdl = [c_hdl,j];
-%             end
-%         end
+        if score_hdl(i,j)~=0
+            % 使用max(max(来进行非极大值抑制的方法,不能处理3x3的窗口内有多个极大值的情况
+            % 在opencv中对于这种情况把它看做非角点.
+            if (score_hdl(i,j) > score_hdl(i-1, j-1) && score_hdl(i,j) > score_hdl(i-1, j) && score_hdl(i,j) > score_hdl(i-1, j+1) && ...,
+                score_hdl(i,j) > score_hdl(i, j-1)   && score_hdl(i,j) > score_hdl(i, j+1) && ...,
+                score_hdl(i,j) > score_hdl(i+1, j-1) && score_hdl(i,j) > score_hdl(i+1, j) && score_hdl(i,j) > score_hdl(i+1, j+1))
+                r_hdl = [r_hdl,i];
+                c_hdl = [c_hdl,j];
+            end
+        end
     end
 end
 %%
@@ -173,29 +137,29 @@ end
 % x = corners1.Location(:,2);
 
 %%
-file1 = fopen('../tb/1_L_gray_y.txt', 'r');
-[r_hdl, num_r] = fscanf(file1,'%03d',[1 inf]);
-r_hdl = r_hdl + 1;
+% file1 = fopen('../tb/1_L_gray_y.txt', 'r');
+% [r_hdl, num_r] = fscanf(file1,'%03d',[1 inf]);
+% r_hdl = r_hdl + 1;
+% 
+% file1 = fopen('../tb/1_L_gray_x.txt', 'r');
+% [c_hdl, num_c] = fscanf(file1,'%03d',[1 inf]);
+% c_hdl = c_hdl + 1;
 
-file1 = fopen('../tb/1_L_gray_x.txt', 'r');
-[c_hdl, num_c] = fscanf(file1,'%03d',[1 inf]);
-c_hdl = c_hdl + 1;
 
-
-% my_fid = fopen('./keyPointy_SIMD.txt', 'r');
-% mx_fid = fopen('./keyPointx_SIMD.txt', 'r');
-% [keyPointy_SIMD, num_r] = fscanf(my_fid,'%03d',[1 inf]);
-% [keyPointx_SIMD, num_c] = fscanf(mx_fid,'%03d',[1 inf]);
-% keyPointy_SIMD = keyPointy_SIMD + 1;
-% keyPointx_SIMD = keyPointx_SIMD + 1;
+my_fid = fopen('./keyPointy_SIMD.txt', 'r');
+mx_fid = fopen('./keyPointx_SIMD.txt', 'r');
+[keyPointy_SIMD, num_r] = fscanf(my_fid,'%03d',[1 inf]);
+[keyPointx_SIMD, num_c] = fscanf(mx_fid,'%03d',[1 inf]);
+keyPointy_SIMD = keyPointy_SIMD + 1;
+keyPointx_SIMD = keyPointx_SIMD + 1;
 % 
 % r_hdl = keyPointy_SIMD;
 % c_hdl = keyPointx_SIMD;
 
 figure(1);
 imshow(I1);
-% hold on;
-% scatter(keyPointx_SIMD,keyPointy_SIMD,25,'r*','MarkerFaceAlpha',1);
+hold on;
+scatter(keyPointx_SIMD,keyPointy_SIMD,25,'r*','MarkerFaceAlpha',1);
 hold on;
 scatter(c_ocv,r_ocv,15,'bd','MarkerFaceAlpha',1);
 scatter(c_hdl,r_hdl,5,'g^','MarkerFaceAlpha',0.5);
@@ -204,12 +168,20 @@ scatter(c_hdl,r_hdl,5,'g^','MarkerFaceAlpha',0.5);
 r_err = 0; c_err = 0;
 if (length(r_ocv) ~= length(r_hdl)) 
     fprintf("OpenCV's FAST corner numbers (%d) is not equal to HDL's number(%d)\r\n", length(r_ocv), length(r_hdl));
+    for i=1:length(r_ocv) 
+        r_err = abs(r_ocv(i)-r_hdl(i));
+        c_err = abs(c_ocv(i)-c_hdl(i));
+        if ((r_err ~= 0) || (c_err ~= 0))
+            fprintf("corner number %d is wrong", i);
+            err_corner(i, 1:2) = [c_err, r_err];
+        end
+    end
 else 
     fprintf("Corner number(%d) is equal \r\n", length(r_ocv));
     for i=1:length(r_ocv) 
-        r_err = abs(r_ocv-r_hdl);
-        c_err = abs(c_ocv-c_hdl);
-        if ((r_err > 0) | (c_err > 0))
+        r_err = abs(r_ocv(i)-r_hdl(i));
+        c_err = abs(c_ocv(i)-c_hdl(i));
+        if ((r_err ~= 0) || (c_err ~= 0))
             fprintf("corner number %d is wrong", i);
             err_corner(i, 1:2) = [c_err, r_err];
         end
@@ -287,50 +259,104 @@ function ocv_score = get_ocv_score(pn, p, t)
 end
 
 % 按照圆弧选取最小的然后选最大的.
+% opencv 选取最小然后选取最大是存在一定的顺序的, 不能一次性比较所有连续的圆弧.
+% 必须得一段弧一段弧的比较大小, 直接去全局的最大或者最小值, 仍然会有问题.
 function score = get_hdl_ocv_score(pn, p, t)
-    d_bright_tmp = [];
+    d_bright_tmp = []; 
     d_dark_tmp = [];
     count_b = 0; count_d=0;
+    score_bright = []; score_dark = [];
+    % 把圆周上连续的弧都存到元胞里面, 因为一段连续弧的个数可能超过9, 所以没有用数组, 而是用元胞
+    % 并且连续弧可能被分割, 所以用元胞数组存储被分割的连续弧
+    d_bright_arc = {}; d_dark_arc = {};
+    i = 1; j = 1;
+    flag_1 = 0; flag_2 = 0;
+    score = -1;
     for k=1:length(pn)
-        if (int16(int16(pn(k))) - int16(p) > t)
+        if (int16(pn(k)) > int16(p) + t)
             count_b=count_b+1;
-            d_bright_tmp = [d_bright_tmp, int16(pn(k)) - int16(p)];
-        elseif (int16(pn(k)) - int16(p) < -t)
+            d_bright_tmp = [d_bright_tmp, (int16(pn(k)) - int16(p))];
+            % 圆周上的点都比圆心点要亮
+            if (count_b >= 9)
+                d_bright_arc{i} = d_bright_tmp;
+                flag_1 = 1;
+            end
+        elseif (count_b>=9)
+            d_bright_arc{i} = d_bright_tmp;
+            i = i + 1;
+            flag_1 = 1;
+            count_b = 0;
+            d_bright_tmp = [];
+        else
+            count_b = 0;
+            d_bright_tmp = [];
+        end
+        
+        if (int16(pn(k)) < int16(p) - t)
             count_d=count_d+1;
             d_dark_tmp = [d_dark_tmp, int16(p) - int16(pn(k))];
-        else
             if (count_d >= 9)
-                break;
-            else
-                count_d = 0;
-                d_dark_tmp = [];
+                d_dark_arc{j} = d_dark_tmp;
+                flag_2 = 1;
             end
-            if (count_b >= 9)
-                break;
-            else
-                count_b = 0; 
-                d_bright_tmp = [];
-            end
+        elseif (count_d>=9)
+            d_dark_arc{j} = d_dark_tmp;
+            count_d = 0;
+            flag_2 = 1;
+            d_dark_tmp = [];
+            j = j + 1;
+        else
+            count_d = 0;
+            d_dark_tmp = [];
         end
-               
-    end
-    tmp = 0;
-    if (length(d_dark_tmp) >= 9)
-        k = length(d_dark_tmp) - 9;
-        for i = 1:k+1
-            tmp = [tmp, min(d_dark_tmp(i:i+8))];
-        end
-        score = max(tmp) - 1;
-    end
-
-    if (length(d_bright_tmp) >= 9)
-        k = length(d_bright_tmp) - 9;
-        for i = 1:k+1
-            tmp = [tmp, min(d_bright_tmp(i:i+8))];
-        end
-        score = max(tmp) - 1;
     end
     
+    for i = 1:size(d_bright_arc, 2)
+        num_arc = size(d_bright_arc{1, i}, 2) - 9;
+        num_arc = num_arc + 1;
+        for j = 1:num_arc
+           score_bright = [min(d_bright_arc{1, i}(j:j+8)), score_bright];
+        end
+    end
+    if (flag_1)
+       if (max(score_bright) < t)
+           score = t - 1;
+       else
+           score = max(score_bright) - 1;
+       end
+    end
+    
+    for i = 1:size(d_dark_arc, 2)
+        num_arc = size(d_dark_arc{1, i}, 2) - 9;
+        for j = 1:num_arc+1
+           score_dark = [min(d_dark_arc{1, i}(j:j+8)), score_dark];
+        end
+    end
+    if (flag_2)
+       if (max(score_dark) < t)
+           score = t - 1;
+       else
+           score = max(score_dark) - 1;
+       end
+    end
+%     % 周围的点比中心点亮
+%     % 插值都是按照p-pn计算
+%     if (length(score_b_tmp)>0)
+%         if (max(score_b_tmp) > -t)
+%             score = -min(score_b_tmp)-1;
+%         else
+%             score = -min(score_b_tmp) - 1;
+%         end
+%     end
+%     
+%     % 周围的点比中心点暗
+%     if (length(score_d_tmp)>0)
+%         if (min(score_d_tmp) < t)
+%             score = max(score_d_tmp)-1;
+%         else
+%             score = max(score_d_tmp) - 1;
+%         end
+%     end
 end
 
 function score = get_hdl_score(pn, p, t)
