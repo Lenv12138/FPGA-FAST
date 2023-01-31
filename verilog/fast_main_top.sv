@@ -3,6 +3,8 @@ module fast_main_top #(
     parameter ROW_NUM = 480,
     parameter FAST_PTACH_SIZE = 7,
     parameter THRESHOLD = 10,
+    parameter sourceImageWidth  = 12'd1420,
+    parameter validImageWidth   = 12'd1420,
     parameter PIXEL_WIDTH = 8
 )(
     input [PIXEL_WIDTH-1 : 0] data_in,
@@ -28,6 +30,9 @@ wire [PIXEL_WIDTH-1 : 0] int40, int46;
 wire [PIXEL_WIDTH-1 : 0] int51, int55;
 wire [PIXEL_WIDTH-1 : 0] int62, int63, int64;
 
+// sample_patch 
+wire [PIXEL_WIDTH-1 : 0] Data00, Data01, Data10, Data11;
+wire sample_patch_vld;
 
 wire [9 : 0] int0b, int1b, int2b, int3b, int4b, int5b, int6b, int7b, int8b, int9b, int10b, int11b, int12b, int13b, int14b, int15b; // for corner score
 wire [9 : 0] int0d, int1d, int2d, int3d, int4d, int5d, int6d, int7d, int8d, int9d, int10d, int11d, int12d, int13d, int14d, int15d;
@@ -78,11 +83,18 @@ fast_fifo #(
     .o02                     ( int02           ),
 
     // debug
-    .o66                     ( int66           ),          
+    .o66                     ( int66           ),        
+    
+    // sample_patch
+    .sData00 (Data00),
+    .sData01 (Data01),
+    .sData10 (Data10),
+    .sData11 (Data11),
 
     .o33                     ( center          ),
     .score_eol							 ( score_eol 			 ),
     .xy_coord_vld 					 ( xy_coord_vld 	 ),
+    .sample_patch_vld        ( sample_patch_vld ),
     .patch_7x7_vld           ( patch_7x7_vld   )
 );
 
@@ -214,5 +226,30 @@ fast_score  u_fast_score (
     .score                   ( score   )
 );
 
+// resizeTop Parameters
+
+
+// resizeTop Inputs  
+// reg   i_clk;
+// reg   i_rst;
+// reg   [31:0]  i_data;
+// reg   i_data_valid;  
+
+// resizeTop Outputs
+wire  [7:0]  o_data;
+wire  o_data_valid;
+
+resizeTop #(
+    .sourceImageWidth ( 12'd640 ),
+    .validImageWidth  ( 12'd640 ))
+ u_resizeTop (
+    .i_clk                   ( clk          ),
+    .i_rst                   ( rst          ),
+    .i_data                  ( {Data11, Data01, Data10, Data00}         ),
+    .i_data_valid            ( sample_patch_vld   ),
+
+    .o_data                  ( o_data         ),
+    .o_data_valid            ( o_data_valid   )
+);
 
 endmodule

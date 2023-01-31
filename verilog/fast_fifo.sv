@@ -22,9 +22,13 @@ module fast_fifo #(
     output [PIXEL_WIDTH-1 : 0] o50, o51, o52, o53, o54, o55, o56,
     output [PIXEL_WIDTH-1 : 0] o60, o61, o62, o63, o64, o65, o66,
 
+    output [PIXEL_WIDTH-1 : 0] sData00, sData01,
+    output [PIXEL_WIDTH-1 : 0] sData10, sData11,
+
     // valid signals
     output wire xy_coord_vld, 
     output wire score_eol,			// 告诉NMS模块, score值何时有效.
+    output reg sample_patch_vld,   
     output reg patch_7x7_vld
 );
 
@@ -42,6 +46,9 @@ reg [PIXEL_WIDTH-1 : 0] o_30, o_31, o_32, o_33, o_34, o_35, o_36;
 reg [PIXEL_WIDTH-1 : 0] o_40, o_41, o_42, o_43, o_44, o_45, o_46;
 reg [PIXEL_WIDTH-1 : 0] o_50, o_51, o_52, o_53, o_54, o_55, o_56;
 reg [PIXEL_WIDTH-1 : 0] o_60, o_61, o_62, o_63, o_64, o_65, o_66;
+
+reg [PIXEL_WIDTH-1 : 0] sample_data00, sample_data01;
+reg [PIXEL_WIDTH-1 : 0] sample_data10, sample_data11;
 
 reg [9:0] cnt_row;
 wire [9:0] cnt_row_d;
@@ -173,8 +180,19 @@ always @(posedge clk) begin
     end
 end
 
+// sample patch只需要缓存一行+2个数据就可以输出有效的sample_patch
+always @(posedge clk) begin
+	if (rst) begin
+		{sample_data00, sample_data01} <= {2{8'b0}};
+		{sample_data10, sample_data11} <= {2{8'b0}};
+	end else begin
+		{sample_data00, sample_data01} <= {sample_data01, data_out_0};
+		{sample_data10, sample_data11} <= {sample_data11, data_in};
+	end
+end
+
 // generate patch_valid
-// 已经缓存5行+7个数据
+// 已经缓存6行+7个数据
 //assign patch_7x7_vld = (cnt_row>(FAST_PTACH_SIZE-2)) && (address_write>(FAST_PTACH_SIZE-1));
 reg patch_7x7_vld_tmp;
 
@@ -193,6 +211,20 @@ always @(posedge clk) begin
     end
 end
  
+reg sample_patch_vld_d;
+always @(posedge clk) begin
+    if (rst) begin
+        sample_patch_vld_d <= 1'b0;
+        sample_patch_vld <= 1'b0;  
+    end else if (ce) begin
+        sample_patch_vld <= sample_patch_vld_d;
+
+        if ((cnt_row>10'd0) && (address_read>'d0) && (address_read<(COL_NUM-1))) 
+            sample_patch_vld_d <= 1'b1;
+        else
+            sample_patch_vld_d <= 1'b0;
+    end
+end
  
 
 // generate end of lien signal
@@ -266,5 +298,8 @@ assign {o30, o31, o32, o33, o34, o35, o36} = {o_30, o_31, o_32, o_33, o_34, o_35
 assign {o40, o41, o42, o43, o44, o45, o46} = {o_40, o_41, o_42, o_43, o_44, o_45, o_46};
 assign {o50, o51, o52, o53, o54, o55, o56} = {o_50, o_51, o_52, o_53, o_54, o_55, o_56};
 assign {o60, o61, o62, o63, o64, o65, o66} = {o_60, o_61, o_62, o_63, o_64, o_65, o_66};
+
+assign {sData00, sData01} = {sample_data00, sample_data01};
+assign {sData10, sData11} = {sample_data10, sample_data11};
 
 endmodule
