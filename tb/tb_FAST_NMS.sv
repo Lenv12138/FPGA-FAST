@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
 
-module tb;
+module tb_FAST_NMS;
 
 parameter FILE_PATH_GRAY   = "F:/FPGA_prj/Fast_ref/FPGA-FAST/tb/1_L_gray.txt";
 parameter FILE_PATH_GRAY_X   = "F:/FPGA_prj/Fast_ref/FPGA-FAST/tb/1_L_gray_x.txt";
@@ -53,7 +53,7 @@ initial begin
 //  img_gray_ram[6][0] = 21; img_gray_ram[6][1] = 21; img_gray_ram[6][5] = 21; img_gray_ram[6][6] = 21;
   for (i=0; i<IMG_ROW; i++) begin
     for (j=0; j<IMG_COL; j++) begin
-      $fscanf(fid, "%d", img_gray_ram[i][j]);
+      void'($fscanf(fid, "%d", img_gray_ram[i][j]));
       
     end
   end

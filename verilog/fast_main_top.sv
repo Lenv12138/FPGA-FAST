@@ -15,6 +15,10 @@ module fast_main_top #(
     output score_eol,	// 用于控制NMS进行与FAST相同的延时
     output xy_coord_vld,
     
+    // sample data
+    output wire [31:0] sample_data,
+    output wire sample_data_vld,
+
     output iscorner,
     output [9:0]  x_coord,
     output [9:0]  y_coord,
@@ -235,21 +239,7 @@ fast_score  u_fast_score (
 // reg   [31:0]  i_data;
 // reg   i_data_valid;  
 
-// resizeTop Outputs
-wire  [7:0]  o_data;
-wire  o_data_valid;
-
-resizeTop #(
-    .sourceImageWidth ( 12'd640 ),
-    .validImageWidth  ( 12'd640 ))
- u_resizeTop (
-    .i_clk                   ( clk          ),
-    .i_rst                   ( rst          ),
-    .i_data                  ( {Data11, Data01, Data10, Data00}         ),
-    .i_data_valid            ( sample_patch_vld   ),
-
-    .o_data                  ( o_data         ),
-    .o_data_valid            ( o_data_valid   )
-);
+assign sample_data = {Data11, Data01, Data10, Data00};
+assign sample_data_vld = sample_patch_vld;
 
 endmodule

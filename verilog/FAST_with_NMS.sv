@@ -9,6 +9,10 @@ module FAST_with_NMS #(
     input clk, rst, ce,
     input [PIXEL_WIDTH-1 : 0] data_in,
 
+    // resize out
+    output wire [7:0] resize_out_data,
+    output wire resize_out_data_vld,
+
     output iscorner,
     output [9:0] x_coord, y_coord
 );
@@ -34,6 +38,9 @@ generate for(i=0; i<PIXEL_WIDTH; i=i+1) begin : delay_data_in
 end
 endgenerate
 
+wire [31:0] sample_data;
+wire sample_data_vld;
+
 fast_main_top #(
     .COL_NUM         ( COL_NUM ),
     .ROW_NUM         ( ROW_NUM ),
@@ -46,7 +53,10 @@ fast_main_top #(
     .rst                                      ( rst                                       ),
     .ce                                       ( ce                                        ),
     
-    .score_eol 																( score_eol																	),
+    // sample_patch
+    .sample_data                              (sample_data),
+    .sample_data_vld                          (sample_data_vld),
+    .score_eol 								  ( score_eol																	),
     .xy_coord_vld 													  ( xy_coord_vld 															),
     .iscorner                                 ( iscorner_int                              ),            // 该patch是否满足连续条件
     .x_coord                                  ( x_coord_int                               ),
@@ -71,9 +81,26 @@ NMS_top #(
     .score_eol 							 ( score_eol ),
     .xy_coord_vld						 ( xy_coord_vld ),
 
-    .x_coord_out             ( x_coord   ),
+    .x_coord_out             ( x_coord   ),                 // 坐标是从0-IMG_COL-1和0-IMG_ROW-1.
     .y_coord_out             ( y_coord   ),
     .corner_out              ( iscorner  )                  // 当前输出的坐标是否为角点
+);
+
+// resizeTop Outputs
+// wire  [7:0]  o_data;
+// wire  o_data_valid;
+
+resizeTop #(
+    .sourceImageWidth ( 12'd640 ),
+    .validImageWidth  ( 12'd640 ))
+ u_resizeTop (
+    .i_clk                   ( clk          ),
+    .i_rst                   ( rst          ),
+    .i_data                  ( sample_data       ),
+    .i_data_valid            ( sample_data_vld   ),
+
+    .o_data                  ( resize_out_data         ),
+    .o_data_valid            ( resize_out_data_vld   )
 );
 
 endmodule

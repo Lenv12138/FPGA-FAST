@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
 
-module tb;
+module tb_resizeTop;
 
 parameter FILE_PATH_GRAY   = "F:/FPGA_prj/Fast_ref/FPGA-FAST/tb/1_L_gray.txt";
 parameter FILE_PATH_GRAY_X   = "F:/FPGA_prj/Fast_ref/FPGA-FAST/tb/1_L_gray_x.txt";
@@ -66,6 +66,10 @@ end
 reg clk, rst, ce;
 reg [7:0] data_in;
 
+// 降采样之后的输出
+wire [7:0] resize_out_data;
+wire resize_out_data_vld;
+
 wire [9:0] x_coord, y_coord;
 wire iscorner;
 
@@ -112,20 +116,6 @@ initial begin
 	data_in = 0;
 	i_1 = 0; j_1 = 0;
 	@(posedge clk iff !rst);
-//	while (i_1*640+j_1 < IMG_ROW*IMG_COL-1) begin
-//		ce <= 1'b1;
-//		@(posedge clk iff !rst && ce)
-//			data_in <= img_gray_ram[i_1][j_1];
-//		j_1++;
-//		
-//		if (j_1 == IMG_COL-1) begin
-//			j_1 = 0;
-//			i_1++;
-//		end
-		
-//		if (i_1 == IMG_ROW-1)
-//			i_1 = 0;
-//	end
 	
 	for (i_1=0; i_1<IMG_ROW; i_1++) begin
 		for (j_1=0; j_1<IMG_COL; j_1++) begin
@@ -134,9 +124,15 @@ initial begin
 			ce = 1'b1;
 		end
 	end
-//	ce = 1'b0;
-//	$fclose(fid);
-//	$finish();
+
+	forever begin
+		// 一帧图像经过了FAST+NMS
+		@(posedge clk iff (y_coord == IMG_ROW-1 && x_coord == IMG_COL-1)) begin
+			$display("finish FAST with NMS feature extract");
+			ce = 1'b0;
+			// $finish();
+		end
+	end
 end
 
 integer fid2, fid3;
@@ -157,11 +153,31 @@ initial begin
 	end
 end
 
+integer fid_resize_640;
+string error_out;
+
+integer resize_frm_cnt;
+string fnsh_str;
 initial begin
-	forever begin
-		@(posedge clk iff (y_coord == IMG_ROW-1 && x_coord == IMG_COL-1)) begin
-			$display("finish simu ");
-			$finish();
+	resize_frm_cnt = 0;
+	fid_resize_640 = $fopen(FILE_SAMPLE_FIRST_LAYER, "w");
+	assert(fid_resize_640)
+  		$display("%d", fid2);
+	else begin
+		$sformat(error_out,"open %s fail",FILE_SAMPLE_FIRST_LAYER);
+		$error(error_out);
+	end
+
+	while (1) begin
+		@(posedge clk iff !rst)
+		if (resize_out_data_vld) begin	
+			$fdisplay(fid_resize_640, "%03d", resize_out_data);
+			resize_frm_cnt = resize_frm_cnt + 32'd1;
+			if ( resize_frm_cnt == (($floor(IMG_COL*0.8) * $floor(IMG_ROW*0.8))-1) ) begin
+				$sformat(error_out,"finish resize out");
+				$display(fnsh_str);
+				$finish();
+			end
 		end
 	end
 end
@@ -178,6 +194,10 @@ FAST_with_NMS #(
     .rst (rst),
     .ce  (ce),
     .data_in (data_in),
+
+	// resize out
+	.resize_out_data(resize_out_data),
+	.resize_out_data_vld(resize_out_data_vld),
 
     // output 
     .iscorner (iscorner),

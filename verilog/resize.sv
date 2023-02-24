@@ -22,6 +22,7 @@
 
 module resizeTop #( 
     parameter sourceImageWidth = 12'd1420,                      //! 原图像的长度, 用于计数sample_patch的个数
+    parameter dstImgWidth = 12'd1136,
     parameter validImageWidth = 12'd1420
 )(
     input i_clk,
@@ -92,10 +93,6 @@ reg [1:0] sourceImageState;
 //           NEXT_CHANGELINE = 2'b1,
 //           IDLE = 2'b10;
 
-localparam  IDLE = 2'd0,
-            GEN_DST_PIXEL_LINE =2'd1, 
-            CHANGELINE = 2'd2;
-
 // 为了和状态机保持同步, 需要将输入数据延迟2拍.
 reg [31:0] currentData_d;
 reg curr_vld_d;
@@ -114,28 +111,92 @@ always @(posedge i_clk) begin
     end
 end
 
+
+// localparam  IDLE             = 4'd0,
+//             GEN_DST_POL      = 4'd1,        // 产生目标图像的一行像素点
+//             WATING_CHANGE    = 4'd2,        // 当一行目标图像的像素点产生完毕需要等待原图像中的patch发送完毕
+//             SRC_CHANGE_LINE  = 4'd3,        // 当原图像的patch发送完毕, 发送下一行的patch
+//             NEXT_FRAME       = 4'd4;        // 一帧源图像处理完毕, 准备处理下一帧源图像
+
+// reg [31:0] dst_x_cnt, dst_y_cnt;        // 计数目标图像产生的像素点个数和行数
+// reg [31:0] src_x_cnt, src_y_cnt;        // 计数原图像发送的patch的个数和行数
+
+// reg [3:0] resize_state, resize_state_nxt;
+
+// always @(posedge i_clk) begin 
+//     if (i_rst) begin
+//         resize_state <= IDLE;
+//     end else begin
+//         resize_state <= resize_state_nxt;
+//     end
+// end
+
+// always @(*) begin 
+//     // 仅在单时钟域下可以用下面这个语句对nxt进行初始化, 如果有多个时钟域, 可能需要跨时钟域处理
+//     resize_state_nxt = resize_state;
+//     case (resize_state_nxt)
+//         IDLE: begin 
+//             resize_state_nxt = (currentDataValid)? GEN_DST_POL: IDLE;
+//         end
+//         GEN_DST_POL: begin
+//             if (src_x_cnt == sourceImageWidth-'d1) begin   // 原图像的sample_patch都发送完毕 
+//                 resize_state_nxt = SRC_CHANGE_LINE;
+//             end else if (dst_x_cnt == dstImgWidth-'d1) begin
+//                 resize_state_nxt = WATING_CHANGE;
+//             end else begin
+//                 resize_state_nxt = GEN_DST_POL;
+//             end      
+//         end
+//         WATING_CHANGE: begin
+//             if (src_x_cnt == sourceImageWidth-'d1) begin 
+//                 resize_state_nxt = SRC_CHANGE_LINE;
+//             end else begin 
+//                 resize_state_nxt = WATING_CHANGE;
+//             end
+//         end
+//         SRC_CHANGE_LINE: begin
+//             resize_state_nxt = (currentDataValid)? GEN_DST_POL: IDLE;
+//         end
+//     endcase
+// end
+
+
+
+always @(posedge i_clk) begin 
+    if (i_rst) begin 
+        xTotal <= 11'd0;
+    end else begin 
+        if (xTotal == sourceImageWidth - 'd1)
+            xTotal <= 'd0; 
+        else if (curr_vld_d) 
+            xTotal <= xTotal + 1;
+        else 
+            xTotal <= xTotal;
+    end
+end
+
 always @(posedge i_clk) begin
     if (i_rst) begin
         xCounter <= 3'd0;
         yCounter <= 3'd0;
-
-        xTotal <= 11'd0;
     end else begin
-        if (curr_vld_d) begin
+        if (xTotal == sourceImageWidth-'d1) begin 
+            yCounter <= (yCounter==3'd4)? 3'd0: (yCounter + 3'd1);
+        end else begin
+            yCounter <= yCounter;
+        end
+
+        if (xTotal == sourceImageWidth-'d1)
+            xCounter <= 3'd0;
+        else if (curr_vld_d) begin
             xCounter <= (xCounter==3'd4)? 3'd0: (xCounter + 3'd1);
-            if (xTotal == sourceImageWidth-'d1) begin
-                yCounter <= (yCounter==3'd4)? 3'd0: (yCounter + 3'd1);
-                xTotal <= 11'd0;
-            end else begin
-                xTotal <= xTotal + 11'd1;
-            end
         end else begin
             xCounter <= xCounter;
-            yCounter <= yCounter;
-            xTotal   <= xTotal;
         end
     end
 end
+
+
 
 // always @(posedge i_clk) begin
 //     if (i_rst) begin
@@ -199,6 +260,7 @@ always @(posedge i_clk) begin
         coff_1_u[2] <= 3'd4;
         coff_1_v[2] <= 3'd4;
     end else begin
+        // {Data22, Data12, Data21, Data11} <= currentData;
         if (currentDataValid) begin
             {Data22, Data12, Data21, Data11} <= currentData;
 //            coff_u[0] <= xCounter;
@@ -233,11 +295,14 @@ always @(posedge i_clk) begin
         delayed_valid[3] <= 1'd0;
     end else begin 
         if (currentDataValid) begin
-            if (xCounter == 3'd4 || yCounter == 3'd4) begin
+            // if ( (xCounter == 3'd4 || yCounter == 3'd4) && xTotal != sourceImageWidth-'d1) begin 
+            if ( (yCounter == 3'd3 && xTotal == sourceImageWidth-'d1) || (yCounter == 3'd4 && xTotal != sourceImageWidth-'d1) ) begin
+                dataBufferValid <= 1'd0;
+            end else if (xCounter == 3'd4 && xTotal != sourceImageWidth-'d1) begin 
                 dataBufferValid <= 1'd0;
             end else begin 
-                dataBufferValid <= 1'd1;
-            end 
+                dataBufferValid <= 1'b1;
+            end
         end else begin 
             dataBufferValid <= 1'd0;
         end 
@@ -440,7 +505,7 @@ end
 
 
 
-
+// 加法延迟2拍.
 always@(posedge i_clk) begin
     if (i_rst) begin
         sum1 <= 16'd0;
@@ -455,6 +520,7 @@ always@(posedge i_clk) begin
         biSumValid <= delayed_valid[3];
     end
 end
+
 
 always@(posedge i_clk) begin
     if (i_rst) begin
@@ -493,9 +559,13 @@ always@(posedge i_clk) begin
     end
 end
 
+// 从4x4的sample进入resize,到最后的结果输出, 总共延迟了4(乘法)+2(加法)+1+1拍.
 
 
+// 乘法运算总共延迟了4拍.
 // 第一级乘法流水
+// u,v: (x-x1), (y-y1), 目标图像映射到原图像后的小数部分.
+// 一个乘法器占2拍. (1-u)*Q11
 qmultipler MT1(
     .i_clk(i_clk),
     .i_rst(i_rst),
@@ -504,6 +574,7 @@ qmultipler MT1(
     .o_data(multData1)
 );
 
+// (1-u)*Q21
 qmultipler MT2(
     .i_clk(i_clk),
     .i_rst(i_rst),
@@ -512,6 +583,7 @@ qmultipler MT2(
     .o_data(multData2)
 );
 
+// u*Q12
 qmultipler MT3(
     .i_clk(i_clk),
     .i_rst(i_rst),
@@ -520,6 +592,7 @@ qmultipler MT3(
     .o_data(multData3)
 );
 
+// u*Q22
 qmultipler MT4(
     .i_clk(i_clk),
     .i_rst(i_rst),
@@ -529,7 +602,7 @@ qmultipler MT4(
 );
 
 // 第二级乘法流水
-// Data11
+// (1-u)*Q11*(1-v)
 qmultipler MT5(
     .i_clk(i_clk),
     .i_rst(i_rst),
@@ -538,7 +611,7 @@ qmultipler MT5(
     .o_data(multData5)
 );
 
-// Data21
+// (1-u)*Q21*v
 qmultipler MT6(
     .i_clk(i_clk),
     .i_rst(i_rst),
@@ -547,7 +620,7 @@ qmultipler MT6(
     .o_data(multData6)
 );
 
-// Data12
+// (1-u)*Q12*(1-v)
 qmultipler MT7(
     .i_clk(i_clk),
     .i_rst(i_rst),
@@ -556,7 +629,7 @@ qmultipler MT7(
     .o_data(multData7)
 );
 
-// Data22
+// (1-u)*Q22*v
 qmultipler MT8(
     .i_clk(i_clk),
     .i_rst(i_rst),

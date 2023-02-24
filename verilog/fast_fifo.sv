@@ -219,7 +219,7 @@ always @(posedge clk) begin
     end else if (ce) begin
         sample_patch_vld <= sample_patch_vld_d;
 
-        if ((cnt_row>10'd0) && (address_read>'d0) && (address_read<(COL_NUM-1))) 
+        if ((cnt_row>10'd0) && (address_read>'d0) && (address_write<(COL_NUM-1))) 
             sample_patch_vld_d <= 1'b1;
         else
             sample_patch_vld_d <= 1'b0;

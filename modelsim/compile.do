@@ -19,7 +19,8 @@ vlog -64 -incr -work FAST_RTL  \
 "../verilog/qmultipler.sv" \
 
 vlog -64 -incr -sv -work tb \
-"../tb/tb_top.sv" \
+"../tb/tb_resizeTop.sv" \
+"../tb/tb_FAST_NMS.sv" \
 
 quit 
 

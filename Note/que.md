@@ -116,7 +116,7 @@ FAST在输出第一个score值之后, 都是一个clk出一个score和连续性�
 
 ![](../asset/20230120105807.png)  
 
-从上图中可以看出FAST模块在数据无效(`xy_coord_vld`为低时仍然会输出连续性判断和score值), 但这很明显式错误的输出结果. 解决方案在NMS处理无效数据中讲出了. 
+从上图中可以看出FAST模块在数据无效(`xy_coord_vld`为低)时仍然会输出连续性判断和score值, 但这很明显式错误的输出结果. 解决方案在NMS处理无效数据中讲出了. 
 
 ### NMS的延迟
 
@@ -200,3 +200,186 @@ endgenerate
 ## trick
 
 如果写入的数据存在**1**个冗余的数据, 并且这些冗余数据在有效数据的前面, 可以通过修改数组索引的初始值来丢弃冗余数据. 比如在有效数据前右2个冗余数据, 那么可将数组索引的初始值设为1, 数组索引从0开始递增, 那么初始写入索引为1的数据会被后续写入的数据覆盖. 
+
+## 双线性插值降采样
+
+### 降采样目标图像索引与原图像索引的对应关系
+
+matlab上起始坐标是从1开始, 而在进行图像坐标的转换时, 索引是从0开始, 这里需要注意.
+
+原图像坐标(x1,y1), 目标图像坐标(x2,y2): 
+
+坐标转换: $\frac{x_2}{x_1} = \frac{1420}{1136} = 0.8 \Rightarrow x_2 = 1.25 * x_1$
+
+这里需要注意, 坐标转换是从0开始索引, 比如目标图像matlab的$(1136,1)$对应的原图像的位置是$(1135,0)$, 所以对应到原图像的坐标是$1135*1.25=1418.75$ 需要的两个像素点为$(1418, 0)$和$(1419, 0)$, 那么这两个像素点对应的matlab上就是$(1419,1)$和$(1420,1)$
+
+
+## bug 记录 
+
+### resize
+
+:beetle: 如下图所示, 在降采样模块完成了原图像一行的降采样后, 由于最后Current_data_vld的拉低,导致xcounter维持着上一刻的值一直维持到第2行降采样开始, 第2行第一个数据x方向上的权重本应该是0, 但由于xCounter在换行时没有清零, 实际上的权重为4, 这就导致后续的所有行都错误.
+
+![](../asset/20230223212654.png)  
+
+值得一提的是, 观察上图会发现Xtotal从0计数到了639, 按理说xtotal是计算的Fast_FIFO发给resize模块sample_patch的个数, 应该只有0-638. 其实Xtotal应该和curr_vld_d一起看, 可以看到在xtotal为639的时候, curr_vld_d为低电平.
+
+:key: 在xcounter累加的过程, 对current_vld为低的情况进行判断, 判断xtotal是否等于原图像的宽度.
+
+修改前: 
+
+```verilog{.line-numbers}
+always @(posedge i_clk) begin
+    if (i_rst) begin
+        xCounter <= 3'd0;
+        yCounter <= 3'd0;
+    end else begin
+        if (xTotal == sourceImageWidth-'d1) begin 
+            yCounter <= (yCounter==3'd4)? 3'd0: (yCounter + 3'd1);
+        end else begin
+            yCounter <= yCounter;
+        end
+
+        if (xTotal == sourceImageWidth-'d1)
+            xCounter <= 3'd0;
+        else if (curr_vld_d) begin
+            xCounter <= (xCounter==3'd4)? 3'd0: (xCounter + 3'd1);
+        end else begin
+            xCounter <= xCounter;
+        end
+    end
+end
+```
+
+修改后: 
+```verilog{.line-numbers}
+always @(posedge i_clk) begin 
+    if (i_rst) begin 
+        xTotal <= 11'd0;
+    end else begin 
+        if (curr_vld_d) 
+            if (xTotal == sourceImageWidth - 'd1)
+                xTotal <= 0;
+            else
+                xTotal <= xTotal + 1;
+        else 
+            xTotal <= xTotal;
+    end
+end
+
+always @(posedge i_clk) begin
+    if (i_rst) begin
+        xCounter <= 3'd0;
+        yCounter <= 3'd0;
+    end else begin
+        if (xTotal == sourceImageWidth-'d1) begin 
+            yCounter <= (yCounter==3'd4)? 3'd0: (yCounter + 3'd1);
+        end else begin
+            yCounter <= yCounter;
+        end
+
+        if (xTotal == sourceImageWidth-'d1)
+            xCounter <= 3'd0;
+        else if (curr_vld_d) begin
+            xCounter <= (xCounter==3'd4)? 3'd0: (xCounter + 3'd1);
+        end else begin
+            xCounter <= xCounter;
+        end
+    end
+end
+```
+
+修改后波形图: 
+
+![](../asset/20230223220712.png)  
+
+从修改后的结果可以看出, 虽然xCounter的值对了, 但是yCounter错了, 这是因为xtotal没有被赋值为0. 将xTotal的驱动改为如下情况.
+
+```verilog{.line-numbers}
+always @(posedge i_clk) begin 
+    if (i_rst) begin 
+        xTotal <= 11'd0;
+    end else begin 
+        if (xTotal == sourceImageWidth - 'd1)
+            xTotal <= 'd0; 
+        else if (curr_vld_d) 
+            xTotal <= xTotal + 1;
+        else 
+            xTotal <= xTotal;
+    end
+end
+```
+
+再次修改之后: 
+
+![](../asset/20230223221236.png)  
+
+从图中可以看出xCounter和yCounter都正常了, 但是data_Buffer_valid信号在第2行的第一个数据没有拉高, 只有每一行开头的xCounter=0是有效数据, 后续的Xcounter=4和xcouter=0都是使用的同一个数据, 且代码中认为Xcounter=0为无效的, 所以导致换行后, xcounter=4告诉FPGA下一个数据为无效数据, 导致data_Buffer_valid不拉高.
+
+修改前: 
+```verilog{.line-numbers}
+always @(posedge i_clk) begin
+    if (i_rst) begin
+        dataBufferValid  <= 1'd0;
+        delayed_valid[0] <= 1'd0;
+        delayed_valid[1] <= 1'd0;
+        delayed_valid[2] <= 1'd0;
+        delayed_valid[3] <= 1'd0;
+    end else begin 
+        if (currentDataValid) begin
+            if ( (xCounter == 3'd4 || yCounter == 3'd4) ) begin
+                dataBufferValid <= 1'd0;
+            end else begin 
+                dataBufferValid <= 1'd1;
+            end 
+        end else begin 
+            dataBufferValid <= 1'd0;
+        end 
+
+        {delayed_valid[3], delayed_valid[2], delayed_valid[1], delayed_valid[0]} <= 
+            {delayed_valid[2], delayed_valid[1], delayed_valid[0], dataBufferValid};
+    end
+end
+```
+
+修改后: 
+
+```verilog{.line-numbers}
+always @(posedge i_clk) begin
+    if (i_rst) begin
+        dataBufferValid  <= 1'd0;
+        delayed_valid[0] <= 1'd0;
+        delayed_valid[1] <= 1'd0;
+        delayed_valid[2] <= 1'd0;
+        delayed_valid[3] <= 1'd0;
+    end else begin 
+        if (currentDataValid) begin
+            if ( (xCounter == 3'd4 || yCounter == 3'd4) && xTotal != sourceImageWidth-'d1) begin
+                dataBufferValid <= 1'd0;
+            end else begin 
+                dataBufferValid <= 1'd1;
+            end 
+        end else begin 
+            dataBufferValid <= 1'd0;
+        end 
+
+        {delayed_valid[3], delayed_valid[2], delayed_valid[1], delayed_valid[0]} <= 
+            {delayed_valid[2], delayed_valid[1], delayed_valid[0], dataBufferValid};
+    end
+end
+```
+![](../asset/20230223224404.png)  
+
+:beetle: 但这里有个问题, xtotal==639所代表的隐含意义只在目标图像刚好是原图像的0.8倍时才成立. 当目标图像与原图像不是0.8倍时, 可能不成立.
+
+`xtotal==639`代表的是目标图像开始进行下一行采样的时刻. 当目标图像为512, 原图像为640时, 目标图像最后一点(0,511)映射到原图像的索引为(0,638.75), 需要的原图像的两个点为(0,638)和(0,639), 而当xtotal变为639时, Fast_FIFO传给resize的sample_pathc刚好就对应了目标图像最后一点(0,511)所需要的原图像像素点, 所以目标图像在xtotal计数到639时应该转换为下一行的重采样.
+
+但如果原图像为512, 目标图像为408, 目标图像最后一点(0,407)->原图像(0,508.75)所需要的原图像的像素点为(0,508)和(0,509)很明显(0,509)并不是原图像的最后一点(0,511), 所以当目标图像需要换行时,`xtotal==508`, 但是后续Fast_FIFO还会向resize传输2个有效点的sample_patch(509与510, 510与511), 当`xtotal==511`时表示原图像一行的patch已经传送完毕, 开始传输原图像第二行的patch. 
+
+所以在上诉情况下, 需要将`xtotal==508`之后的patcch视为无效, 并且在`xtotal==511`时告诉resize这是下一行的patch.
+
+同时需要注意的是, 在x方向上存在这样的情况, 在y方向上也存在这样的情况.
+
+但是向上述修改之后, 发现在`yCounter==4`时, 这一行的数据都应该为无效数据, 但由于加入了xtotal的判断, 导致在`yCounter==4`的第一个数据被忽略了.
+
+![](../asset/20230223230919.png)  

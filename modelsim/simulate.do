@@ -1,4 +1,4 @@
-vsim -voptargs="+acc" -L FAST_RTL -lib tb tb.tb
+vsim -voptargs="+acc" -L FAST_RTL -lib tb tb.tb_resizeTop
 
 set NumericStdNoWarnings 1
 set StdArithNoWarnings 1
