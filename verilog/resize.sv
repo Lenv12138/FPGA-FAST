@@ -21,14 +21,19 @@
 
 
 module resizeTop #( 
-    parameter sourceImageWidth = 12'd1420,                      //! 原图像的长度, 用于计数sample_patch的个数
-    parameter dstImgWidth = 12'd1136,
+    parameter sourceImageWidth = 12'd640,                      //! 原图像的长度, 用于计数sample_patch的个数
+    parameter dstImgWidth = 12'd512,
     parameter validImageWidth = 12'd1420
 )(
     input i_clk,
     input i_rst,
     input [31:0] i_data, //! 进来2x2个数据 {Data22, Data12, Data21, Data11}
     input i_data_valid,
+
+    output resizeImg_sof,           // 重采样后的图片的帧起始信号
+    output resizeImg_eof,           // end of frame
+    output resizeImg_sol,           // start of line
+
     output reg [7:0] o_data,
     output reg o_data_valid
 );
@@ -112,55 +117,183 @@ always @(posedge i_clk) begin
 end
 
 
-// localparam  IDLE             = 4'd0,
-//             GEN_DST_POL      = 4'd1,        // 产生目标图像的一行像素点
-//             WATING_CHANGE    = 4'd2,        // 当一行目标图像的像素点产生完毕需要等待原图像中的patch发送完毕
-//             SRC_CHANGE_LINE  = 4'd3,        // 当原图像的patch发送完毕, 发送下一行的patch
-//             NEXT_FRAME       = 4'd4;        // 一帧源图像处理完毕, 准备处理下一帧源图像
+localparam  IDLE             = 4'd0,
+            GEN_DST_POL      = 4'd1,        // 产生目标图像的一行像素点
+            WATING_CHANGE    = 4'd2,        // 当一行目标图像的像素点产生完毕需要等待原图像中的patch发送完毕
+            SRC_CHANGE_LINE  = 4'd3,        // 当原图像的patch发送完毕, 发送下一行的patch
+            NEXT_FRAME       = 4'd4;        // 一帧源图像处理完毕, 准备处理下一帧源图像
 
-// reg [31:0] dst_x_cnt, dst_y_cnt;        // 计数目标图像产生的像素点个数和行数
-// reg [31:0] src_x_cnt, src_y_cnt;        // 计数原图像发送的patch的个数和行数
+reg [11:0] dst_x_cnt, dst_y_cnt;        // 计数目标图像产生的像素点个数和行数
+reg [11:0] src_x_cnt, src_y_cnt;        // 计数原图像发送的patch的个数和行数
 
-// reg [3:0] resize_state, resize_state_nxt;
+reg [3:0] resize_state, resize_state_nxt;
 
-// always @(posedge i_clk) begin 
-//     if (i_rst) begin
-//         resize_state <= IDLE;
-//     end else begin
-//         resize_state <= resize_state_nxt;
-//     end
-// end
+always @(posedge i_clk) begin 
+    if (i_rst) begin
+        resize_state <= IDLE;
+    end else begin
+        resize_state <= resize_state_nxt;
+    end
+end
 
-// always @(*) begin 
-//     // 仅在单时钟域下可以用下面这个语句对nxt进行初始化, 如果有多个时钟域, 可能需要跨时钟域处理
-//     resize_state_nxt = resize_state;
-//     case (resize_state_nxt)
-//         IDLE: begin 
-//             resize_state_nxt = (currentDataValid)? GEN_DST_POL: IDLE;
-//         end
-//         GEN_DST_POL: begin
-//             if (src_x_cnt == sourceImageWidth-'d1) begin   // 原图像的sample_patch都发送完毕 
-//                 resize_state_nxt = SRC_CHANGE_LINE;
-//             end else if (dst_x_cnt == dstImgWidth-'d1) begin
-//                 resize_state_nxt = WATING_CHANGE;
-//             end else begin
-//                 resize_state_nxt = GEN_DST_POL;
-//             end      
-//         end
-//         WATING_CHANGE: begin
-//             if (src_x_cnt == sourceImageWidth-'d1) begin 
-//                 resize_state_nxt = SRC_CHANGE_LINE;
-//             end else begin 
-//                 resize_state_nxt = WATING_CHANGE;
-//             end
-//         end
-//         SRC_CHANGE_LINE: begin
-//             resize_state_nxt = (currentDataValid)? GEN_DST_POL: IDLE;
-//         end
-//     endcase
-// end
+always @(*) begin 
+    // 仅在单时钟域下可以用下面这个语句对nxt进行初始化, 如果有多个时钟域, 可能需要跨时钟域处理
+    resize_state_nxt = resize_state;
+    case (resize_state_nxt)
+        IDLE: begin 
+            resize_state_nxt = (currentDataValid)? GEN_DST_POL: IDLE;
+        end
+        // 从currentDataValid拉高到状态机跳转到GEN_DST_POL
+        GEN_DST_POL: begin
+            if (src_x_cnt == sourceImageWidth-'d1) begin   // 原图像的sample_patch都发送完毕 
+                resize_state_nxt = SRC_CHANGE_LINE;
+            end else if (dst_x_cnt == dstImgWidth-'d1) begin
+                resize_state_nxt = WATING_CHANGE;
+            end else begin
+                resize_state_nxt = GEN_DST_POL;
+            end      
+        end
+        WATING_CHANGE: begin
+            if (src_x_cnt == sourceImageWidth-'d1) begin 
+                resize_state_nxt = GEN_DST_POL;
+            end else begin 
+                resize_state_nxt = WATING_CHANGE;
+            end
+        end
+        SRC_CHANGE_LINE: begin
+            resize_state_nxt = GEN_DST_POL;
+        end
+    endcase
+end
 
+always @(posedge i_clk) begin
+    if (i_rst) begin
+        Data11 <= 8'd0;
+        Data21 <= 8'd0;
+        Data12 <= 8'd0;
+        Data22 <= 8'd0;
 
+        coff_u[0] <= 3'd0;
+        coff_v[0] <= 3'd0;
+        coff_1_u[0] <= 3'd4;
+        coff_1_v[0] <= 3'd4;
+
+        coff_u[1] <= 3'd0;
+        coff_v[1] <= 3'd0;
+        coff_1_u[1] <= 3'd4;
+        coff_1_v[1] <= 3'd4;
+
+        coff_u[2] <= 3'd0;
+        coff_v[2] <= 3'd0;
+        coff_1_u[2] <= 3'd4;
+        coff_1_v[2] <= 3'd4;
+    end else begin
+        // {Data22, Data12, Data21, Data11} <= currentData;
+        if (currentDataValid) begin
+        // if (curr_vld_d) begin
+            {Data22, Data12, Data21, Data11} <= currentData;
+//            coff_u[0] <= xCounter;
+//            coff_1_u[0] <= 3'd4 - xCounter;			// 1-u
+//            coff_v[0] <= yCounter;
+//            coff_1_v[0] <= 3'd4 - yCounter;			// 1-v
+
+            {coff_u[2], coff_u[1], coff_u[0]} <= {coff_u[1], coff_u[0], xCounter};
+            {coff_1_u[2], coff_1_u[1], coff_1_u[0]} <= {coff_1_u[1], coff_1_u[0], 3'd4 - xCounter};
+
+            {coff_v[2], coff_v[1], coff_v[0]} <= {coff_v[1], coff_v[0], yCounter};
+            {coff_1_v[2], coff_1_v[1], coff_1_v[0]} <= {coff_1_v[1], coff_1_v[0], 3'd4 - yCounter};
+
+        end else begin 
+
+            {Data22, Data12, Data21, Data11}  <= {Data22, Data12, Data21, Data11};
+            {coff_u[2], coff_u[1], coff_u[0]} <= {coff_u[2], coff_u[1], coff_u[0]};
+            {coff_v[2], coff_v[1], coff_v[0]} <= {coff_v[2], coff_v[1], coff_v[0]};
+            {coff_1_u[2], coff_1_u[1], coff_1_u[0]} <= {coff_1_u[2], coff_1_u[1], coff_1_u[0]};
+            {coff_1_v[2], coff_1_v[1], coff_1_v[0]} <= {coff_1_v[2], coff_1_v[1], coff_1_v[0]};
+
+        end
+    end
+end
+
+always @(posedge i_clk) begin 
+    if (i_rst) begin 
+        src_x_cnt <= 'd0;
+    end else begin
+        if (currentDataValid && src_x_cnt != sourceImageWidth-'d1)
+            src_x_cnt <= src_x_cnt + 'd1;
+        else if (src_x_cnt == sourceImageWidth-'d1) 
+            src_x_cnt <= 'd0;
+        else
+            src_x_cnt <= src_x_cnt;
+        // case (resize_state) 
+        //     IDLE           : begin 
+        //         src_x_cnt <= 'd0;
+        //     end
+        //     GEN_DST_POL    : begin 
+        //         if (curr_vld_d && src_x_cnt != sourceImageWidth-'d1)
+        //             src_x_cnt <= src_x_cnt + 'd1;
+        //         else if (src_x_cnt == sourceImageWidth-'d1) 
+        //             src_x_cnt <= 'd0;
+        //         else
+        //             src_x_cnt <= src_x_cnt;
+        //     end
+        //     // 提取完了目标图像的一行, 但是原图像可能还在传patch.
+        //     WATING_CHANGE  : begin
+        //         if (curr_vld_d && src_x_cnt != sourceImageWidth-'d1)
+        //             src_x_cnt <= src_x_cnt + 'd1;
+        //         else if (src_x_cnt == sourceImageWidth-'d1) 
+        //             src_x_cnt <= 'd0;
+        //         else
+        //             src_x_cnt <= src_x_cnt;
+        //     end
+        //     SRC_CHANGE_LINE: begin 
+        //         src_x_cnt <= 'd0;
+        //     end
+
+        // endcase
+    end
+end
+
+always @(posedge i_clk) begin
+    if (i_rst) begin 
+        dst_x_cnt <= 'd0;
+    end else begin 
+        if (resize_state == GEN_DST_POL) begin
+            if (dst_x_cnt == dstImgWidth-'d1)
+                dst_x_cnt <= 'd0;
+            else if (curr_vld_d)
+                dst_x_cnt <= (xCounter == 3'd4)? dst_x_cnt: dst_x_cnt+'d1;
+            else 
+                dst_x_cnt <= dst_x_cnt;
+        end else begin
+            dst_x_cnt <= 'd0;
+        end
+    end
+end
+
+always @(posedge i_clk) begin
+    if (i_rst) begin
+        src_y_cnt <= 'd0;
+    end else begin
+        if (src_x_cnt == sourceImageWidth-'d1) begin 
+            src_y_cnt <= (src_y_cnt + 3'd1);
+        end else begin
+            src_y_cnt <= src_y_cnt;
+        end
+    end
+end
+
+always @(posedge i_clk) begin
+    if (i_rst) begin
+        dst_y_cnt <= 'd0;
+    end else begin
+        if (dst_x_cnt == dstImgWidth-'d1) begin 
+            dst_y_cnt <=  (yCounter == 3'd4)? dst_y_cnt: (dst_y_cnt + 3'd1);
+        end else begin
+            dst_y_cnt <= dst_y_cnt;
+        end
+    end
+end
 
 always @(posedge i_clk) begin 
     if (i_rst) begin 
@@ -176,25 +309,52 @@ always @(posedge i_clk) begin
 end
 
 always @(posedge i_clk) begin
-    if (i_rst) begin
+    if (i_rst) begin 
         xCounter <= 3'd0;
+    end else begin 
+        case (resize_state) 
+            IDLE: 
+                xCounter <= 3'd0;
+            GEN_DST_POL: begin
+                if (src_x_cnt == sourceImageWidth-'d1)
+                    xCounter <= 3'd0;
+                else if (curr_vld_d) begin
+                    xCounter <= (xCounter==3'd4)? 3'd0: (xCounter + 3'd1);
+                end else begin
+                    xCounter <= xCounter;
+                end
+            end
+            WATING_CHANGE: 
+                xCounter <= 3'd0;
+            SRC_CHANGE_LINE: 
+                xCounter <= 3'd0;
+        endcase
+    end
+end
+
+
+always @(posedge i_clk) begin
+    if (i_rst) begin
+        // xCounter <= 3'd0;
         yCounter <= 3'd0;
     end else begin
-        if (xTotal == sourceImageWidth-'d1) begin 
+        if (dst_x_cnt == dstImgWidth-'d1) begin 
             yCounter <= (yCounter==3'd4)? 3'd0: (yCounter + 3'd1);
         end else begin
             yCounter <= yCounter;
         end
 
-        if (xTotal == sourceImageWidth-'d1)
-            xCounter <= 3'd0;
-        else if (curr_vld_d) begin
-            xCounter <= (xCounter==3'd4)? 3'd0: (xCounter + 3'd1);
-        end else begin
-            xCounter <= xCounter;
-        end
+        // if (xTotal == sourceImageWidth-'d1)
+        //     xCounter <= 3'd0;
+        // else if (curr_vld_d) begin
+        //     xCounter <= (xCounter==3'd4)? 3'd0: (xCounter + 3'd1);
+        // end else begin
+        //     xCounter <= xCounter;
+        // end
     end
 end
+
+
 
 
 
@@ -238,53 +398,7 @@ end
 //     end
 // end
 
-always @(posedge i_clk) begin
-    if (i_rst) begin
-        Data11 <= 8'd0;
-        Data21 <= 8'd0;
-        Data12 <= 8'd0;
-        Data22 <= 8'd0;
 
-        coff_u[0] <= 3'd0;
-        coff_v[0] <= 3'd0;
-        coff_1_u[0] <= 3'd4;
-        coff_1_v[0] <= 3'd4;
-
-        coff_u[1] <= 3'd0;
-        coff_v[1] <= 3'd0;
-        coff_1_u[1] <= 3'd4;
-        coff_1_v[1] <= 3'd4;
-
-        coff_u[2] <= 3'd0;
-        coff_v[2] <= 3'd0;
-        coff_1_u[2] <= 3'd4;
-        coff_1_v[2] <= 3'd4;
-    end else begin
-        // {Data22, Data12, Data21, Data11} <= currentData;
-        if (currentDataValid) begin
-            {Data22, Data12, Data21, Data11} <= currentData;
-//            coff_u[0] <= xCounter;
-//            coff_1_u[0] <= 3'd4 - xCounter;			// 1-u
-//            coff_v[0] <= yCounter;
-//            coff_1_v[0] <= 3'd4 - yCounter;			// 1-v
-
-            {coff_u[2], coff_u[1], coff_u[0]} <= {coff_u[1], coff_u[0], xCounter};
-            {coff_1_u[2], coff_1_u[1], coff_1_u[0]} <= {coff_1_u[1], coff_1_u[0], 3'd4 - xCounter};
-
-            {coff_v[2], coff_v[1], coff_v[0]} <= {coff_v[1], coff_v[0], yCounter};
-            {coff_1_v[2], coff_1_v[1], coff_1_v[0]} <= {coff_1_v[1], coff_1_v[0], 3'd4 - yCounter};
-
-        end else begin 
-
-            {Data22, Data12, Data21, Data11}  <= {Data22, Data12, Data21, Data11};
-            {coff_u[2], coff_u[1], coff_u[0]} <= {coff_u[2], coff_u[1], coff_u[0]};
-            {coff_v[2], coff_v[1], coff_v[0]} <= {coff_v[2], coff_v[1], coff_v[0]};
-            {coff_1_u[2], coff_1_u[1], coff_1_u[0]} <= {coff_1_u[2], coff_1_u[1], coff_1_u[0]};
-            {coff_1_v[2], coff_1_v[1], coff_1_v[0]} <= {coff_1_v[2], coff_1_v[1], coff_1_v[0]};
-
-        end
-    end
-end
 
 always @(posedge i_clk) begin
     if (i_rst) begin
@@ -296,9 +410,9 @@ always @(posedge i_clk) begin
     end else begin 
         if (currentDataValid) begin
             // if ( (xCounter == 3'd4 || yCounter == 3'd4) && xTotal != sourceImageWidth-'d1) begin 
-            if ( (yCounter == 3'd3 && xTotal == sourceImageWidth-'d1) || (yCounter == 3'd4 && xTotal != sourceImageWidth-'d1) ) begin
+            if ( (yCounter == 3'd3 && src_x_cnt == sourceImageWidth-'d1) || (yCounter == 3'd4 && src_x_cnt != sourceImageWidth-'d1) ) begin
                 dataBufferValid <= 1'd0;
-            end else if (xCounter == 3'd4 && xTotal != sourceImageWidth-'d1) begin 
+            end else if (xCounter == 3'd4 && src_x_cnt != sourceImageWidth-'d1) begin 
                 dataBufferValid <= 1'd0;
             end else begin 
                 dataBufferValid <= 1'b1;
@@ -560,6 +674,23 @@ always@(posedge i_clk) begin
 end
 
 // 从4x4的sample进入resize,到最后的结果输出, 总共延迟了4(乘法)+2(加法)+1+1拍.
+
+// output index of pixels after resize
+wire [11:0] dst_x_cnt_d, dst_y_cnt_d;
+genvar i;
+generate for(i=0; i<12; i=i+1) begin : delay_dst_x_cnt
+    // 延迟12拍5+8, 5: y_coord lag x_coord 1 clk. so fot y_coord delay 5clk to output 3(1 line of patch).
+    // 8: 3(thresholder)+5(compute_score)
+    delay_shifter#(8) u_delay_dst_x_cnt(i_clk, 1'b1, dst_x_cnt[i], dst_x_cnt_d[i]);
+end
+endgenerate
+
+generate for(i=0; i<12; i=i+1) begin : delay_dst_y_cnt
+    // 延迟12拍5+8, 5: y_coord lag x_coord 1 clk. so fot y_coord delay 5clk to output 3(1 line of patch).
+    // 8: 3(thresholder)+5(compute_score)
+    delay_shifter#(8) u_delay_dst_x_cnt(i_clk, 1'b1, dst_y_cnt[i], dst_y_cnt_d[i]);
+end
+endgenerate
 
 
 // 乘法运算总共延迟了4拍.

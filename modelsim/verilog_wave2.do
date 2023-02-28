@@ -247,10 +247,18 @@ add wave -noupdate -height 17 -expand -group resizeTop -radix unsigned /tb_resiz
 add wave -noupdate -height 17 -expand -group resizeTop /tb_resizeTop/u_FAST_with_NMS/u_resizeTop/i_data
 add wave -noupdate -height 17 -expand -group resizeTop /tb_resizeTop/u_FAST_with_NMS/u_resizeTop/i_data_valid
 add wave -noupdate -height 17 -expand -group resizeTop -radix unsigned /tb_resizeTop/u_FAST_with_NMS/u_resizeTop/o_data
+add wave -noupdate -height 17 -expand -group resizeTop /tb_resizeTop/u_FAST_with_NMS/u_resizeTop/dst_y_cnt_d
+add wave -noupdate -height 17 -expand -group resizeTop /tb_resizeTop/u_FAST_with_NMS/u_resizeTop/dst_x_cnt_d
 add wave -noupdate -height 17 -expand -group resizeTop -radix unsigned /tb_resizeTop/u_FAST_with_NMS/u_resizeTop/o_data_valid
 add wave -noupdate -height 17 -expand -group resizeTop -label {{Data11, Data01, Data10, Data00}} /tb_resizeTop/u_FAST_with_NMS/u_resizeTop/currentData
 add wave -noupdate -height 17 -expand -group resizeTop -color {Light Steel Blue} /tb_resizeTop/u_FAST_with_NMS/u_resizeTop/currentDataValid
 add wave -noupdate -height 17 -expand -group resizeTop -color {Orange Red} /tb_resizeTop/u_FAST_with_NMS/u_resizeTop/curr_vld_d
+add wave -noupdate -height 17 -expand -group resizeTop -radix unsigned /tb_resizeTop/u_FAST_with_NMS/u_resizeTop/dst_x_cnt
+add wave -noupdate -height 17 -expand -group resizeTop -radix unsigned /tb_resizeTop/u_FAST_with_NMS/u_resizeTop/dst_y_cnt
+add wave -noupdate -height 17 -expand -group resizeTop -radix unsigned /tb_resizeTop/u_FAST_with_NMS/u_resizeTop/src_x_cnt
+add wave -noupdate -height 17 -expand -group resizeTop -radix unsigned /tb_resizeTop/u_FAST_with_NMS/u_resizeTop/src_y_cnt
+add wave -noupdate -height 17 -expand -group resizeTop /tb_resizeTop/u_FAST_with_NMS/u_resizeTop/resize_state
+add wave -noupdate -height 17 -expand -group resizeTop /tb_resizeTop/u_FAST_with_NMS/u_resizeTop/resize_state_nxt
 add wave -noupdate -height 17 -expand -group resizeTop -radix unsigned /tb_resizeTop/u_FAST_with_NMS/u_resizeTop/xTotal
 add wave -noupdate -height 17 -expand -group resizeTop -color Plum -radix unsigned /tb_resizeTop/u_FAST_with_NMS/u_resizeTop/xCounter
 add wave -noupdate -height 17 -expand -group resizeTop -color Plum -radix unsigned /tb_resizeTop/u_FAST_with_NMS/u_resizeTop/yCounter
@@ -291,7 +299,7 @@ add wave -noupdate -height 17 -group tb_Top -radix unsigned /tb_resizeTop/x_coor
 add wave -noupdate -height 17 -group tb_Top -radix unsigned /tb_resizeTop/y_coord
 add wave -noupdate -height 17 -group tb_Top /tb_resizeTop/iscorner
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {1985000 ps} 1} {{Cursor 2} {1935000 ps} 1} {{Cursor 3} {38595000 ps} 1} {{Cursor 4} {12884857 ps} 0} {{Cursor 5} {499595256 ps} 0}
+WaveRestoreCursors {{Cursor 1} {1985000 ps} 1} {{Cursor 2} {1935000 ps} 1} {{Cursor 3} {38595000 ps} 1} {{Cursor 4} {6485000 ps} 0} {{Cursor 5} {499595256 ps} 0}
 quietly wave cursor active 4
 configure wave -namecolwidth 246
 configure wave -valuecolwidth 169
@@ -307,4 +315,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {12853032 ps} {12941959 ps}
+WaveRestoreZoom {6347919 ps} {6826642 ps}
