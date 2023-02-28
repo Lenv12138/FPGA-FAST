@@ -23,7 +23,7 @@ initial begin
   // 读取图片
   fid = $fopen(FILE_PATH_GRAY, "r");
 	assert(fid) 
-  	$display("%d", fid);
+  		$display("FILE_PATH_GRAY file open success %08x", fid);
 	else
 		$error("open file fail");
   
@@ -57,7 +57,7 @@ initial begin
 //  img_gray_ram[6][0] = 21; img_gray_ram[6][1] = 21; img_gray_ram[6][5] = 21; img_gray_ram[6][6] = 21;
   for (i=0; i<IMG_ROW; i++) begin
     for (j=0; j<IMG_COL; j++) begin
-      $fscanf(fid, "%d", img_gray_ram[i][j]);
+      void'($fscanf(fid, "%d", img_gray_ram[i][j]));
       
     end
   end
@@ -69,6 +69,8 @@ reg [7:0] data_in;
 // 降采样之后的输出
 wire [7:0] resize_out_data;
 wire resize_out_data_vld;
+
+wire resizeImg_sol, resizeImg_sof, resizeImg_eof;
 
 wire [9:0] x_coord, y_coord;
 wire iscorner;
@@ -124,12 +126,13 @@ initial begin
 			ce = 1'b1;
 		end
 	end
-
+	@(posedge clk iff !rst)
+		ce = 1'b0;// 一帧图像传输完毕
 	forever begin
 		// 一帧图像经过了FAST+NMS
 		@(posedge clk iff (y_coord == IMG_ROW-1 && x_coord == IMG_COL-1)) begin
 			$display("finish FAST with NMS feature extract");
-			ce = 1'b0;
+			// ce = 1'b0;
 			// $finish();
 		end
 	end
@@ -173,9 +176,10 @@ initial begin
 		if (resize_out_data_vld) begin	
 			$fdisplay(fid_resize_640, "%03d", resize_out_data);
 			resize_frm_cnt = resize_frm_cnt + 32'd1;
-			if ( resize_frm_cnt == (($floor(IMG_COL*0.8) * $floor(IMG_ROW*0.8))-1) ) begin
-				$sformat(error_out,"finish resize out");
+			if ( resizeImg_eof ) begin
+				$sformat(error_out,"finish resize out, tb_cnt is %0d", resize_frm_cnt);
 				$display(fnsh_str);
+				$fclose(fid_resize_640);
 				$finish();
 			end
 		end
@@ -185,6 +189,10 @@ end
 FAST_with_NMS #(
   .COL_NUM(IMG_COL),      
   .ROW_NUM(IMG_ROW),      
+  .SRC_IMG_W (12'd640),
+  .SRC_IMG_H (12'd480), 
+  .DST_IMG_W (12'd512),
+  .DST_IMG_H (12'd384),
   .FAST_PTACH_SIZE(7),
   .THRESHOLD(THRESHOLD),
   .PIXEL_WIDTH(PIXEL_WIDTH),    
@@ -196,6 +204,9 @@ FAST_with_NMS #(
     .data_in (data_in),
 
 	// resize out
+	.resizeImg_sol (resizeImg_sol),
+	.resizeImg_sof (resizeImg_sof),
+	.resizeImg_eof (resizeImg_eof),
 	.resize_out_data(resize_out_data),
 	.resize_out_data_vld(resize_out_data_vld),
 

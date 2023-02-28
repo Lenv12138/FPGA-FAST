@@ -22,7 +22,9 @@
 
 module resizeTop #( 
     parameter sourceImageWidth = 12'd640,                      //! 原图像的长度, 用于计数sample_patch的个数
+    parameter sourceImgHeight = 12'd480,
     parameter dstImgWidth = 12'd512,
+    parameter dstImgHeight = 12'd384,
     parameter validImageWidth = 12'd1420
 )(
     input i_clk,
@@ -192,11 +194,6 @@ always @(posedge i_clk) begin
         if (currentDataValid) begin
         // if (curr_vld_d) begin
             {Data22, Data12, Data21, Data11} <= currentData;
-//            coff_u[0] <= xCounter;
-//            coff_1_u[0] <= 3'd4 - xCounter;			// 1-u
-//            coff_v[0] <= yCounter;
-//            coff_1_v[0] <= 3'd4 - yCounter;			// 1-v
-
             {coff_u[2], coff_u[1], coff_u[0]} <= {coff_u[1], coff_u[0], xCounter};
             {coff_1_u[2], coff_1_u[1], coff_1_u[0]} <= {coff_1_u[1], coff_1_u[0], 3'd4 - xCounter};
 
@@ -225,32 +222,6 @@ always @(posedge i_clk) begin
             src_x_cnt <= 'd0;
         else
             src_x_cnt <= src_x_cnt;
-        // case (resize_state) 
-        //     IDLE           : begin 
-        //         src_x_cnt <= 'd0;
-        //     end
-        //     GEN_DST_POL    : begin 
-        //         if (curr_vld_d && src_x_cnt != sourceImageWidth-'d1)
-        //             src_x_cnt <= src_x_cnt + 'd1;
-        //         else if (src_x_cnt == sourceImageWidth-'d1) 
-        //             src_x_cnt <= 'd0;
-        //         else
-        //             src_x_cnt <= src_x_cnt;
-        //     end
-        //     // 提取完了目标图像的一行, 但是原图像可能还在传patch.
-        //     WATING_CHANGE  : begin
-        //         if (curr_vld_d && src_x_cnt != sourceImageWidth-'d1)
-        //             src_x_cnt <= src_x_cnt + 'd1;
-        //         else if (src_x_cnt == sourceImageWidth-'d1) 
-        //             src_x_cnt <= 'd0;
-        //         else
-        //             src_x_cnt <= src_x_cnt;
-        //     end
-        //     SRC_CHANGE_LINE: begin 
-        //         src_x_cnt <= 'd0;
-        //     end
-
-        // endcase
     end
 end
 
@@ -343,61 +314,8 @@ always @(posedge i_clk) begin
         end else begin
             yCounter <= yCounter;
         end
-
-        // if (xTotal == sourceImageWidth-'d1)
-        //     xCounter <= 3'd0;
-        // else if (curr_vld_d) begin
-        //     xCounter <= (xCounter==3'd4)? 3'd0: (xCounter + 3'd1);
-        // end else begin
-        //     xCounter <= xCounter;
-        // end
     end
 end
-
-
-
-
-
-// always @(posedge i_clk) begin
-//     if (i_rst) begin
-//         sourceImageState <= IDLE;
-
-//         // 用于生成dx和dy, sample_patch每移动一列, dx对应+0.25, 放大4倍后对应+1.
-//         xCounter <= 3'd0;
-//         yCounter <= 3'd0;
-
-//         xTotal <= 11'd0;
-//     end else begin
-
-//         if (currentDataValid) begin
-//             case (sourceImageState) 
-//                 IDLE: begin
-//                     sourceImageState <= GEN_DST_PIXEL_LINE;
-//                     xTotal <= 11'd0;
-//                     xCounter <= 3'd0;
-//                     yCounter <= 3'd0;
-//                 end
-//                 GEN_DST_PIXEL_LINE: begin
-//                     xTotal <= xTotal + 11'd1;
-//                     xCounter <= (xCounter==3'd4)? 3'd0: (xCounter + 3'd1);
-//                     if (xTotal == sourceImageWidth-'d1) begin
-//                         xTotal <= 11'd0;
-//                         sourceImageState <= CHANGELINE;
-//                     end else begin 
-//                         sourceImageState <= sourceImageState;
-//                     end
-                    
-                    
-//                 end
-//                 CHANGELINE: begin 
-//                     yCounter <= (yCounter==3'd4)? 3'd0: (yCounter + 3'd1);
-//                     sourceImageState <= GEN_DST_PIXEL_LINE;
-//                 end
-//             endcase
-//         end
-//     end
-// end
-
 
 
 always @(posedge i_clk) begin
@@ -425,199 +343,6 @@ always @(posedge i_clk) begin
             {delayed_valid[2], delayed_valid[1], delayed_valid[0], dataBufferValid};
     end
 end
-
-// always@( xCurrent,xExpect,yCurrent,yExpect) begin
-// assign    isXCoordMatch = xCurrent == xExpect;
-// assign    isYCoordMatch = yCurrent == yExpect;
-// end
-// always@( xCurrent,xExpect,yCurrent,yExpect) begin
-//     isXCoordMatch = xCurrent == xExpect;
-//     isYCoordMatch = yCurrent == yExpect;
-// end
-
-// always_ff@(posedge i_clk) begin
-//     if (i_rst) begin
-//         Data11 <= 8'd0;
-//         Data21 <= 8'd0;
-//         Data12 <= 8'd0;
-//         Data22 <= 8'd0;
-// 
-//         dataBufferValid <= 1'd0;
-//         delayed_valid[0] <= 1'd0;
-//         delayed_valid[1] <= 1'd0;
-//         delayed_valid[2] <= 1'd0;
-//         delayed_valid[3] <= 1'd0;
-// 
-//         xTotal <= 11'd0;
-//         xCounter <= 3'd0;
-//         yCounter <= 3'd0;
-//         
-//         xCounter2 <= 3'd0;
-//         yCounter2 <= 3'd0;
-// 
-//         coff_u[0] <= 3'd0;
-//         coff_v[0] <= 3'd0;
-//         coff_1_u[0] <= 3'd4;
-//         coff_1_v[0] <= 3'd4;
-// 
-//         coff_u[1] <= 3'd0;
-//         coff_v[1] <= 3'd0;
-//         coff_1_u[1] <= 3'd4;
-//         coff_1_v[1] <= 3'd4;
-// 
-//         coff_u[2] <= 3'd0;
-//         coff_v[2] <= 3'd0;
-//         coff_1_u[2] <= 3'd4;
-//         coff_1_v[2] <= 3'd4;
-// 
-//         sourceImageState <= IDLE;
-//         currentData <= 32'd0;
-//         currentDataValid <= 1'b0;
-//         firstLineProcessed <= 1'b0;
-//         firstByteProcessed <= 1'b0;
-//         
-//         
-// 
-// 
-//     end
-//     else begin
-//         // 如果需要采样则处理，
-// //        case( {xCounter,yCounter,currentDataValid,firstLineProcessed,firstByteProcessed}) inside
-//         // 先存当前的输入数据
-//         currentData <= i_data;
-// //        if (xTotal >= validImageWidth-1)          // TODO: 检查是哪个边界
-// //            currentDataValid <= 1'b0;               
-// //        else
-//         currentDataValid <= i_data_valid; 
-//         delayed_valid[0] <= dataBufferValid;
-//         delayed_valid[1] <= delayed_valid[0];
-//         delayed_valid[2] <= delayed_valid[1];
-//         delayed_valid[3] <= delayed_valid[2];
-//         
-//         case( {xCounter,yCounter,currentDataValid}) inside
-// //            9'b??00_111,6'b00??_111: begin
-// //                dataBufferValid <= 1'b0;
-// //            end
-//             
-// //            9'b00??_101: begin
-// //                dataBufferValid <= 1'b0;
-// //            end
-//             
-// 
-//             7'b100???_1, 7'b???100_1: begin
-//                 dataBufferValid <= 1'b0;
-//             end
-//             
-// 
-//             7'b??????_1: begin
-// //                dataBufferValid <= 1'b1;    // TODO 
-//                 if (xTotal >= validImageWidth)              // TODO
-//                     dataBufferValid <= 1'b0;
-//                 else
-//                     dataBufferValid <= 1'b1;
-//                     
-//                 firstByteProcessed <= 1'b1;
-// 
-//                 Data11 <= currentData[0+:8];
-//                 Data21 <= currentData[8+:8];
-//                 Data12 <= currentData[16+:8];
-//                 Data22 <= currentData[24+:8];
-//                 //小数部分扩大了4倍, 所以从0~1 -> 0~4
-//                 coff_u[0] <= xCounter;
-//                 coff_1_u[0] <= 3'd4 - xCounter;			// 1-u
-//                 coff_v[0] <= yCounter;
-//                 coff_1_v[0] <= 3'd4 - yCounter;			// 1-v
-// 
-//             end
-//             
-//             default: begin
-//                 if (xTotal >= validImageWidth)              // TODO
-//                     dataBufferValid <= 1'b0;
-//                 else
-//                     dataBufferValid <= currentDataValid;
-//             end
-//             
-// 
-//         endcase
-//     
-//     if (i_data_valid) begin
-//     
-//         
-// //        dataBufferValid <= 1'b1;
-//         // 乘法器的延时
-// //        delayed_valid[0] <= dataBufferValid;
-// //        delayed_valid[1] <= delayed_valid[0];
-// //        delayed_valid[2] <= delayed_valid[1];
-// //        delayed_valid[3] <= delayed_valid[2];
-// 
-//         coff_u[1] <= coff_u[0];
-//         coff_v[1] <= coff_v[0];
-//         coff_1_u[1] <= coff_1_u[0];
-//         coff_1_v[1] <= coff_1_v[0];
-// 
-//         coff_u[2] <= coff_u[1];
-//         coff_v[2] <= coff_v[1];
-//         coff_1_u[2] <= coff_1_u[1];
-//         coff_1_v[2] <= coff_1_v[1];
-//         
-//         xCounter2 <= xCounter;
-//         yCounter2 <= yCounter;
-//         
-// 
-// //        // 先存当前的输入数据
-// //        currentData <= i_data;
-// //        currentDataValid <= 1'b1;        
-// 
-//         // 对原图输入的计数及换行, 擦
-//         case(sourceImageState)
-//             IDLE: begin
-//                 sourceImageState <= NEXT_INLINE;
-//                 xTotal <= 11'd1;
-//                 xCounter <= 3'd0;
-//                 yCounter <= 3'd0;
-//             end
-//             NEXT_INLINE: begin
-//                 xTotal <= xTotal + 11'd1;
-//                 if (xTotal >= sourceImageWidth -1) begin
-//                     sourceImageState <= NEXT_CHANGELINE;
-//                 end
-//                 
-//                 if (xCounter == 4) begin
-//                     xCounter <= 3'd0;
-//                 end
-//                 else begin
-//                     xCounter <= xCounter + 3'd1;
-//                 end
-// 
-//             end
-//             NEXT_CHANGELINE: begin
-// //                xTotal <= xTotal + 11'd1;
-//                 xCounter <= 11'd0;
-//                 yCounter <= yCounter + 11'd1;
-//                 if (yCounter == 4) begin
-//                     yCounter <= 3'd0;
-//                 end
-//                 else begin
-//                     yCounter <= yCounter + 3'd1;
-//                 end
-//                 xTotal <= 11'd1;
-//                 
-//                 firstLineProcessed <= 1'b1;
-//                 sourceImageState <= NEXT_INLINE;
-//                 
-//             end
-//         endcase
-// 
-//         
-//         
-//     end
-//     
-//         
-//     end
-// 
-// end
-
-
 
 // 加法延迟2拍.
 always@(posedge i_clk) begin
@@ -691,6 +416,10 @@ generate for(i=0; i<12; i=i+1) begin : delay_dst_y_cnt
     delay_shifter#(8) u_delay_dst_x_cnt(i_clk, 1'b1, dst_y_cnt[i], dst_y_cnt_d[i]);
 end
 endgenerate
+
+assign resizeImg_sof = (dst_x_cnt_d == 'd0) && (dst_y_cnt_d == 'd0) && o_data_valid;
+assign resizeImg_eof = (dst_x_cnt_d == dstImgWidth-'d1) && (dst_y_cnt_d == dstImgHeight-'d1) && o_data_valid;
+assign resizeImg_sol = (dst_x_cnt_d == 'd0) && o_data_valid;
 
 
 // 乘法运算总共延迟了4拍.

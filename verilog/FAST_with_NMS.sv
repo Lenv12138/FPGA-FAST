@@ -1,6 +1,10 @@
 module FAST_with_NMS #(
     parameter COL_NUM = 640,
     parameter ROW_NUM = 480,
+    parameter SRC_IMG_W = 12'd640,
+    parameter SRC_IMG_H = 12'd480,
+    parameter DST_IMG_W = 12'd512,
+    parameter DST_IMG_H = 12'd384,
     parameter FAST_PTACH_SIZE = 7,
     parameter PIXEL_WIDTH = 8,
     parameter THRESHOLD = 10,
@@ -12,6 +16,10 @@ module FAST_with_NMS #(
     // resize out
     output wire [7:0] resize_out_data,
     output wire resize_out_data_vld,
+
+    output resizeImg_sol,
+    output resizeImg_sof,
+    output resizeImg_eof,
 
     output iscorner,
     output [9:0] x_coord, y_coord
@@ -91,7 +99,10 @@ NMS_top #(
 // wire  o_data_valid;
 
 resizeTop #(
-    .sourceImageWidth ( 12'd640 ),
+    .sourceImageWidth ( SRC_IMG_W ),
+    .sourceImgHeight  ( SRC_IMG_H ),
+    .dstImgWidth      ( DST_IMG_W ),
+    .dstImgHeight     ( DST_IMG_H ),
     .validImageWidth  ( 12'd640 ))
  u_resizeTop (
     .i_clk                   ( clk          ),
@@ -99,6 +110,9 @@ resizeTop #(
     .i_data                  ( sample_data       ),
     .i_data_valid            ( sample_data_vld   ),
 
+    .resizeImg_sol           ( resizeImg_sol ),
+    .resizeImg_sof           ( resizeImg_sof ),
+    .resizeImg_eof           ( resizeImg_eof ),
     .o_data                  ( resize_out_data         ),
     .o_data_valid            ( resize_out_data_vld   )
 );
