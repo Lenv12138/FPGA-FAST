@@ -1,4 +1,4 @@
-vsim -voptargs="+acc" -L FAST_RTL -lib tb tb.tb_resizeTop
+vsim -voptargs="+acc" -L FAST_RTL -lib tb tb.tb_FAST_NMS
 
 set NumericStdNoWarnings 1
 set StdArithNoWarnings 1
@@ -8,6 +8,6 @@ view structure
 view signals
 
 log -r /* 
-do verilog_wave2.do
+do verilog_wave.do
 run 500us
 

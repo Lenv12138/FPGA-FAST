@@ -385,3 +385,57 @@ end
 ![](../asset/20230223230919.png)  
 
 存在resize计算错误的情况.
+
+
+### resize模块接口的时序和状态机逻辑描述
+
+首先双线性插值后的目标图像映射到原图像的索引的小数部分会按照`0, 0.25, 0,75`这三个小数进行循环, 在RTL中再x方向和y方向上的索引值放大了4倍, 从而整个数放大了16倍, 所以在最后求解插值之后的像素值使用了右移4位的操作. 
+
+需要注意, 在RTL中凡是涉及到定点数转浮点数的操作都是采用的向下取整的方法.
+
+#### 状态机描述
+
+状态机跳转如下图所示, 在IDLE状态监测到`currentDataValid==1`则跳转到GEN_DST_POL状态, 在该状态如果检测到src_x_cnt计数到原图像一行的宽度(640)则跳转到SRC_CHANGE_LINE, 如果检测到dst_x_cnt计数到目标图像的一行的宽度(512)则跳转到WAITTING_CHANGE, 其中如果同时检测到`dst_x_cnt`和src_x_cnt同时满足目标,则优先跳转到SRC_CHANGE_LINE.
+在SRC_CHANGE_LINE, 在下一个时钟周期跳转到GEN_DST_POL.
+
+`commit 78d5e6d`实现的状态机只能处理一帧图像, 不能连续处理多帧图像.
+
+GEN_DST_POL: 该状态下dst_x_cnt开始计数, 没计数一次表示模块产生了一个目标图像的像素值. 
+
+WAITING_CHAGE: dst_x_cnt清零. 该状态表示目标图像的一行像素点已经计算完毕, 但由于上一级模块传给resize的原图像的一行sample_patch还没有传输完毕, 所以需要等待src_x_cnt到达原图像的一行像素点的边界(即原图像的一行传输完毕, 开始传输原图像的下一行)之后再跳转到GEN_DST_POL.
+
+![](../asset/20230228153824.png)  
+
+在状态机中状态跳转都由src_x_cnt所控制, 为了确保dst_x_cnt能和输入的原图像的数据同步, 因此src_x_cnt并不是在GEN_DST_POL才开始计数, 而是在检测currentDataValid就开始计数.
+
+```verilog{.line-numbers}
+always @(posedge i_clk) begin 
+    if (i_rst) begin 
+        src_x_cnt <= 'd0;
+    end else begin
+        if (currentDataValid && src_x_cnt != sourceImageWidth-'d1)
+            src_x_cnt <= src_x_cnt + 'd1;
+        else if (src_x_cnt == sourceImageWidth-'d1) 
+            src_x_cnt <= 'd0;
+        else
+            src_x_cnt <= src_x_cnt;
+    end
+end
+```
+
+其中xtotal没有使用到, 但其计数方式相当于src_x_cnt延迟了一拍.
+
+```verilog{.line-numbers}
+always @(posedge i_clk) begin 
+    if (i_rst) begin 
+        xTotal <= 11'd0;
+    end else begin 
+        if (xTotal == sourceImageWidth - 'd1)
+            xTotal <= 'd0; 
+        else if (curr_vld_d) 
+            xTotal <= xTotal + 1;
+        else 
+            xTotal <= xTotal;
+    end
+end
+```

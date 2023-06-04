@@ -47,13 +47,13 @@ module resizeTop #(
 reg [10:0] xTotal;
 reg [2:0] xCounter;
 reg [2:0] yCounter;      // 每5个一次清零
-reg [2:0] xCounter2;
-reg [2:0] yCounter2;     // 每5个一次清零
+// reg [2:0] xCounter2;
+// reg [2:0] yCounter2;     // 每5个一次清零
 
 reg [31:0] currentData; // 缓存上一个输入的数据
 reg currentDataValid;
-reg firstLineProcessed;
-reg firstByteProcessed;
+// reg firstLineProcessed;
+// reg firstByteProcessed;
 
 // 缓存像素值
 // Data11: 第一行第一列
@@ -94,7 +94,7 @@ reg sumValid;
 reg [7:0] oData;
 reg oDataValid;
 
-reg [1:0] sourceImageState;
+// reg [1:0] sourceImageState;
 
 //localparam NEXT_INLINE = 2'b0,
 //           NEXT_CHANGELINE = 2'b1,

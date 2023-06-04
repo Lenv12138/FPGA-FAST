@@ -1,164 +1,191 @@
-*** Compiling Verilog ***
-
+*** Start analyzing build configuration ***
+INFO: Auto-config - Scanning: F:\FPGA_prj\Fast_ref\FPGA-FAST
+INFO: Auto-config - VLOG: F:\FPGA_prj\Fast_ref\FPGA-FAST
+INFO: Auto-config - VHDL: F:\FPGA_prj\Fast_ref\FPGA-FAST
+INFO: Auto-config - Wrote:
+    .dvt\default.build.auto.1
+*** List of included argument files ***
+    Build configuration file:  F:\FPGA_prj\Fast_ref\FPGA-FAST\.dvt\default.build
+    -f F:\FPGA_prj\Fast_ref\FPGA-FAST\.dvt\default.build.auto.1
+*** List of invocations ***
+Invocation #1 +dvt_init+dvt in F:\FPGA_prj\Fast_ref\FPGA-FAST\.dvt\default.build.auto.1 at line 9
+*** Done analyzing build configuration [1s.732ms] ***
+*** Start VHDL build ***
+Total number of lines [0]
+Performing post full build step 1 (VHDL - RU) [5 ms] ...
+*** Files summary [0 total, 0 unique] ***
+*** Done VHDL build [468 ms] ***
+*** Start SystemVerilog build ***
 *** Invocation #1***
-
 Loading (1) F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_FAST_NMS.sv ...
-
-Done F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_FAST_NMS.sv [391 ms, 216 lines, SystemVerilog_2012] ...
-
+Done F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_FAST_NMS.sv [284 ms, 216 lines, SystemVerilog_2012] ...
 Loading (2) F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_resizeTop.sv ...
-
-Done F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_resizeTop.sv [19 ms, 240 lines, SystemVerilog_2012] ...
-
-Loading (3) F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\FAST_with_NMS.sv ...
-
-Done F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\FAST_with_NMS.sv [11 ms, 107 lines, SystemVerilog_2012] ...
-
-Loading (4) F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\NMS.sv ...
-
-Done F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\NMS.sv [6 ms, 52 lines, SystemVerilog_2012] ...
-
-Loading (5) F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\contig_processor.sv ...
-
+Done F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_resizeTop.sv [18 ms, 251 lines, SystemVerilog_2012] ...
+Loading (3) F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_top.sv ...
+Done F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_top.sv [7 ms, 92 lines, SystemVerilog_2012] ...
+Loading (4) F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\FAST_with_NMS.sv ...
+Done F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\FAST_with_NMS.sv [11 ms, 121 lines, SystemVerilog_2012] ...
+Loading (5) F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\NMS.sv ...
+Done F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\NMS.sv [8 ms, 55 lines, SystemVerilog_2012] ...
+Loading (6) F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\contig_processor.sv ...
 Done F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\contig_processor.sv [9 ms, 78 lines, SystemVerilog_2012] ...
-
-Loading (6) F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\delay_shifter.sv ...
-
-Done F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\delay_shifter.sv [2 ms, 23 lines, SystemVerilog_2012] ...
-
-Loading (7) F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_fifo.sv ...
-
+Loading (7) F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\delay_shifter.sv ...
+Done F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\delay_shifter.sv [3 ms, 23 lines, SystemVerilog_2012] ...
+Loading (8) F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_fifo.sv ...
 Done F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_fifo.sv [45 ms, 306 lines, SystemVerilog_2012] ...
-
-Loading (8) F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_main_top.sv ...
-
-Done F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_main_top.sv [15 ms, 246 lines, SystemVerilog_2012] ...
-
-Loading (9) F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_score.sv ...
-
-Done F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_score.sv [17 ms, 100 lines, SystemVerilog_2012] ...
-
-Loading (10) F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\nms_fifo.sv ...
-
-Done F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\nms_fifo.sv [20 ms, 171 lines, SystemVerilog_2012] ...
-
-Loading (11) F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\nms_top.sv ...
-
-Done F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\nms_top.sv [9 ms, 72 lines, SystemVerilog_2012] ...
-
-Loading (12) F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\qmultipler.sv ...
-
-Done F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\qmultipler.sv [4 ms, 69 lines, SystemVerilog_2012] ...
-
-Loading (13) F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\resize.sv ...
-
-Done F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\resize.sv [36 ms, 769 lines, SystemVerilog_2012] ...
-
-Loading (14) F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\thresholder.sv ...
-
-Done F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\thresholder.sv [43 ms, 381 lines, SystemVerilog_2012] ...
-
-Loading (15) F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\patch_transfer.sv ...
-
-Done F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\patch_transfer.sv [2 ms, 17 lines, SystemVerilog_2012] ...
-
-*** Done invocation #1 [382 ms] ***
-
-Total number of lines [2 847]
-
+Loading (9) F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_main_top.sv ...
+Done F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_main_top.sv [13 ms, 246 lines, SystemVerilog_2012] ...
+Loading (10) F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_score.sv ...
+Done F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_score.sv [12 ms, 100 lines, SystemVerilog_2012] ...
+Loading (11) F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\nms_fifo.sv ...
+Done F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\nms_fifo.sv [14 ms, 171 lines, SystemVerilog_2012] ...
+Loading (12) F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\nms_top.sv ...
+Done F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\nms_top.sv [5 ms, 72 lines, SystemVerilog_2012] ...
+Loading (13) F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\qmultipler.sv ...
+Done F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\qmultipler.sv [3 ms, 69 lines, SystemVerilog_2012] ...
+Loading (14) F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\resize.sv ...
+Done F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\resize.sv [32 ms, 503 lines, SystemVerilog_2012] ...
+Loading (15) F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\thresholder.sv ...
+Done F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\thresholder.sv [40 ms, 381 lines, SystemVerilog_2012] ...
+Loading (16) F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\patch_transfer.sv ...
+Done F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\patch_transfer.sv [3 ms, 17 lines, SystemVerilog_2012] ...
+*** Done invocation #1 [288 ms] ***
+*** Total number of lines [2 701] ***
 Performing post full build actions ...
-
-Performing post full build step 1 (SRI) [2 ms] ...
-
+Performing post full build step 1 (SRI) [1 ms] ...
 Performing post full build step 2 (RI) [1 ms] ...
-
-Performing post full build step 3 (RCP) [2 ms] ...
-
-*** Compile Verilog done [total duration 708 ms] ***
-
-Performing mixed post full build step 1 (Verilog - RI) [1 ms] ...
-
-Performing mixed post full build step 2 (Verilog - RC) [4 ms] ...
-
-Performing mixed post full build step 3 (Verilog - RPC) [130 ms] ...
-
-Performing mixed post full build step 4 (Verilog - RD) [4 ms] ...
-
-Performing mixed post full build step 5 (Verilog - FSC) [128 ms] ...
-
-Performing mixed post full build step 6 (Verilog - EV) [64 ms] ...
-
-Performing mixed post full build step 7 (Verilog - US) [61 ms] ...
-
-*** SEMANTIC WARNING: MISSING_PORT_CONNECTION: Instance 'u_FAST_with_NMS' of module 'FAST_with_NMS' is missing port connection to output 'resize_out_data, resize_out_data_vld' at line: 165 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_FAST_NMS.sv
-
-*** SEMANTIC WARNING: MISSING_PORT_CONNECTION: Instance 'u_fast_fifo' of module 'fast_fifo' is missing port connection to output 'o00, o01, o05, o06, ...' at line: 57 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_main_top.sv
-
-*** SEMANTIC WARNING: PARAMETER_NEVER_USED: Parameter 'COL_NUM' is never used at line: 2 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\nms_top.sv
-
-*** SEMANTIC WARNING: PARAMETER_NEVER_USED: Parameter 'FAST_DELAY' is never used at line: 4 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\nms_fifo.sv
-
-*** SEMANTIC WARNING: PARAMETER_NEVER_USED: Parameter 'FAST_SIZE' is never used at line: 3 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\nms_fifo.sv
-
-*** SEMANTIC WARNING: PARAMETER_NEVER_USED: Parameter 'NEXT_FRAME' is never used at line: 119 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\resize.sv
-
-*** SEMANTIC WARNING: PARAMETER_NEVER_USED: Parameter 'NMS_SIZE' is never used at line: 3 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\nms_top.sv
-
-*** SEMANTIC WARNING: PARAMETER_NEVER_USED: Parameter 'sourceImageWidth' is never used at line: 6 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_main_top.sv
-
-*** SEMANTIC WARNING: PARAMETER_NEVER_USED: Parameter 'validImageWidth' is never used at line: 7 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_main_top.sv
-
-*** SEMANTIC WARNING: PARAMETER_NEVER_USED: Parameter 'validImageWidth' is never used at line: 26 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\resize.sv
-
-*** SEMANTIC WARNING: SIGNAL_NEVER_READ: Signal 'cnt_i' is never read at line: 79 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_FAST_NMS.sv
-
-*** SEMANTIC WARNING: SIGNAL_NEVER_READ: Signal 'cnt_i' is never read at line: 87 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_resizeTop.sv
-
-*** SEMANTIC WARNING: SIGNAL_NEVER_READ: Signal 'cnt_j' is never read at line: 79 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_FAST_NMS.sv
-
-*** SEMANTIC WARNING: SIGNAL_NEVER_READ: Signal 'cnt_j' is never read at line: 87 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_resizeTop.sv
-
-*** SEMANTIC WARNING: SIGNAL_NEVER_READ: Signal 'currentData_d' is never read at line: 97 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\resize.sv
-
-*** SEMANTIC WARNING: SIGNAL_NEVER_READ: Signal 'dst_x_cnt_d' is never read (connected to sub-instance output port) at line: 674 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\resize.sv
-
-*** SEMANTIC WARNING: SIGNAL_NEVER_READ: Signal 'dst_y_cnt_d' is never read (connected to sub-instance output port) at line: 674 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\resize.sv
-
-*** SEMANTIC WARNING: SIGNAL_NEVER_READ: Signal 'int66' is never read (connected to sub-instance output port) at line: 45 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_main_top.sv
-
-*** SEMANTIC WARNING: SIGNAL_NEVER_READ: Signal 'nms_vld' is never read (connected to sub-instance output port) at line: 24 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\nms_top.sv
-
-*** SEMANTIC WARNING: SIGNAL_NEVER_READ: Signal 'nms_xy_coord_vld' is never read (connected to sub-instance output port) at line: 37 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\nms_fifo.sv
-
-*** SEMANTIC WARNING: SIGNAL_NEVER_READ: Signal 'score_sol' is never read at line: 245 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_fifo.sv
-
-*** SEMANTIC WARNING: SIGNAL_NEVER_READ: Signal 'xy_coord' is never read (connected to sub-instance output port) at line: 52 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_main_top.sv
-
-*** SEMANTIC WARNING: SIGNAL_NEVER_USED: Signal 'comp22' is never used at line: 17 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\NMS.sv
-
-*** SEMANTIC WARNING: SIGNAL_NEVER_USED: Signal 'firstByteProcessed' is never used at line: 49 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\resize.sv
-
-*** SEMANTIC WARNING: SIGNAL_NEVER_USED: Signal 'firstLineProcessed' is never used at line: 48 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\resize.sv
-
-*** SEMANTIC WARNING: SIGNAL_NEVER_USED: Signal 'int33' is never used at line: 32 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_main_top.sv
-
-*** SEMANTIC WARNING: SIGNAL_NEVER_USED: Signal 'patch_7x7_vld' is never used at line: 12 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\thresholder.sv
-
-*** SEMANTIC WARNING: SIGNAL_NEVER_USED: Signal 'rst' is never used at line: 3 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\NMS.sv
-
-*** SEMANTIC WARNING: SIGNAL_NEVER_USED: Signal 'sourceImageState' is never used at line: 90 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\resize.sv
-
-*** SEMANTIC WARNING: SIGNAL_NEVER_USED: Signal 'xCounter2' is never used at line: 43 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\resize.sv
-
-*** SEMANTIC WARNING: SIGNAL_NEVER_USED: Signal 'yCounter2' is never used at line: 44 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\resize.sv
-
-*** SEMANTIC WARNING: SIGNAL_NEVER_WRITTEN: Signal 'fnsh_str' is never written at line: 160 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_resizeTop.sv
-
-*** SEMANTIC WARNING: SIGNAL_NEVER_WRITTEN: Signal 'img_gray_ram' is never written at line: 13 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_FAST_NMS.sv
-
-*** SEMANTIC WARNING: SIGNAL_NEVER_WRITTEN: Signal 'img_gray_ram' is never written at line: 17 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_resizeTop.sv
-
-*** SEMANTIC WARNING: UNUSED_RETURN_VALUE: The return value of function '$fscanf' is not used at line: 60 in file: F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_resizeTop.sv
-
-*** Build done [total duration 3s.176ms] ***
-
+Performing post full build step 3 (RCP) [22 ms] ...
+*** Files summary [16 total, 16 unique, 0 optimized] ***
+*** Done SystemVerilog build [550 ms] ***
+*** Start mixed mode extension build ***
+Performing mixed post full build step (VHDL - RU) [5 ms] ...
+Performing mixed post full build step (VHDL - RT) [103 ms] ...
+Performing mixed post full build step (VHDL - RD) [3 ms] ...
+Performing mixed post full build step (VHDL - FSC) [102 ms] ...
+Performing mixed post full build step (VLOG - RI) [1 ms] ...
+*** Warning: UNSPECIFIED_TOP: Please specify a -top module/entity/configuration in the project build file
+*** Top design candidates: work.tb_FAST_NMS, work.tb_resizeTop, work.tb
+Performing mixed post full build step (MIXED - ELAB) [744 ms] ...
+Performing mixed post full build step (MIXED - UNEL) [55 ms] ...
+*** Warning: MISSING_PORT_CONNECTION: Instance 'u_FAST_with_NMS' of module 'FAST_with_NMS' is missing port connection to output 'resize_out_data, resize_out_data_vld, resizeImg_sol, resizeImg_sof, ...'
+    at line 165 in F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_FAST_NMS.sv [compile index 1]
+*** Warning: MISSING_PORT_CONNECTION: Instance 'u_FAST_with_NMS' of module 'FAST_with_NMS' is missing port connection to output 'resize_out_data, resize_out_data_vld, resizeImg_sol, resizeImg_sof, ...'
+    at line 73 in F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_top.sv [compile index 3]
+*** Warning: UNUSED_RETURN_VALUE: The return value of function '$fscanf' is not used
+    at line 22 in F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_top.sv [compile index 3]
+*** Warning: MISSING_PORT_CONNECTION: Instance 'u_fast_fifo' of module 'fast_fifo' is missing port connection to output 'o00, o01, o05, o06, ...'
+    at line 57 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_main_top.sv [compile index 9]
+*** Warning: CASE_ITEM_WIDTH_MISMATCH: Comparison between case expression 'k' of '3-bit' type and item expression '0' of '32-bit' type
+    at line 42 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\qmultipler.sv [compile index 13]
+*** Warning: CASE_ITEM_WIDTH_MISMATCH: Comparison between case expression 'k' of '3-bit' type and item expression '1' of '32-bit' type
+    at line 46 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\qmultipler.sv [compile index 13]
+*** Warning: CASE_ITEM_WIDTH_MISMATCH: Comparison between case expression 'k' of '3-bit' type and item expression '2' of '32-bit' type
+    at line 50 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\qmultipler.sv [compile index 13]
+*** Warning: CASE_ITEM_WIDTH_MISMATCH: Comparison between case expression 'k' of '3-bit' type and item expression '3' of '32-bit' type
+    at line 54 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\qmultipler.sv [compile index 13]
+*** Warning: CASE_ITEM_WIDTH_MISMATCH: Comparison between case expression 'k' of '3-bit' type and item expression '4' of '32-bit' type
+    at line 58 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\qmultipler.sv [compile index 13]
+Performing mixed post full build step (VHDL - ELPC) [1 ms] ...
+Performing mixed post full build step (VHDL - US) [0 ms] ...
+Performing mixed post full build step (VHDL - USBD) [52 ms] ...
+Performing mixed post full build step (VLOG - RD) [3 ms] ...
+Performing mixed post full build step (VLOG - FSC) [53 ms] ...
+Performing mixed post full build step (VLOG - EV) [51 ms] ...
+Performing mixed post full build step (VLOG - ELPC) [3 ms] ...
+Performing mixed post full build step (VLOG - US) [101 ms] ...
+*** Warning: SIGNAL_NEVER_WRITTEN: Signal 'img_gray_ram' is never written
+    at line 13 in F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_FAST_NMS.sv [compile index 1]
+*** Warning: SIGNAL_NEVER_READ: Signal 'cnt_i' is never read
+    at line 79 in F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_FAST_NMS.sv [compile index 1]
+*** Warning: SIGNAL_NEVER_READ: Signal 'cnt_j' is never read
+    at line 79 in F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_FAST_NMS.sv [compile index 1]
+*** Warning: SIGNAL_NEVER_WRITTEN: Signal 'img_gray_ram' is never written
+    at line 17 in F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_resizeTop.sv [compile index 2]
+*** Warning: SIGNAL_NEVER_READ: Signal 'resizeImg_sol' is never read (connected to sub-instance output port)
+    at line 73 in F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_resizeTop.sv [compile index 2]
+*** Warning: SIGNAL_NEVER_READ: Signal 'resizeImg_sof' is never read (connected to sub-instance output port)
+    at line 73 in F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_resizeTop.sv [compile index 2]
+*** Warning: SIGNAL_NEVER_READ: Signal 'cnt_i' is never read
+    at line 89 in F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_resizeTop.sv [compile index 2]
+*** Warning: SIGNAL_NEVER_READ: Signal 'cnt_j' is never read
+    at line 89 in F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_resizeTop.sv [compile index 2]
+*** Warning: SIGNAL_NEVER_WRITTEN: Signal 'fnsh_str' is never written
+    at line 163 in F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_resizeTop.sv [compile index 2]
+*** Warning: SIGNAL_NEVER_WRITTEN: Signal 'img_gray_ram' is never written
+    at line 10 in F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_top.sv [compile index 3]
+*** Warning: SIGNAL_NEVER_READ: Signal 'x_coord' is never read (connected to sub-instance output port)
+    at line 31 in F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_top.sv [compile index 3]
+*** Warning: SIGNAL_NEVER_READ: Signal 'y_coord' is never read (connected to sub-instance output port)
+    at line 31 in F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_top.sv [compile index 3]
+*** Warning: SIGNAL_NEVER_READ: Signal 'iscorner' is never read (connected to sub-instance output port)
+    at line 32 in F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_top.sv [compile index 3]
+*** Warning: INTERNAL_GENERATED_CLOCK: Clock signal 'clk' is not an input port
+    at line 47 in F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_top.sv [compile index 3]
+*** Warning: INTERNAL_GENERATED_RESET: Reset signal 'rst' is not an input port
+    at line 48 in F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_top.sv [compile index 3]
+*** Warning: INTERNAL_GENERATED_CLOCK: Clock signal 'clk' is not an input port
+    at line 65 in F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_top.sv [compile index 3]
+*** Warning: INTERNAL_GENERATED_RESET: Reset signal 'rst' is not an input port
+    at line 66 in F:\FPGA_prj\Fast_ref\FPGA-FAST\tb\tb_top.sv [compile index 3]
+*** Warning: SIGNAL_NEVER_USED: Signal 'rst' is never used
+    at line 3 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\NMS.sv [compile index 5]
+*** Warning: SIGNAL_NEVER_USED: Signal 'comp22' is never used
+    at line 19 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\NMS.sv [compile index 5]
+*** Warning: OUTPUT_PORT_READ: Reading from output port 'x_coord' is not recommended
+    at line 58 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_fifo.sv [compile index 8]
+*** Warning: OUTPUT_PORT_READ: Reading from output port 'y_coord' is not recommended
+    at line 58 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_fifo.sv [compile index 8]
+*** Warning: SIGNAL_NOT_RESET: Signal 'ram_0' is not reset
+    at line 92 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_fifo.sv [compile index 8]
+*** Warning: SIGNAL_NOT_RESET: Signal 'ram_1' is not reset
+    at line 93 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_fifo.sv [compile index 8]
+*** Warning: SIGNAL_NOT_RESET: Signal 'ram_2' is not reset
+    at line 94 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_fifo.sv [compile index 8]
+*** Warning: SIGNAL_NOT_RESET: Signal 'ram_3' is not reset
+    at line 95 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_fifo.sv [compile index 8]
+*** Warning: SIGNAL_NOT_RESET: Signal 'ram_4' is not reset
+    at line 96 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_fifo.sv [compile index 8]
+*** Warning: SIGNAL_NOT_RESET: Signal 'ram_5' is not reset
+    at line 97 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_fifo.sv [compile index 8]
+*** Warning: IMPLICIT_DECLARATION: Implicit declaration of 'score_sol' using `default_nettype set to wire
+    at line 245 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_fifo.sv [compile index 8]
+*** Warning: SIGNAL_NEVER_READ: Signal 'score_sol' is never read
+    at line 245 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_fifo.sv [compile index 8]
+*** Warning: PARAMETER_NEVER_USED: Parameter 'sourceImageWidth' is never used
+    at line 6 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_main_top.sv [compile index 9]
+*** Warning: PARAMETER_NEVER_USED: Parameter 'validImageWidth' is never used
+    at line 7 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_main_top.sv [compile index 9]
+*** Warning: SIGNAL_NEVER_USED: Signal 'int33' is never used
+    at line 32 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_main_top.sv [compile index 9]
+*** Warning: SIGNAL_NEVER_READ: Signal 'int66' is never read (connected to sub-instance output port)
+    at line 45 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_main_top.sv [compile index 9]
+*** Warning: SIGNAL_NEVER_READ: Signal 'xy_coord' is never read (connected to sub-instance output port)
+    at line 52 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\fast_main_top.sv [compile index 9]
+*** Warning: PARAMETER_NEVER_USED: Parameter 'FAST_SIZE' is never used
+    at line 3 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\nms_fifo.sv [compile index 11]
+*** Warning: PARAMETER_NEVER_USED: Parameter 'FAST_DELAY' is never used
+    at line 4 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\nms_fifo.sv [compile index 11]
+*** Warning: SIGNAL_NEVER_READ: Signal 'nms_xy_coord_vld' is never read (connected to sub-instance output port)
+    at line 37 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\nms_fifo.sv [compile index 11]
+*** Warning: SIGNAL_NOT_RESET: Signal 'ram0' is not reset
+    at line 99 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\nms_fifo.sv [compile index 11]
+*** Warning: SIGNAL_NOT_RESET: Signal 'ram1' is not reset
+    at line 106 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\nms_fifo.sv [compile index 11]
+*** Warning: PARAMETER_NEVER_USED: Parameter 'COL_NUM' is never used
+    at line 2 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\nms_top.sv [compile index 12]
+*** Warning: PARAMETER_NEVER_USED: Parameter 'NMS_SIZE' is never used
+    at line 3 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\nms_top.sv [compile index 12]
+*** Warning: SIGNAL_NEVER_READ: Signal 'nms_vld' is never read (connected to sub-instance output port)
+    at line 24 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\nms_top.sv [compile index 12]
+*** Warning: PARAMETER_NEVER_USED: Parameter 'sourceImgHeight' is never used
+    at line 25 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\resize.sv [compile index 14]
+*** Warning: PARAMETER_NEVER_USED: Parameter 'validImageWidth' is never used
+    at line 28 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\resize.sv [compile index 14]
+*** Warning: SIGNAL_NEVER_READ: Signal 'currentData_d' is never read
+    at line 104 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\resize.sv [compile index 14]
+*** Warning: PARAMETER_NEVER_USED: Parameter 'NEXT_FRAME' is never used
+    at line 126 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\resize.sv [compile index 14]
+*** Warning: SIGNAL_NEVER_USED: Signal 'patch_7x7_vld' is never used
+    at line 12 in F:\FPGA_prj\Fast_ref\FPGA-FAST\verilog\thresholder.sv [compile index 15]
+*** Done mixed mode extension build [1s.295ms] ***
+*** Total build time [4s.066ms] ***

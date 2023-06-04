@@ -96,8 +96,8 @@ always @(posedge clk) begin
     end else if (ce) begin
 	    // 传进来的是一个角点且它的坐标有效.才把它的分数值写入, 否则不写入.
 	    if (data_in[13] & xy_coord_vld) begin
-      	ram0[address_write_d]<=data_in; 		// data input to delay buffer 0
-      	{o_20, o_21, o_22} <= {o_21, o_22, data_in};
+            ram0[address_write_d]<=data_in; 		// data input to delay buffer 0
+            {o_20, o_21, o_22} <= {o_21, o_22, data_in};
 	    end else begin
 		    ram0[address_write_d]<={data_in[33 -: 20], 14'd0};
 		    {o_20, o_21, o_22} <= {o_21, o_22, {data_in[33 -: 20], 14'd0}};

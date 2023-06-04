@@ -227,7 +227,7 @@ always @(posedge clk) begin
 end
  
 
-// generate end of lien signal
+// generate end of line signal
 always @(posedge clk) begin
     if (rst) 
         EOL <= 1'b0;
@@ -248,7 +248,7 @@ localparam XY_DELAY_CLK = 3*COL_NUM+11;
 
 genvar i;
 generate for(i=0; i<10; i=i+1) begin : delay_x_coord
-    // ясЁы11ед 4+8, 8: 3(thresholder)+5(compute_score)
+    // ясЁы12ед 4+8, 8: 3(thresholder)+5(compute_score)
     // 4: 0, 1, 2, 3(output this addr), 4, 5, 6 (1 line of patch)
     delay_shifter#(12) u_delay_x_coord(clk, ce, address_write[i], x_coord[i]);
 end

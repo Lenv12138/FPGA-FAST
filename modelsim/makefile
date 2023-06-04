@@ -1,10 +1,10 @@
 # modelsim 的路径
 bin_path:=D:\\DevelopmentSoftware\\FPGA\\Modelsim\\Modelsim10.7\\win64
 
-all: compile sim
+all: com sim
 # 以命令行的形式编译文件
-.PHONY: compile
-compile:
+.PHONY: com
+com:
 	$(bin_path)/vsim -c -do "do {./compile.do}" -l ./compile.log 
 
 # 编译通过后, 仿真打开可视界面

@@ -78,7 +78,8 @@ for i=4:m-3     % 行
             ifcgty_1 = check_contiguity(flag1_bit);
             if (ifcgty_1)
                 score_ocv(i, j) = get_ocv_score(pn, p, t);
-                score_hdl(i, j) = get_hdl_ocv_score(pn, p, t);
+%                 score_hdl(i, j) = get_hdl_ocv_score(pn, p, t);
+                score_hdl(i, j) = get_hdl_score(pn, p, t);
                 ifcgty_1 = 0;
                 continue;
             else
@@ -93,7 +94,8 @@ for i=4:m-3     % 行
             ifcgty_2 = check_contiguity(flag2_bit);
             if (ifcgty_2)
                 score_ocv(i, j) = get_ocv_score(pn, p, t);
-                score_hdl(i, j) = get_hdl_ocv_score(pn, p, t);
+%                 score_hdl(i, j) = get_hdl_ocv_score(pn, p, t);
+                score_hdl(i, j) = get_hdl_score(pn, p, t);
                 ifcgty_2 = 0;
                 continue;
             else
@@ -146,8 +148,8 @@ end
 % c_hdl = c_hdl + 1;
 
 
-my_fid = fopen('./keyPointy_SIMD.txt', 'r');
-mx_fid = fopen('./keyPointx_SIMD.txt', 'r');
+my_fid = fopen('../tb/1_L_gray_y.txt', 'r');
+mx_fid = fopen('../tb/1_L_gray_x.txt', 'r');
 [keyPointy_SIMD, num_r] = fscanf(my_fid,'%03d',[1 inf]);
 [keyPointx_SIMD, num_c] = fscanf(mx_fid,'%03d',[1 inf]);
 keyPointy_SIMD = keyPointy_SIMD + 1;
@@ -159,10 +161,12 @@ keyPointx_SIMD = keyPointx_SIMD + 1;
 figure(1);
 imshow(I1);
 hold on;
-scatter(keyPointx_SIMD,keyPointy_SIMD,25,'r*','MarkerFaceAlpha',1);
+scatter(c_ocv,r_ocv,25,'r*','MarkerFaceAlpha',1);
 hold on;
-scatter(c_ocv,r_ocv,15,'bd','MarkerFaceAlpha',1);
+% scatter(c_ocv,r_ocv,15,'bd','MarkerFaceAlpha',1);
 scatter(c_hdl,r_hdl,5,'g^','MarkerFaceAlpha',0.5);
+legend('opencv', 'HDL');
+% for test 0522
 
 % 比较HDL的计算结果和OpenCV的计算结果
 r_err = 0; c_err = 0;

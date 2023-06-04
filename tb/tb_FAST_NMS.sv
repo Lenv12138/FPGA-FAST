@@ -18,8 +18,8 @@ initial begin
   
   // ∂¡»°Õº∆¨
   fid = $fopen(FILE_PATH_GRAY, "r");
-	assert(fid) 
-  	$display("%d", fid);
+	assert(fid != 0) 
+  	$display("%8x", fid);
 	else
 		$error("open file fail");
   
