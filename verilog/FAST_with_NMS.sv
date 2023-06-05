@@ -13,6 +13,20 @@ module FAST_with_NMS #(
     input clk, rst, ce,
     input [PIXEL_WIDTH-1 : 0] data_in,
 
+    // DMA.M_AXIS_MM2S-> PL_FIFO->FAST, 传来的是当前图像数据的内容
+    input  wire [31 : 0] s_axis_tdata,
+    input  wire [3  : 0] s_axis_tkeep,
+    input  wire          s_axis_tlast,
+    input  wire          s_axis_tvalid,
+    output wire          s_axis_tready,
+    
+    // FAST-> PL_FIFO -> DMA.S_AXIS_MM2S
+    output wire [31 : 0] m_axis_tdata,
+    output wire [3  : 0] m_axis_tkeep,
+    output wire          m_axis_tlast,
+    output wire          m_axis_tvalid,
+    input  wire          m_axis_tready,
+
     // resize out
     output wire [7:0] resize_out_data,
     output wire resize_out_data_vld,
@@ -64,8 +78,8 @@ fast_main_top #(
     // sample_patch
     .sample_data                              (sample_data),
     .sample_data_vld                          (sample_data_vld),
-    .score_eol 								  ( score_eol																	),
-    .xy_coord_vld 													  ( xy_coord_vld 															),
+    .score_eol 								  ( score_eol					     		),
+    .xy_coord_vld 							  ( xy_coord_vld 							),
     .iscorner                                 ( iscorner_int                              ),            // 该patch是否满足连续条件
     .x_coord                                  ( x_coord_int                               ),
     .y_coord                                  ( y_coord_int                               ),

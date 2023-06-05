@@ -1,7 +1,7 @@
 ################################################################################
 #                    DO NOT MANUALLY EDIT THIS FILE!                           #
 ################################################################################
-# This file contains the automatically generated build configuration (2023/06/04 16:14:25)
+# This file contains the automatically generated build configuration (2023/06/05 22:44:56)
 # requested at line 3 in F:\FPGA_prj\Fast_ref\FPGA-FAST\.dvt\default.build
 
 
@@ -37,7 +37,13 @@
 +dvt_skip_compile+$DVT_PROJECT_LOC\y_shifter.vhd
 
 +dvt_skip_compile+$DVT_PROJECT_LOC\yx_shifter.vhd
++incdir+tb
 
+# Available `ifdef / `ifndef controls:
+# +define+DEBUG
+# +define+XILINX_SIMULATOR
+
+tb/tb_fifo_swpb.sv
 tb/tb_FAST_NMS.sv
 tb/tb_resizeTop.sv
 tb/tb_top.sv
@@ -48,6 +54,7 @@ verilog/delay_shifter.sv
 verilog/fast_fifo.sv
 verilog/fast_main_top.sv
 verilog/fast_score.sv
+verilog/fast_swpb_fifo.sv
 verilog/nms_fifo.sv
 verilog/nms_top.sv
 verilog/qmultipler.sv
