@@ -37,7 +37,8 @@ reg [7:0] pBitMap     [0:(BMP_IMG_WIDTH*BMP_IMG_HEIGHT*3)-1]; // RGB
 reg [7:0] pBitMapRed  [0:BMP_IMG_WIDTH*BMP_IMG_HEIGHT-1]; // RED
 reg [7:0] pBitMapGreen[0:BMP_IMG_WIDTH*BMP_IMG_HEIGHT-1]; // GREEN
 reg [7:0] pBitMapBlue [0:BMP_IMG_WIDTH*BMP_IMG_HEIGHT-1]; // BLUE
-reg [7:0] pBitMapGray [0:BMP_IMG_WIDTH*BMP_IMG_HEIGHT-1]; // GRAY
+// reg [7:0] pBitMapGray [BMP_IMG_HEIGHT-1:0][BMP_IMG_WIDTH-1:0]; // GRAY
+reg [7:0] pBitMapGray [0:BMP_IMG_WIDTH*BMP_IMG_HEIGHT-1];
 
 //------------------------------------------------------------------------------
 // Return the number of bytes of bitmap.
@@ -273,10 +274,7 @@ begin
         disable bmp_read_gray;
     end
     code = $fseek(fd, pos, 0);
-//     code = $fread(pBitMapGray, fd, 0, sze);         // TODO: ÕýÐò´æ´¢BMPÍ¼ÏñÊý¾Ý
-    for (i=0; i<biHeight; i=i+1) begin 
-        code = $fread(pBitMapGray[(biHeight-1)-i], fd, 0, biWidth);
-    end
+    code = $fread(pBitMapGray, fd, 0, sze);         // TODO: ÕýÐò´æ´¢BMPÍ¼ÏñÊý¾Ý
 end
 endtask
 

@@ -119,7 +119,7 @@ begin
     bmp_read(fd, code);
     for (i=0; i<ROW_NUM; i=i+1) begin 
         for (j=0; j<COL_NUM; j=j+1) begin 
-            img[i][j] = pBitMapGray[i*COL_NUM + j];
+            img[ROW_NUM-1-i][j] = pBitMapGray[i*COL_NUM + j];
         end
     end
 end
