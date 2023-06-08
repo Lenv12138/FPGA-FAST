@@ -13,10 +13,13 @@ set NumericStdNoWarnings 1
 set StdArithNoWarnings 1
 
 do {tb_fifo_swpb_wave.do}
+# do {wave.do}
 
 view wave
 view structure
 view signals
+
+log -r /*
 
 do {tb_fifo_swpb.udo}
 
