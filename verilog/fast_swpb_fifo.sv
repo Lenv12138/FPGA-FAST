@@ -43,7 +43,8 @@ parameter FIFO_NUM = 8;           // fifo的宽度为8bit.
 reg tready_r=1;
 
 reg  [PIXEL_WIDTH-1 : 0] swpb_din[7:0]; 
-reg  swpb_wr_en[7:0], swpb_rd_en[7:0];
+reg  swpb_wr_en[7:0];
+wire swpb_rd_en[7:0];
 wire [PIXEL_WIDTH-1 : 0] swpb_dout[7:0];
 wire swpb_full[7:0], swpb_epty[7:0];
 wire swpb_prog_full[7:0], swpb_prog_epty[7:0];
@@ -54,7 +55,7 @@ generate
     for (gv_i=0; gv_i<FIFO_NUM; gv_i=gv_i+1) begin : instantiate_patch_fifo
         fifo_generator_0 swpb (
             .clk(clk),                // input wire clk
-            .srst(rst_n),              // input wire srst
+            .srst(~rst_n),              // input wire srst
             .din(swpb_din[gv_i]),                // input wire [7 : 0] din
             .wr_en(swpb_wr_en[gv_i]),            // input wire wr_en
             .rd_en(swpb_rd_en[gv_i]),            // input wire rd_en
@@ -82,8 +83,11 @@ wire [3:0] swpb_epty03, swpb_epty47;                // swpb第0-3 FIFO和4-7 FIF
 wire [3:0] swpb_full03, swpb_full47;                // swpb第0-3 FIFO和4-7 FIFO的满信号
 reg [1:0] state_wr = IDLE, state_rd = IDLE;
 
-assign swpb_epty03 = {swpb_epty[3], swpb_epty[2], swpb_epty[1], swpb_epty[0]};
-assign swpb_epty47 = {swpb_epty[7], swpb_epty[6], swpb_epty[5], swpb_epty[4]};
+// assign swpb_epty03 = {swpb_epty[3], swpb_epty[2], swpb_epty[1], swpb_epty[0]};
+// assign swpb_epty47 = {swpb_epty[7], swpb_epty[6], swpb_epty[5], swpb_epty[4]};
+// 修改rd_en读取逻辑bug.
+assign swpb_epty03 = {swpb_prog_epty[3], swpb_prog_epty[2], swpb_prog_epty[1], swpb_prog_epty[0]};
+assign swpb_epty47 = {swpb_prog_epty[7], swpb_prog_epty[6], swpb_prog_epty[5], swpb_prog_epty[4]};
 assign swpb_full03 = {swpb_full[3], swpb_full[2], swpb_full[1], swpb_full[0]};
 assign swpb_full47 = {swpb_full[7], swpb_full[6], swpb_full[5], swpb_full[4]};
 
@@ -117,6 +121,12 @@ always @(posedge clk) begin
                 else
                     state_wr <= WR_SWPB47;
             end
+            WAIT: begin                                               // 如果8个FIFO都满了, 就等到8个FIFO都非满而不是只等某4个FIFO.
+                if ( (~(|swpb_full03)) & (~(|swpb_full47)) )          // 8个小fifo的full信号都为0.
+                    state_wr <= WR_SWPB03;
+                else
+                    state_wr <= WAIT;
+            end
             default: state_wr <= IDLE;
         endcase
     end
@@ -138,7 +148,7 @@ always @(posedge clk) begin
     else 
         case (state_wr) 
             IDLE: begin 
-                tready_r <= 1'b0;
+                tready_r <= 1'b1;
             end
             WR_SWPB03: begin 
                 if ( (|swpb_full03) | (|swpb_full47) )
@@ -151,6 +161,9 @@ always @(posedge clk) begin
                     tready_r <= 1'b0;
                 else 
                     tready_r <= 1'b1;
+            end
+            WAIT: begin 
+                tready_r <= 1'b0;
             end
             default: tready_r <= 1'b0;
         endcase
@@ -171,7 +184,7 @@ generate
                     swpb_wr_en[gv_i] <= 1'b0;
             end
         end
-
+        // assign swpb_wr_en[gv_i] = state_wr[0] & (~state_wr[1]) & (tready_r & s_axis_tvalid);
         always @(posedge clk) begin
             if (!rst_n) 
                 swpb_din[gv_i] <= 8'b0;
@@ -187,22 +200,22 @@ endgenerate
 
 generate 
     for (gv_i=4; gv_i<8; gv_i=gv_i+1) begin :write_swpb47
-        // always @(posedge clk) begin 
-        //     if (!rst_n) 
-        //         swpb_wr_en[gv_i] <= 1'b0;
-        //     else begin 
-        //         if ( (~state_wr[0]) & state_wr[1] & (tready_r & s_axis_tvalid) )
-        //             swpb_wr_en[gv_i] <= 1'b1;
-        //         else 
-        //             swpb_wr_en[gv_i] <= 1'b0;
-        //     end
-        // end
-        assign swpb_wr_en[gv_i] = tready_r;
+        always @(posedge clk) begin 
+            if (!rst_n) 
+                swpb_wr_en[gv_i] <= 1'b0;
+            else begin 
+                if ( (~state_wr[0]) & state_wr[1] & (tready_r & s_axis_tvalid) )
+                    swpb_wr_en[gv_i] <= 1'b1;
+                else 
+                    swpb_wr_en[gv_i] <= 1'b0;
+            end
+        end
+        // assign swpb_wr_en[gv_i] = (~state_wr[0]) & state_wr[1] & (tready_r & s_axis_tvalid);
         always @(posedge clk) begin
             if (!rst_n) 
                 swpb_din[gv_i] <= 8'b0;
             else begin 
-                if ( state_wr[0] & (~state_wr[1]) & (tready_r & s_axis_tvalid) )        // TODO: 需要注意TKEEP会不会存在不为F的情况
+                if ( (~state_wr[0]) & state_wr[1] & (tready_r & s_axis_tvalid) )        // TODO: 需要注意TKEEP会不会存在不为F的情况
                     swpb_din[gv_i] <= s_axis_tdata[(gv_i-4)*8 +: 8];
                 else 
                     swpb_din[gv_i] <= swpb_din[gv_i];
@@ -223,9 +236,17 @@ reg [(PIXEL_WIDTH*7)-1 : 0] o_patch_line[7:0];
 // reg [(PIXEL_WIDTH*7)-1 : 0] o_patch_line7;
 
 wire swpb_valid_all;
+reg swpb_valid_all_r;
 
-assign swpb_valid_all = (swpb_valid[0] & swpb_valid[1] & swpb_valid[2] & swpb_valid[3] &
+// assign swpb_valid_all = (swpb_valid[0] & swpb_valid[1] & swpb_valid[2] & swpb_valid[3] &
+//                          swpb_valid[4] & swpb_valid[5] & swpb_valid[6] & swpb_valid[7]);
+// fifo的dout送到patch中是时序逻辑, 有一拍的延迟, 那么swpb_valid_all也需要有一拍的延迟.
+assign swpb_valid_all = swpb_valid_all_r;
+always @(posedge clk) begin 
+    swpb_valid_all_r <= (swpb_valid[0] & swpb_valid[1] & swpb_valid[2] & swpb_valid[3] &
                          swpb_valid[4] & swpb_valid[5] & swpb_valid[6] & swpb_valid[7]);
+end
+
 
 always @(posedge clk) begin 
     if (~rst_n) 
@@ -327,7 +348,7 @@ always @(posedge clk) begin
         cnt_row <= cnt_row;
 end
 
-// 输出patch8x7_valid信号, 为了防止col由5->6的过程发生valid为低的情况, 即valid在
+// 输出patch8x7_valid信号, 为了防止col由5->6的过程发生由于FIFO数据不够, FIFO的valid为低的情况, 即valid在
 // 输出5之后保持了几个clk的低电平才变为6, 所以当col计数到5之后, 认为fifo输出的valid
 // 就是patch8x7_valid.
 parameter INVALID = 2'b00,
@@ -356,13 +377,20 @@ end
 
 assign patch8x7_valid = (patch_state == VALID)? swpb_valid_all: 1'b0;
 
-
-assign y_coord = cnt_row-3;     // 将行坐标移动到中心.
+wire [clogb2(ROW_NUM)-1: 0] tmp_y_coord;                   // 存储cnt_row向上偏移3后的值.
+assign tmp_y_coord = cnt_row-3;      // 将行坐标移动到中心, 指向的是第8行的patch所对应的中心坐标的那一行.
 // 对col进行延迟, 输出patch中心(3,3)的绝对列坐标
 generate for(gv_i=0; gv_i<clogb2(COL_NUM); gv_i=gv_i+1) begin : delay_x_coord
     // 延迟3拍 将列坐标延迟到中心位置.
     // 4: 0, 1, 2, 3(output this addr), 4, 5, 6 (1 line of patch)
-    delay_shifter#(3) u_delay_x_coord(clk, 1'b1, cnt_col[gv_i], x_coord[gv_i]);
+    delay_shifter#(3) u_delay_x_coord(clk, swpb_valid_all, cnt_col[gv_i], x_coord[gv_i]);
+end
+endgenerate
+
+generate for(gv_i=0; gv_i<clogb2(ROW_NUM); gv_i=gv_i+1) begin : delay_y_coord
+    // 延迟3拍 将列坐标延迟到中心位置.
+    // 4: 0, 1, 2, 3(output this addr), 4, 5, 6 (1 line of patch)
+    delay_shifter#(3) u_delay_x_coord(clk, swpb_valid_all, tmp_y_coord[gv_i], y_coord[gv_i]);
 end
 endgenerate
 

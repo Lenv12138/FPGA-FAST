@@ -153,8 +153,26 @@ initial begin
     s_axis_tvalid = 1'b0;
     wait (rst_n == 1'b1);
 
+    // 需要等待两次握手才是传完一整列.
     for (r=0; r<ROW_NUM; r=r+2) begin 
         for (c=0; c<COL_NUM; c=c+1) begin 
+            while(1) begin 
+                @(posedge clk iff rst_n) begin 
+                    s_axis_tvalid = 1'b1;
+                    s_axis_tkeep  = 8'hff;
+                    s_axis_tlast = 1'b0;
+                    if (s_axis_tready & s_axis_tvalid) begin
+                        if (swpb_03_47 == 1'b0)
+                            s_axis_tdata  = {img[r+3][c], img[r+2][c], img[r+1][c], img[r][c]};
+                        else 
+                            s_axis_tdata  = {img[r+7][c], img[r+6][c], img[r+5][c], img[r+4][c]};
+                        s_axis_tlast  = (r*COL_NUM+c == ROW_NUM*COL_NUM-1)? 1'b1: 1'b0; 
+                        
+                        swpb_03_47 = ~swpb_03_47;
+                        break;
+                    end
+                end
+            end
             while(1) begin 
                 @(posedge clk iff rst_n) begin 
                     s_axis_tvalid = 1'b1;
