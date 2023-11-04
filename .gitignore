@@ -1,3 +1,3 @@
 *.log
-.dvt/default.build.auto.1
-dvt_build.log
+*.auto*
+.project
